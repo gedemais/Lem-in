@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 17:28:43 by gedemais          #+#    #+#             */
-/*   Updated: 2018/11/16 09:01:57 by gedemais         ###   ########.fr       */
+/*   Created: 2019/03/13 17:22:01 by gedemais          #+#    #+#             */
+/*   Updated: 2019/03/13 21:21:43 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_lmbf.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_read(int fd)
 {
-	size_t	n;
+	char	buff[BUFF_READ + 1];
+	char	*dest;
+	int		ret;
+	int		size;
 	int		i;
 
 	i = 0;
-	if (!needle[0])
-		return ((char*)haystack);
-	n = ft_strlen(needle);
-	if (n == 1 && ft_strlen(haystack) == 1)
-		return ((char*)haystack);
-	while (haystack[i] != '\0' && (len >= n))
+	size = 0;
+	if (!(dest = ft_strnew(0)))
+		return (NULL);
+	while ((ret = read(fd, buff, BUFF_READ)) > 0)
 	{
-		if (ft_strncmp(&haystack[i], needle, n) == 0)
-			return ((char*)&haystack[i]);
-		len--;
+		size += ret;
+		if (ret == -1 || !(dest = ft_strrealloc(dest, size)))
+			return (NULL);
+		buff[ret] = '\0';
+		dest = ft_strcat(dest, buff);
 		i++;
 	}
-	return (NULL);
+	return (dest);
 }

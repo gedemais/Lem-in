@@ -15,7 +15,7 @@
 int		ft_lmbf(char *file_name)
 {
 //	t_room	*map;
-//	t_map	var;
+	t_map	var;
 	char	*input;
 	int		fd;
 
@@ -24,6 +24,9 @@ int		ft_lmbf(char *file_name)
 	if (!(input = ft_read(fd)))
 		return (-1);
 	ft_putstr(input);
+	ft_count_rooms(input, &var);
+	ft_putnbr(var.nb_rooms);
+
 //	if (!(map = ft_loadmap(input, &var)))
 //		return (-1);
 //	ft_putnbr(ft_solve(map, &var));

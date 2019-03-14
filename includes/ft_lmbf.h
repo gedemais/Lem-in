@@ -38,6 +38,7 @@ struct s_room
 typedef struct 	s_map
 {
 	int		nb_rooms;
+	int		nb_lems;
 	int		nb_pipes;
 	int		start;
 	int		end;
@@ -46,5 +47,7 @@ typedef struct 	s_map
 
 char	*ft_read(int fd);
 t_room	*ft_loadmap(char *input, t_map *var);
+int	ft_count_rooms(char *input, t_map *var);
+
 
 #endif

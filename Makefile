@@ -14,14 +14,16 @@ NAME = lmbf
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -O1 -O2 -O3 -Wall -Werror -Wextra
 
 LIB = libft/libft.a
 
 SRCS_PATH = srcs/
 
-SRCS_NAME = main.c \
-			ft_read.c 
+SRCS_NAME = 	main.c \
+		ft_parsing.c \
+		ft_print.c \
+		ft_loadmap.c
 
 OBJS = $(SRCS_NAME:.c=.o)
 
@@ -44,6 +46,6 @@ clean :
 
 fclean : clean
 	@rm -rf $(NAME)
-	@make -C fclean libft/
+	@make fclean -C libft/
 
 re : fclean all
