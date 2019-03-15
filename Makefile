@@ -23,7 +23,8 @@ SRCS_PATH = srcs/
 SRCS_NAME = 	main.c \
 		ft_parsing.c \
 		ft_print.c \
-		ft_loadmap.c
+		ft_loadmap.c \
+		ft_solve.c
 
 OBJS = $(SRCS_NAME:.c=.o)
 
