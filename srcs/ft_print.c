@@ -27,6 +27,7 @@ void	ft_print_map(t_room *map)
 		ft_putstr("end : ");
 		ft_putnbr(map[i].end);
 		ft_putchar('\n');
+		ft_putchar('\n');
 		i++;
 	}
 }
