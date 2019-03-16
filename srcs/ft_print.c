@@ -12,6 +12,12 @@ void	ft_print_map(t_room *map)
 		ft_putnbr(map[i].index);
 		ft_putstr(" #####\n");
 		ft_putendl(map[i].name);
+		ft_putstr("name_len : ");
+		ft_putnbr(map[i].name_len);
+		ft_putchar('\n');
+		ft_putstr("nlinks : ");
+		ft_putnbr(map[i].nlinks);
+		ft_putchar('\n');
 		ft_putstr("x : ");
 		ft_putnbr(map[i].x);
 		ft_putchar('\n');

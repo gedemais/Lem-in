@@ -42,6 +42,7 @@ struct s_room
 	bool	lock;
 	bool	start;
 	bool	end;
+	int		nlinks;
 	int		*links;
 };
 
