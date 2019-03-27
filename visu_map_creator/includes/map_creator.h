@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 16:11:38 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/03/26 11:09:49 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:30:44 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int				ft_mouse_event(int button, int x, int y, void *param);
 int				ft_is_in(void *param, int x, int y);
 
 void			ft_export(int fd, void *param);
+void			ft_free_env(t_map *map);
+
+void			ft_display_infos(t_room *room, int nb_room);
 
 void			ft_error(void);
 #endif

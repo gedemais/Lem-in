@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:45:37 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/03/25 13:35:27 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:53:40 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ char	*ft_fill_pixel(char *map, t_point coord, int color)
 	return (map);
 }
 
-bool		ft_is_start(t_room *rooms, int nb_room)
+bool		ft_is_start(t_room *rooms, int nb_room, int mod)
 {
 	int		i;
 
 	i = 0;
 	while (i <= nb_room)
 	{
-		if (rooms[i].start == true)
+		if (mod == 0 && rooms[i].start == true)
+			return (true);
+		else if (mod == 1 && rooms[i].end == true)
 			return (true);
 		i++;
 	}
@@ -54,7 +56,7 @@ void		ft_fill_square(void *param, int room, bool start)
 	{
 		xtmp.x++;
 		x2tmp.x++;
-		ft_trace_line(xtmp, x2tmp, param, (start == true) ? 0x32CD32 : 0xFF0000);
+		ft_trace_line(xtmp, x2tmp, param, (start == false) ? 0x32CD32 : 0xFF0000);
 		i++;
 	}
 }
@@ -64,10 +66,12 @@ t_room		*ft_start_end(void *param, int x, int y)
 	int		room;
 	int		i;
 	bool	start;
+	bool	end;
 
 	i = 0;
-	start = ft_is_start(WIN->map.rooms, WIN->map.nb_room);
-	if ((room = ft_is_in(param, x, y)) == -1 || start == true)
+	start = ft_is_start(WIN->map.rooms, WIN->map.nb_room, 0);
+	end =	ft_is_start(WIN->map.rooms, WIN->map.nb_room, 1);
+	if (end == true || (room = ft_is_in(param, x, y)) == -1)
 		return (WIN->map.rooms);
 	while (i < room)
 		i++;

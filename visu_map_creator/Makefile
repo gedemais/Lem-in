@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/05 11:15:08 by gedemais          #+#    #+#              #
-#    Updated: 2019/03/26 11:10:19 by qudesvig         ###   ########.fr        #
+#    Updated: 2019/03/27 12:30:54 by qudesvig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS_NAME = ft_draw.c \
 			ft_fill.c \
 			built.c \
 			export.c \
+			display_term.c \
 			ft_usage.c
 
 SRCS_PATH = srcs/
