@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/03/27 18:23:25 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/01 17:18:30 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBIA_H
 # include "../../visu_map_creator/libft/libft.h"
 # include "neural_network.h"
+# include <fcntl.h>
 # include <stdio.h>
 
 typedef	struct		s_neurone
@@ -51,4 +52,7 @@ double				id_dbl(double input);
 double				sig_dbl(double input);
 double				heaviside_dbl(double input);
 
+double				*firing(t_netw n);
+
+int					export_weight(t_netw n);
 #endif

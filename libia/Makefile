@@ -17,7 +17,9 @@ ORG = \033[1;31m
 SRCS_NAME = display_info.c \
 	   		activation.c \
 	   		init_network.c \
-	   		init_neurone.c
+	   		init_neurone.c \
+			firing.c \
+			export_weight.c
 
 SRCS_PATH = srcs/
 
