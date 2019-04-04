@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/01 17:18:30 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:16:28 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "neural_network.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <pthread.h>
 
 typedef	struct		s_neurone
 {
@@ -29,6 +32,14 @@ typedef	struct		s_neurone
 	double			*weight;
 }					t_neurone;
 
+//struct for multithread firing
+typedef struct		s_fire
+{
+	int			i;
+	int			j;
+	int			k;
+	pthread_t	th[4];
+}					t_fire;
 
 typedef struct		s_netw
 {
@@ -41,6 +52,8 @@ typedef struct		s_netw
 	double			*bias;
 	//data output
 	double			*out;
+	t_fire			fire;
+	int				nbth;
 }					t_netw;
 
 //init env neural network
@@ -52,7 +65,13 @@ double				id_dbl(double input);
 double				sig_dbl(double input);
 double				heaviside_dbl(double input);
 
-double				*firing(t_netw n);
+double				*firing(t_netw *n);
+double				neurone_output(t_neurone n, int out);
+
+void				mapping_netw(t_netw n);
+void				display_weight(t_netw n);
+void				display_inputs(t_netw n);
+void				display_outputs(t_netw n, int layer);
 
 int					export_weight(t_netw n);
 #endif

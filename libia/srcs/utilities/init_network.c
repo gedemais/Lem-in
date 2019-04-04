@@ -6,11 +6,11 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 15:31:45 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/03/27 18:24:41 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:34:18 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libia.h"
+#include "../../includes/libia.h"
 
 int		fill_layer_size(int *dest, int *srcs)
 {
@@ -38,6 +38,18 @@ int		fill_data_in(t_netw *n, double *data_in)
 	return (0);
 }
 
+void	fill_bias(double *bias)
+{
+	int		i;
+
+	i = 0;
+	while (i < NB_LAYER)
+	{
+		bias[i] = BIAS;
+		i++;
+	}
+}
+
 int		init_network(t_netw *n, double *data_in, int *layer_size)
 {
 	int		i;
@@ -51,9 +63,10 @@ int		init_network(t_netw *n, double *data_in, int *layer_size)
 		return (-1);
 	fill_layer_size(n->layer_size, layer_size);
 	fill_data_in(n, data_in);
+	fill_bias(n->bias);
 	if (!(n->out = (double*)malloc(sizeof(double) * n->layer_size[NB_LAYER - 1])))
 		return (-1);
-	while (i < NB_LAYER - 1)
+	while (i < NB_LAYER)
 	{
 		j = 0;
 		if (!(n->netw[i] = (t_neurone*)malloc(sizeof(t_neurone) * layer_size[i])))
@@ -61,6 +74,11 @@ int		init_network(t_netw *n, double *data_in, int *layer_size)
 		while (j < layer_size[i])
 		{
 			init_neurone(&(n->netw[i][j]),  layer_size[i + 1], id_dbl);
+			if (i == 0)
+			{
+				n->netw[i][j].in = n->input[j];
+				n->netw[i][j].out = n->netw[i][j].act(n->input[j]);
+			}
 			j++;
 		}
 		i++;

@@ -6,11 +6,11 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 18:05:10 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/03/27 18:15:29 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:09:51 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libia.h"
+#include "../../includes/libia.h"
 
 void	display_weight(t_netw n)
 {
@@ -31,7 +31,21 @@ void	display_weight(t_netw n)
 				printf("from neurone %d : %.2f\n", j, n.netw[i][j].weight[k]);
 				j++;
 			}
+			k++;
 		}
+		i++;
+	}
+}
+
+void	display_inputs(t_netw n)
+{
+	int		i;
+
+	i = 0;
+	printf("Input of network:\n");
+	while (i < n.layer_size[0])
+	{
+		printf("from n.inputs : %f and from neurone %d : %f\n", n.input[i], i, n.netw[0][i].in);
 		i++;
 	}
 }
@@ -55,6 +69,19 @@ void	mapping_netw(t_netw n)
 			j++;
 		}
 		printf("\n");
+		i++;
+	}
+}
+
+void	display_outputs(t_netw n, int layer)
+{
+	int		i;
+
+	i = 0;
+	printf("Output of layer %d:\n", layer);
+	while (i < n.layer_size[0])
+	{
+		printf("from neurone %d : %f\n", i, n.netw[layer][i].out);
 		i++;
 	}
 }
