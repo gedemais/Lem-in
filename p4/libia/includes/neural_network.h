@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   playing.c                                          :+:      :+:    :+:   */
+/*   neural_network.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 13:24:54 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 15:25:41 by gedemais         ###   ########.fr       */
+/*   Created: 2019/03/27 14:23:11 by qudesvig          #+#    #+#             */
+/*   Updated: 2019/04/05 14:22:02 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/main.h"
+#ifndef NEURAL_NETWORK_H
+# define NEURAL_NETWORK_H
 
-double		*extract_data_from_game(double *data, char **game)
-{
-	int		i;
-	int		j;
+# define NB_LAYER	4
+# define NB_NEURONE	84
+# define NB_INPUT	49
+# define BIAS 1
 
-	i = 0;
-	while (i < 7)
-	{
-		j = 0;
-		while (j < 7)
-		{
-			if (game[i][j] == '.')
-				data[i * 7 + j] = 0;
-			else if (game[i][j] == 'x')
-				data[i * 7 + j] = 1;
-			else
-				data[i * 7 + j] = 2;
-			j++;
-		}
-		i++;
-	}
-	return (data);
-}
+#endif

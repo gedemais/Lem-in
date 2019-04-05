@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p4.h                                               :+:      :+:    :+:   */
+/*   activation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 13:01:19 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 14:02:12 by qudesvig         ###   ########.fr       */
+/*   Created: 2019/03/27 16:50:21 by qudesvig          #+#    #+#             */
+/*   Updated: 2019/03/27 17:15:08 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef P4_H
-# define P4_H
+#include "libia.h"
 
-#include "../../libia/includes/libia.h"
-
-typedef struct		s_indiv
+double		id_dbl(double input)
 {
-	double			**weight;
-	double			*bias;
-	double			*out;
-	double			fitness;
-}					t_indiv;
+	return (input);
+}
 
-typedef struct		s_popu
+double		sig_dble(double input)
 {
-	t_indiv			*pop;
-	int				index_best;
-}					t_popu;
+	double exp;
 
-double				*extract_data_from_game(double *data, char **game);
-t_netw				*prepare_init_netw(t_netw *n, char **game);
-char				**ft_init_chess(void);
+	exp = (input + 1 / input) * input;
+	return (1 / 1 + exp);
+}
 
-#endif
+double		heaviside_dbl(double input)
+{
+	return ((input < 0) ? 0 : 1);
+}

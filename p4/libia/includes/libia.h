@@ -6,13 +6,13 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 15:44:13 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:22:25 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBIA_H
 # define LIBIA_H
-# include "../../visu_map_creator/libft/libft.h"
+# include "../../libft/libft.h"
 # include "neural_network.h"
 # include <fcntl.h>
 # include <stdio.h>

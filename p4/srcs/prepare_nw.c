@@ -6,11 +6,11 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 13:18:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 13:24:32 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:39:56 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/p4.h"
+#include "../includes/main.h"
 
 t_netw		*prepare_init_netw(t_netw *n, char **game)
 {
