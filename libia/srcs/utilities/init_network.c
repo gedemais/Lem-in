@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 15:31:45 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/04 18:34:18 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 12:11:09 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ int		fill_data_in(t_netw *n, double *data_in)
 	return (0);
 }
 
-void	fill_bias(double *bias)
+void	fill_bias(double *bias, double *srcs)
 {
 	int		i;
 
 	i = 0;
 	while (i < NB_LAYER)
 	{
-		bias[i] = BIAS;
+		bias[i] = srcs[i];
 		i++;
 	}
 }
 
-int		init_network(t_netw *n, double *data_in, int *layer_size)
+int		init_network(t_netw *n, double *data_in, int *layer_size, double *bias)
 {
 	int		i;
 	int		j;
@@ -63,7 +63,7 @@ int		init_network(t_netw *n, double *data_in, int *layer_size)
 		return (-1);
 	fill_layer_size(n->layer_size, layer_size);
 	fill_data_in(n, data_in);
-	fill_bias(n->bias);
+	fill_bias(n->bias, bias);
 	if (!(n->out = (double*)malloc(sizeof(double) * n->layer_size[NB_LAYER - 1])))
 		return (-1);
 	while (i < NB_LAYER)

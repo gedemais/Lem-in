@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 19:35:49 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/04 18:23:57 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 12:07:47 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int		main(void)
 	double *data;
 	int		*layer_size;
 	double	*out;
+	double	*bias;
 
 	if (!(data = (double*)malloc(sizeof(double) * 4)))
+		return (EXIT_FAILURE);
+	if (!(bias = (double*)malloc(sizeof(double) * (NB_LAYER - 1))))
 		return (EXIT_FAILURE);
 	if (!(layer_size = (int*)malloc(sizeof(int) * 2)))
 		return (EXIT_FAILURE);
@@ -27,9 +30,12 @@ int		main(void)
 	data[1] = 0.3;
 	data[2] = 0;
 	data[3] = 0.9;
+	bias[0] = 1;
+	bias[0] = 1;
+	bias[0] = 1;
 	layer_size[0] = 4;
 	layer_size[1] = 4;
-	if (init_network(&netw, data, layer_size))
+	if (init_network(&netw, data, layer_size, bias))
 	{
 		printf("error init network\n");
 		return (EXIT_FAILURE);

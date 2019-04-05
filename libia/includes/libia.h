@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/04 18:16:28 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 12:05:25 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct		s_netw
 
 //init env neural network
 int					init_neurone(t_neurone *n, int nb_weight, double (*f)(double));
-int					init_network(t_netw *n, double *data_ini, int *layer_size);
+int					init_network(t_netw *n, double *data_in, int *layer_size, double *bias);
 
 //activation function
 double				id_dbl(double input);
