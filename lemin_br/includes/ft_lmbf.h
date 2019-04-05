@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 16:51:16 by gedemais          #+#    #+#             */
-/*   Updated: 2019/03/15 14:37:44 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:16:25 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_read(int fd);
 t_room	*ft_loadmap(char *input, t_map *var);
 int		ft_count_rooms(char *input, t_map *var);
 void	ft_print_map(t_room *map);
+int		ft_solve(t_room *map, t_map *env, int room, int index);
 
 
 #endif

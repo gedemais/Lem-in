@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 12:05:25 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:54:25 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ double				heaviside_dbl(double input);
 
 double				*firing(t_netw *n);
 double				neurone_output(t_neurone n, int out);
+void				apply_weight(t_netw *n, double *weight);
 
 void				mapping_netw(t_netw n);
 void				display_weight(t_netw n);

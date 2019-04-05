@@ -6,11 +6,38 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 18:01:45 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/04 18:26:28 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:00:09 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libia.h"
+
+void		apply_weight(t_netw *n, double *weight)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+
+	i = 0;
+	l = 0;
+	while (i < NB_LAYER - 1)
+	{
+		j = 0;
+		while (j < n->layer_size[i])
+		{
+			k = 0;
+			while (k < n->layer_size[i + 1])
+			{
+				n->netw[i][j].weight[k] = weight[l];
+				k++;
+				l++;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
 double		*last_out(t_neurone *n, int nb_out)
 {
@@ -46,14 +73,12 @@ double		*firing(t_netw *n)
 		while (j < n->layer_size[i + 1])
 		{
 			n->netw[i + 1][j].in = n->bias[i];
-			printf("bias of layer %d = %f\n", i + 1, n->bias[i]);
 			k = 0;
 			//for each neurone of layer i
 			while (k < n->layer_size[i])
 			{
 				//neurone j at layer i + 1 += output de neurone k at layer i * weight to neurone j
 				n->netw[i + 1][j].in += n->netw[i][k].out * n->netw[i][k].weight[j];
-				printf("at neurone %d input of neurone %d = %f\n", k, j, n->netw[i + 1][j].in);
 				k++;
 			}
 			n->netw[i + 1][j].out = n->netw[i + 1][j].act(n->netw[i + 1][j].in);
@@ -62,6 +87,5 @@ double		*firing(t_netw *n)
 		display_outputs(*n, i);
 		i++;
 	}
-	printf("at the end i = %d\n", i);
 	return (last_out(n->netw[i], n->layer_size[i]));
 }

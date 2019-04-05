@@ -33,6 +33,8 @@ void	ft_print_map(t_room *map)
 		ft_putstr("end : ");
 		ft_putnbr(map[i].end);
 		ft_putchar('\n');
+		ft_putstr("liens : ");
+		ft_pitab(map[i].links, map[i].nlinks);
 		ft_putchar('\n');
 		i++;
 	}

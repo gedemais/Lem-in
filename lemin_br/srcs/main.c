@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 16:50:58 by gedemais          #+#    #+#             */
-/*   Updated: 2019/03/15 14:39:39 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:18:04 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int		ft_lmbf(char *file_name)
 	if (!(input = ft_read(fd)))
 		return (-1);
 	ft_count_rooms(input, &var);
-
 	if (!(map = ft_loadmap(input, &var)))
 		return (-1);
-//	ft_putnbr(ft_solve(map, &var));
+	ft_putnbr(ft_solve(map, &var, 0, 0));
 	return (0);
 }
 

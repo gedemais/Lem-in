@@ -232,9 +232,13 @@ t_room	*ft_count_links(char *input, t_room *map, int *index)
 
 int	ft_fill_links(char *input, t_room *map, int *index)
 {
+	int	link[2];
+	int	ret;
 	int	i;
 
 	i = -1;
+	ret = 0;
+	(void)index;
 	while (input[++i] && ft_is_pipe(&input[i]))
 	{
 		if (input[i] == '#')
@@ -253,6 +257,7 @@ int	ft_fill_links(char *input, t_room *map, int *index)
 		while (input[i] != '\n')
 			i++;
 	}
+	return (0);
 }
 
 t_room	*ft_loadlinks(char *input, t_room *map, int *index)
