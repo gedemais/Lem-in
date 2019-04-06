@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 13:18:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 14:39:56 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/04/06 15:12:58 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_netw		*prepare_init_netw(t_netw *n, char **game)
 	bias[1] = 1;
 	bias[2] = 1;
 	data = extract_data_from_game(data, game);
-	if (!init_network(n, data, layer_size, bias))
+	if (init_network(n, data, layer_size, bias))
 		return (NULL);
 	return (n);
 }

@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 13:24:54 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 15:25:41 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/04/06 17:26:54 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ double		*extract_data_from_game(double *data, char **game)
 		{
 			if (game[i][j] == '.')
 				data[i * 7 + j] = 0;
-			else if (game[i][j] == 'x')
+			else if (game[i][j] == 'X')
 				data[i * 7 + j] = 1;
 			else
 				data[i * 7 + j] = 2;
@@ -35,3 +35,5 @@ double		*extract_data_from_game(double *data, char **game)
 	}
 	return (data);
 }
+
+

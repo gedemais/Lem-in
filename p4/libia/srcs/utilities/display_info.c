@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 18:05:10 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/04 18:09:51 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/06 17:45:40 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	display_outputs(t_netw n, int layer)
 
 	i = 0;
 	printf("Output of layer %d:\n", layer);
-	while (i < n.layer_size[0])
+	while (i < n.layer_size[layer])
 	{
 		printf("from neurone %d : %f\n", i, n.netw[layer][i].out);
 		i++;

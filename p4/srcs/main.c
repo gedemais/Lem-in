@@ -38,73 +38,115 @@ void	ft_print_chess(char **chess)
 	}
 }
 
-int		ft_parse_input(char *input, int *x)
-{
-	int		len;
-
-	len = ft_strlen(input);
-	if (len > 2)
-		return (-1);
-	if (ft_isdigit(input[0]) == 0)
-		return (-1);
-	*x = ft_atoi(input);
-	if (*x < 0 || *x > 6)
-		return (-1);
-	return (0);
-}
-
-char	**ft_play_move(char **chess, char *input)
+char	**ft_play_move(char **chess, int move)
 {
 	static int	cols[7] = {0, 0, 0, 0, 0, 0, 0};
 	static int	player = 0;
-	int			x;
 
-	if (ft_parse_input(input, &x) == -1)
+	if (move == -1)
+	{
+		cols[0] = 0;
+		cols[1] = 0;
+		cols[2] = 0;
+		cols[3] = 0;
+		cols[4] = 0;
+		cols[5] = 0;
+		cols[6] = 0;
+		player = 0;
 		return (NULL);
-	if (cols[x] == 7)
+	}
+	if (cols[move] >= 7)
 		return (NULL);
-	chess[6 - cols[x]][x] = (player == 0) ? 'X' : 'O';
-	cols[x]++;
+	chess[6 - cols[move]][move] = (player == 0) ? 'X' : 'O';
+	cols[move]++;
 	player = (player == 1) ? 0 : 1;
 	return (chess);
 }
 
-int		ft_p4(void)
+int		ft_get_brightest(double *output)
 {
-	char	**chess;
-	char	*input;
+	int		i;
+	int		ret;
+
+	ret = 0;
+	i = 0;
+	while (i < NB_OUTPUT)
+	{
+//		printf("output[%d] = %f\n", i, output[i]);
+		if (output[i] > output[ret])
+			ret = i;
+		i++;
+	}
+	free(output);
+	return (ret);
+}
+
+void	fill_netw_in(t_netw *n)
+{
+	int		j;
+
+	j = 0;
+	while (j < n->layer_size[0])
+	{
+		n->netw[0][j].in = n->input[j];
+		n->netw[0][j].out = n->netw[0][j].act(n->input[j]);
+		j++;
+	}
+}
+
+int		ft_p4(t_netw *n1, t_netw *n2, char **chess, int gen)
+{
+	double	*input;
 	int		stop;
 	int		turns;
+	int		move;
 
 	stop = 1;
 	turns = 0;
-	if (!(chess = ft_init_chess()))
+//	ft_print_chess(chess);
+	if (!(input = (double*)malloc(sizeof(double) * 49)))
 		return (-1);
-	ft_print_chess(chess);
 	while (ft_check_win(chess) == 0)
 	{
 		stop = 1;
 		while (stop > 0)
 		{
-			if (get_next_line(0, &input) == -1)
-				return (-1);
-			write(STDOUT_FILENO, "\e[1;1H\e[2J", 11);
-			if (!ft_play_move(chess, input))
-				ft_putstr("Wrong move. Retry :\n");
-			else
+			input = extract_data_from_game(input, chess);
+			if (turns % 2 == 0)
 			{
-				stop = 0;
-				turns++;
+				fill_data_in(n1, input);
+				fill_netw_in(n1);
+		//		display_inputs(*n1);
+				move = ft_get_brightest(firing(n1));	
 			}
-			ft_print_chess(chess);
-			ft_strdel(&input);
+			else
+			{	
+				fill_data_in(n2, input);
+				fill_netw_in(n2);
+				move = ft_get_brightest(firing(n2));
+			}
+			if (!ft_play_move(chess, move))
+			{
+				ft_play_move(chess, -1);
+				return ((turns % 2 == 0) ? 1 : 2);
+			}
+			//	ft_putstr("Wrong move. Retry :\n");
+			turns++;
+			stop = 0;
+			if (gen == 1000)
+			{
+				ft_print_chess(chess);
+				sleep(1);
+			}
 		}
 	}
+	ft_play_move(chess, -1);
 	return (0);
 }
 
 int		main(void)
 {
+	
 //	write(STDOUT_FILENO, "\e[1;1H\e[2J", 11);
 //	if (ft_p4() == -1)
 //		return (1);

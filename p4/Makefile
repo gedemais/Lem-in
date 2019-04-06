@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/05 00:59:17 by gedemais          #+#    #+#              #
-#    Updated: 2019/04/05 15:07:51 by gedemais         ###   ########.fr        #
+#    Updated: 2019/04/06 19:05:37 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS_NAME = main.c\
 			generate_weight.c\
 			playing.c\
 			prepare_nw.c\
+			ft_fight.c\
 			train.c
 
 SRCS_PATH = srcs/
@@ -73,7 +74,7 @@ $(OBJS) : $(SRCS)
 		@mv $(OBJS_NAME) obj/
 
 fsanitize :
-	gcc -g3 -fsanitize=address $(SRCS) $(LIB)
+	gcc -g3 -fsanitize=address $(SRCS) $(LIB) $(LIBIA)
 
 clean : 
 	@rm -rf obj/

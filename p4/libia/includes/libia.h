@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:04:23 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/05 14:22:25 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/04/06 17:39:07 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <pthread.h>
+# include <math.h>
 
 typedef	struct		s_neurone
 {
@@ -59,6 +60,7 @@ typedef struct		s_netw
 //init env neural network
 int					init_neurone(t_neurone *n, int nb_weight, double (*f)(double));
 int					init_network(t_netw *n, double *data_in, int *layer_size, double *bias);
+int					fill_data_in(t_netw *n, double *data_in);
 
 //activation function
 double				id_dbl(double input);
