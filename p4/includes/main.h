@@ -25,6 +25,7 @@ typedef struct		s_indiv
 	double			*out;
 	int				wins;
 	int				loose;
+	int				draw;
 	double			fitness;
 }					t_indiv;
 
@@ -34,13 +35,6 @@ typedef struct		s_popu
 	t_indiv			*pop;
 	int				index_best;
 }					t_popu;
-
-typedef struct		s_coord
-{
-	int		x;
-	int		y;
-}					t_coord;
-
 
 int		ft_check_win(char **chess);
 void	ft_print_chess(char **chess);

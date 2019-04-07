@@ -244,9 +244,9 @@ int		ft_check_win(char **chess)
 					|| (winner = ft_check_RT(chess, p1, p2)) != 0
 						|| (winner = ft_check_RB(chess, p1, p2)) != 0)
 	{
-		ft_putchar(winner);
-		ft_putstr(" wins !\n");
-		ft_print_chess(chess);
+//		ft_putchar(winner);
+//		ft_putstr(" wins !\n");
+//		ft_print_chess(chess);
 		return (1);
 	}
 	else if (ft_check_draw(chess) == 1)

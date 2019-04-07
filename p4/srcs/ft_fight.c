@@ -40,7 +40,8 @@ void	ft_fight(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen)
 				ft_apply_weights(n1, pop->pop[i].weight);
 				ft_apply_weights(n2, pop->pop[j].weight);
 //				display_weight(*n1);
-				res = ft_p4(n1, n2, chess, gen);
+				(void)gen;
+				res = ft_p4(n1, n2, chess, 0);
 				chess = ft_clear_chess(chess);
 				if (res == 1)
 				{
@@ -50,6 +51,11 @@ void	ft_fight(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen)
 				else if (res == 2)
 				{
 					pop->pop[j].wins++;
+					pop->pop[i].loose++;
+				}
+				else if (res == 0)
+				{
+					pop->pop[j].loose++;
 					pop->pop[i].loose++;
 				}
 				j++;

@@ -120,28 +120,31 @@ int		ft_p4(t_netw *n1, t_netw *n2, char **chess, int gen)
 				move = ft_get_brightest(firing(n1));	
 			}
 			else
-			{	
+			{
 				fill_data_in(n2, input);
 				fill_netw_in(n2);
 				move = ft_get_brightest(firing(n2));
 			}
 			if (!ft_play_move(chess, move))
 			{
-				ft_play_move(chess, -1);
-				return ((turns % 2 == 0) ? 1 : 2);
+					ft_play_move(chess, -1);
+					return (0);
 			}
 			//	ft_putstr("Wrong move. Retry :\n");
 			turns++;
 			stop = 0;
-			if (gen == 1000)
+			if (gen == 1)
 			{
 				ft_print_chess(chess);
-				sleep(1);
+				ft_putchar('\n');
+				usleep(250000);
 			}
 		}
 	}
 	ft_play_move(chess, -1);
-	return (0);
+	if (turns == 7)
+		return (0);
+	return ((turns % 2) == 0 ? 1 : 2);
 }
 
 int		main(void)

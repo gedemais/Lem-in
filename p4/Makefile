@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/05 00:59:17 by gedemais          #+#    #+#              #
-#    Updated: 2019/04/06 19:05:37 by gedemais         ###   ########.fr        #
+#    Updated: 2019/04/07 19:14:22 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ ORG = \033[1;31m
 
 NAME = p_5
 
-CC = gcc
+CC = gcc -O1 -O2 -O3
 
 CFLAGS = -Wall -Werror -Wextra
 
