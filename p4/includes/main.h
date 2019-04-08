@@ -25,8 +25,6 @@ typedef struct		s_indiv
 	double			*out;
 	int				wins;
 	int				loose;
-	int				draw;
-	double			fitness;
 }					t_indiv;
 
 typedef struct		s_popu
@@ -34,6 +32,8 @@ typedef struct		s_popu
 
 	t_indiv			*pop;
 	int				index_best;
+	double			fitness;
+	int				*elite;
 }					t_popu;
 
 int		ft_check_win(char **chess);
@@ -45,7 +45,17 @@ double 	random_dbl(double min, double max);
 double	**generate_weight(double **weight);
 void	ft_apply_weights(t_netw *n, double **weights);
 void	ft_train();
-void	ft_fight(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen);
+void	ft_fight2(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen);
 int		ft_p4(t_netw *n1, t_netw *n2, char **chess, int gen);
+void	ft_fight(t_netw *n, char **chess, t_popu *pop, int gen);
+void	ft_train2(double **best);
+int		ft_p41(t_netw *n1, char **chess, int gen, int first, int display);
+char	**ft_clear_chess(char **chess);
+
+
+int		ft_col(int blc, int *fills);
+int		ft_line(int blc, int *fills);
+int		ft_casselescouilles(int blc, int *fills);
+int		ft_rand(int blc, int *fills);
 
 #endif

@@ -18,8 +18,8 @@ char	**ft_clear_chess(char **chess)
 	}
 	return (chess);
 }
-
-void	ft_fight(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen)
+/*
+void	ft_fight2(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen)
 {
 //	int		wins[10];
 	int		pool;
@@ -64,4 +64,38 @@ void	ft_fight(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen)
 		}
 		pool++;
 	}
+}*/
+
+void	ft_fight(t_netw *n, char **chess, t_popu *pop, int player)
+{
+	int		i;
+	int		j;
+	double	*out;
+	double	*in;
+	int		score;
+	int		tmp;
+
+	score = 0;
+	if (!(out = (double*)malloc(sizeof(double) * 49)))
+		return ;
+	if (!(in = (double*)malloc(sizeof(double) * 7)))
+		return ;
+	i = 0;
+	j = 0;
+	while (i < 343)
+	{
+
+		score = ft_p41(n, chess, player, 0, 0); // Player first
+		tmp = ft_p41(n, chess, player, 1, 0); // Network first
+		if (score == 1 && tmp == 2) // Defaite
+			pop->pop[i].loose = 1;
+		else if (score == 2 && tmp == 1) // Victoire
+		{
+			pop->elite[j] = i;
+			pop->pop[i].wins = 1;
+			j++;
+		}
+		i++;
+	}
+	pop->elite[j] = -1;
 }

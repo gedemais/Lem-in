@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/05 00:59:17 by gedemais          #+#    #+#              #
-#    Updated: 2019/04/07 19:14:22 by gedemais         ###   ########.fr        #
+#    Updated: 2019/04/08 18:57:36 by qudesvig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS_NAME = main.c\
 			check_win.c\
 			generate_weight.c\
 			playing.c\
+			players.c\
 			prepare_nw.c\
 			ft_fight.c\
 			train.c

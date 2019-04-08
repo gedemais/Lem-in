@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 14:03:41 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/06 18:04:10 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:21:33 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,7 @@ double		**generate_weight(double **weight)
 
 	i = 0;
 	j = 0;
-	while (j < NB_INPUT * NB_L1)
-	{
-		weight[i][j] = random_dbl(-1, 1);
-		j++;
-	}
-	i++;
-	j = 0;
-	while (j < NB_L1 * NB_L2)
-	{
-		weight[i][j] = random_dbl(-1, 1);
-		j++;
-	}
-	i++;
-	j = 0;
-	while (j < NB_L2 * NB_L3)
+	while (j < NB_INPUT * 7)
 	{
 		weight[i][j] = random_dbl(-1, 1);
 		j++;

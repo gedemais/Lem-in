@@ -6,17 +6,13 @@ t_indiv		*ft_init_pop(void)
 	int			i;
 
 	i = 0;
-	if (!(dest = (t_indiv*)malloc(sizeof(t_indiv) * 981)))
+	if (!(dest = (t_indiv*)malloc(sizeof(t_indiv) * 344)))
 		return (NULL);
 	while (i < 980)
 	{
-		if (!(dest[i].weight = (double**)malloc(sizeof(double*) * 3)))
+		if (!(dest[i].weight = (double**)malloc(sizeof(double*) * 1)))
 				return (NULL);
-		if (!(dest[i].weight[0] = (double*)malloc(sizeof(double) * (49 * 14))))
-				return (NULL);
-		if (!(dest[i].weight[1] = (double*)malloc(sizeof(double) * (14 * 14))))
-				return (NULL);
-		if (!(dest[i].weight[2] = (double*)malloc(sizeof(double) * (7 * 14))))
+		if (!(dest[i].weight[0] = (double*)malloc(sizeof(double) * (49 * 7))))
 				return (NULL);
 		if (!(dest[i].weight = generate_weight(dest[i].weight)))
 			return (NULL);
@@ -28,53 +24,107 @@ t_indiv		*ft_init_pop(void)
 	return (dest);
 }
 
-void	ft_get_best(t_popu *pop)
+int		ft_find_next(t_popu *pop, int flush)
 {
-	int		i;
-	int		best;
+	static int	i = 0;
+	int			j;
 
-	i = 0;
-	best = 0;
-	while (i < 980)
+	if (flush)
 	{
-		if (pop->pop[i].loose == 0)
-			pop->pop[i].loose = 1;
-		if (pop->pop[i].wins == 0)
-			pop->pop[i].wins = 1;
-		pop->pop[i].fitness = (double)(((double)pop->pop[i].wins / (double)pop->pop[i].loose));
-		if (pop->pop[i].fitness >= best)
-			best = i;
+		i = 0;
+		return (-1);
+	}
+	while (i < 343)
+	{
+		j = 0;
+		while (pop->elite[j] != -1)
+		{
+			if (i == pop->elite[j])
+				break ;
+			j++;
+		}
+		if (pop->elite[j] == -1)
+			return (i);
 		i++;
 	}
-	pop->index_best = best;
+	return (-1);
 }
 
-void	ft_gangbang(t_netw *n, int index_best, t_popu *pop, double best_fit)
+void	ft_bornes(int *min, int *max)
+{
+	int		random;
+
+	random = rand() % 7;
+	*min = random * 49;
+	*max = (random + 1) * 49;
+}
+
+void	ft_influence(t_popu *pop, int flush)
+{
+	static int		i = 0;
+	int		min;
+	int		max;
+	int		j;
+	int		pos;
+
+	j = 0;
+	if (flush)
+	{
+		i = 0;
+		return ;
+	}
+	if ((pos = ft_find_next(pop, 0)) == -1)
+		return ;
+	ft_bornes(&min, &max);
+	while (j < 343)
+	{
+		pop->pop[pos].weight[0][j] = pop->pop[pop->elite[i]].weight[0][j];
+		if (j >= min && j <= max)
+			pop->pop[pos].weight[0][j] += random_dbl(-0.1, 0.1);
+		j++;
+	}
+	
+	i++;
+}
+
+void	ft_source(t_popu *pop, int pos, double **save)
 {
 	int		i;
-	int		x;
-	int		y;
-	(void)best_fit;
+	int		min;
+	int		max;
 
 	i = 0;
-	x = 0;
-	y = 0;
-	while (pop->pop[i].weight && y < 3)
+	ft_bornes(&min, &max);
+	while (i < 343)
 	{
-		pop->pop[i].weight = ft_memcpy(pop->pop[i].weight, pop->pop[index_best].weight, sizeof(pop->pop[i].weight));
-		if (i != pop->index_best)
-		{
-			
-			pop->pop[i].weight[y][x] += random_dbl(-1, 1);
-		}
-		if (x > n->layer_size[y] && pop->pop[i].weight)
-		{
-			x = 0;
-			y++;
-		}
-		x++;
+		pop->pop[pos].weight[0][i] = save[0][i];
+		if (i >= min && i <= max)
+			pop->pop[pos].weight[0][i] += random_dbl(-0.1, 0.1);
 		i++;
 	}
+}
+
+void	ft_gangbang(t_popu *pop, double **save)
+{
+	int		to_inf;
+	int		i;
+	int		pos;
+
+	i = 0;
+	to_inf = (int)pop->fitness + 10;
+	while (i < to_inf)
+	{
+		ft_influence(pop, 0);
+		i++;
+	}
+	while (i < 343)
+	{
+		if ((pos = ft_find_next(pop, 0)) != -1)
+			ft_source(pop, pos, save);
+		i++;
+	}
+	ft_influence(pop, 1);
+	ft_find_next(pop, 1);
 }
 
 void	ft_clear_stats(t_popu *pop)
@@ -84,9 +134,8 @@ void	ft_clear_stats(t_popu *pop)
 	i = 0;
 	while (pop->pop[i].weight)
 	{
-//		pop->pop[i].loose = 0;
-//		pop->pop[i].wins = 0;
-//		pop->pop[i].draw = 0;
+		pop->pop[i].loose = 0;
+		pop->pop[i].wins = 0;
 		i++;
 	}
 }
@@ -96,82 +145,73 @@ double	**ft_save_weights(double **weight, double **best)
 	int		i;
 
 	i = 0;
-	while (i < (49 * 14))
+	while (i < (49 * 7))
 	{
 		best[0][i] = weight[0][i];
 		i++;
 	}
-	i = 0;
-	while (i < (14 * 14))
-	{
-		best[1][i] = weight[1][i];
-		i++;
-	}
-	i = 0;
-	while (i < (14 * 7))
-	{
-		best[2][i] = weight[2][i];
-		i++;
-	}
 	return (best);
+}
+
+double	ft_get_fitness(int *elite)
+{
+	int		i;
+
+	i = 0;
+	while (elite[i] != -1)
+		i++;
+	return ((double)(i / 343) * 100);
 }
 
 void	ft_train(void)
 {
 	char	**chess;
 	double	*input;
-	double	**best;
+	double	**save;
 	double	best_fitness;
 	int		comeback;
 	t_popu	pop;
-	t_netw	n1;
-	t_netw	n2;
+	t_netw	n;
 	int		gen;
+	int		player;
 
+	player = 1;
 	best_fitness = -100;
 	if (!(input = (double*)malloc(sizeof(double) * 49)))
 		return ;
-	if (!(best = (double**)malloc(sizeof(double*) * 3)) || 
-		!(best[0] = (double*)malloc(sizeof(double) * (49 * 14))) ||
-		!(best[1] = (double*)malloc(sizeof(double) * (14 * 14))) ||
-		!(best[2] = (double*)malloc(sizeof(double) * (14 * 7))))
+	if (!(save = (double**)malloc(sizeof(double*))))
+		return ;
+	if (!(save[0] = (double*)malloc(sizeof(double) * 343)))
+		return ;
 	gen = 0;
 	if (!(chess = ft_init_chess()))
 		return ;
-	if (!prepare_init_netw(&n1, chess))
-		return ;
-	if (!prepare_init_netw(&n2, chess))
+	if (!prepare_init_netw(&n, chess))
 		return ;
 	if (!(pop.pop = ft_init_pop()))
 		return ;
+	if (!(pop.elite = (int*)malloc(sizeof(int) * 350)))
+		return ;
 	comeback = 0;
+	save = ft_save_weights(pop.pop[0].weight, save);
 	while (gen <= 100000)
 	{
-		ft_fight(chess, &n1, &n2, &pop, gen);
-		ft_get_best(&pop);
-		printf("---------- Generation %d ----------\nBest fitness : %f (%d)\n%d looses for %d wins and %d draws\n", gen, pop.pop[pop.index_best].fitness, pop.index_best, pop.pop[pop.index_best].loose, pop.pop[pop.index_best].wins, pop.pop[pop.index_best].draw);
-		if (best_fitness < pop.pop[pop.index_best].fitness)
+		ft_fight(&n, chess, &pop, player);
+		pop.fitness = ft_get_fitness(pop.elite);
+		if (pop.fitness >= 90)
 		{
-			ft_apply_weights(&n1, pop.pop[pop.index_best].weight);
-			ft_apply_weights(&n2, best);
-			if (ft_p4(&n1, &n2, chess, 1) == 2)
-			{
-				printf("Improve !\n\n");
-			}
-			best = ft_save_weights(pop.pop[pop.index_best].weight, best);
-			best_fitness = pop.pop[pop.index_best].fitness;
-			ft_gangbang(&n1, pop.index_best, &pop, pop.pop[pop.index_best].fitness);
-			comeback = 0;
+			player++;
+			save = ft_save_weights(pop.pop[pop.elite[0]].weight, save);
 		}
 		else
 		{
-			printf("Nothing best found ! (best = %f)\n\n", best_fitness);
-			pop.pop[pop.index_best + comeback].weight = ft_save_weights(best, pop.pop[pop.index_best].weight);
-			ft_gangbang(&n1, pop.index_best, &pop, pop.pop[pop.index_best].fitness);
-			comeback++;
+			ft_gangbang(&pop, save);
 		}
+		printf("------- Generation %d -------\nFitness %f\n", gen, pop.fitness);
 		ft_clear_stats(&pop);
 		gen++;
 	}
 	ft_print_chess(chess);
+	free(pop.elite);
+//	ft_train2(best);
 }
