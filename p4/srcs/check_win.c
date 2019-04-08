@@ -251,7 +251,7 @@ int		ft_check_win(char **chess)
 	}
 	else if (ft_check_draw(chess) == 1)
 	{
-		ft_putstr("Draw !\n");
+//		ft_putstr("Draw !\n");
 		return (1);
 	}
 	return (0);

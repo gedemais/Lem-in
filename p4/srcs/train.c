@@ -59,7 +59,7 @@ void	ft_bornes(int *min, int *max)
 	*max = (random + 1) * 49;
 }
 
-void	ft_influence(t_popu *pop, int flush)
+void	ft_influence(t_popu *pop, int flush, int comeback)
 {
 	static int		i = 0;
 	int		min;
@@ -80,7 +80,7 @@ void	ft_influence(t_popu *pop, int flush)
 	{
 		pop->pop[pos].weight[0][j] = pop->pop[pop->elite[i]].weight[0][j];
 		if (j >= min && j <= max)
-			pop->pop[pos].weight[0][j] += random_dbl(-0.1, 0.1);
+			pop->pop[pos].weight[0][j] += random_dbl(-(comeback / 10), (comeback / 10));
 		j++;
 	}
 	
@@ -104,7 +104,7 @@ void	ft_source(t_popu *pop, int pos, double **save)
 	}
 }
 
-void	ft_gangbang(t_popu *pop, double **save)
+void	ft_gangbang(t_popu *pop, double **save, int comeback)
 {
 	int		to_inf;
 	int		i;
@@ -114,7 +114,7 @@ void	ft_gangbang(t_popu *pop, double **save)
 	to_inf = (int)pop->fitness + 10;
 	while (i < to_inf)
 	{
-		ft_influence(pop, 0);
+		ft_influence(pop, 0, comeback);
 		i++;
 	}
 	while (i < 343)
@@ -123,7 +123,7 @@ void	ft_gangbang(t_popu *pop, double **save)
 			ft_source(pop, pos, save);
 		i++;
 	}
-	ft_influence(pop, 1);
+	ft_influence(pop, 1, comeback);
 	ft_find_next(pop, 1);
 }
 
@@ -204,9 +204,8 @@ void	ft_train(void)
 			save = ft_save_weights(pop.pop[pop.elite[0]].weight, save);
 		}
 		else
-		{
-			ft_gangbang(&pop, save);
-		}
+			comeback++;
+		ft_gangbang(&pop, save, comeback);
 		printf("------- Generation %d -------\nFitness %f\n", gen, pop.fitness);
 		ft_clear_stats(&pop);
 		gen++;
