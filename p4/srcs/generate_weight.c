@@ -6,7 +6,7 @@
 /*   By: qudesvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 14:03:41 by qudesvig          #+#    #+#             */
-/*   Updated: 2019/04/08 15:21:33 by qudesvig         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:00:05 by qudesvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,35 @@ void	ft_apply_weights(t_netw *n, double **weights)
 		}
 		i++;
 	}
+}
+
+double	**ft_save_weights(double **weight, double **best)
+{
+	int		i;
+
+	i = 0;
+	while (i < (49 * 7))
+	{
+		best[0][i] = weight[0][i];
+		i++;
+	}
+	return (best);
+}
+
+void	ft_export_weigths(double **weights)
+{
+	char		*tmp;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open("weights", O_CREAT | O_WRONLY, 777);
+	while (i < 343)
+	{
+		dprintf(fd, "%f\n", weights[0][i]);
+		ft_strdel(&tmp);
+		i++;
+	}
+	close(fd);
+	exit (EXIT_SUCCESS);
 }

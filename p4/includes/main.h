@@ -54,6 +54,10 @@ int		ft_get_brightest(double *output);
 int		ft_p41(t_netw *n1, char **chess, int gen, int first, int display);
 char	**ft_clear_chess(char **chess);
 void	fill_netw_in(t_netw *n);
+int		ft_find_next(t_popu *pop, int flush);
+void	ft_gangbang(t_popu *pop, double **save, int comeback);
+double	**ft_save_weights(double **weight, double **best);
+void	ft_export_weigths(double **weights);
 
 
 int		ft_col(int blc, int *fills);

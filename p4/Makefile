@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/05 00:59:17 by gedemais          #+#    #+#              #
-#    Updated: 2019/04/08 18:57:36 by qudesvig         ###   ########.fr        #
+#    Updated: 2019/04/09 11:02:40 by qudesvig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS_NAME = main.c\
 			prepare_nw.c\
 			ft_fight.c\
 			train.c\
+			gangbang.c \
 			test.c
 
 SRCS_PATH = srcs/

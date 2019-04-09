@@ -50,83 +50,6 @@ int		ft_find_next(t_popu *pop, int flush)
 	return (-1);
 }
 
-void	ft_bornes(int *min, int *max)
-{
-	int		random;
-
-	random = rand() % 7;
-	*min = random * 49;
-	*max = (random + 1) * 49;
-}
-
-void	ft_influence(t_popu *pop, int flush, int comeback)
-{
-	static int		i = 0;
-	int		min;
-	int		max;
-	int		j;
-	int		pos;
-
-	(void)comeback;
-	j = 0;
-	if (flush)
-	{
-		i = 0;
-		return ;
-	}
-	if ((pos = ft_find_next(pop, 0)) == -1)
-		return ;
-	ft_bornes(&min, &max);
-	while (j < 343)
-	{
-		pop->pop[pos].weight[0][j] = pop->pop[pop->elite[i]].weight[0][j];
-		if (j >= min && j <= max)
-			pop->pop[pos].weight[0][j] += random_dbl(-1.0, 1.0);
-		j++;
-	}
-	i++;
-}
-
-void	ft_source(t_popu *pop, int pos, double **save)
-{
-	int		i;
-	int		min;
-	int		max;
-
-	i = 0;
-	ft_bornes(&min, &max);
-	while (i < 343)
-	{
-		pop->pop[pos].weight[0][i] = save[0][i];
-		if (i >= min && i <= max)
-			pop->pop[pos].weight[0][i] += random_dbl(-0.1, 0.1);
-		i++;
-	}
-}
-
-void	ft_gangbang(t_popu *pop, double **save, int comeback)
-{
-	int		to_inf;
-	int		i;
-	int		pos;
-
-	i = 0;
-	to_inf = (int)pop->fitness + 10;
-	while (i < to_inf)
-	{
-		ft_influence(pop, 0, comeback);
-		i++;
-	}
-	while (i < 343)
-	{
-		if ((pos = ft_find_next(pop, 0)) != -1)
-			ft_source(pop, pos, save);
-		i++;
-	}
-	ft_influence(pop, 1, comeback);
-	ft_find_next(pop, 1);
-}
-
 void	ft_clear_stats(t_popu *pop)
 {
 	int		i;
@@ -138,19 +61,6 @@ void	ft_clear_stats(t_popu *pop)
 		pop->pop[i].wins = 0;
 		i++;
 	}
-}
-
-double	**ft_save_weights(double **weight, double **best)
-{
-	int		i;
-
-	i = 0;
-	while (i < (49 * 7))
-	{
-		best[0][i] = weight[0][i];
-		i++;
-	}
-	return (best);
 }
 
 double	ft_get_fitness(int *elite)
@@ -184,24 +94,6 @@ char	*ft_dtoa(double nb)
 	}
 	dest[i + 2] = '\n';
 	return (dest);
-}
-
-void	ft_export_weigths(double **weights)
-{
-	char		*tmp;
-	int		fd;
-	int		i;
-
-	i = 0;
-	fd = open("weights", O_CREAT | O_WRONLY, 777);
-	while (i < 343)
-	{
-		dprintf(fd, "%f\n", weights[0][i]);
-		ft_strdel(&tmp);
-		i++;
-	}
-	close(fd);
-	exit (EXIT_SUCCESS);
 }
 
 void	ft_train(void)
