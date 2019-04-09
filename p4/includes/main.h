@@ -49,8 +49,11 @@ void	ft_fight2(char **chess, t_netw *n1, t_netw *n2, t_popu *pop, int gen);
 int		ft_p4(t_netw *n1, t_netw *n2, char **chess, int gen);
 void	ft_fight(t_netw *n, char **chess, t_popu *pop, int gen);
 void	ft_train2(double **best);
+char	**ft_play_move(char **chess, int move, int **cols);
+int		ft_get_brightest(double *output);
 int		ft_p41(t_netw *n1, char **chess, int gen, int first, int display);
 char	**ft_clear_chess(char **chess);
+void	fill_netw_in(t_netw *n);
 
 
 int		ft_col(int blc, int *fills);

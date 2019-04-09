@@ -67,6 +67,7 @@ void	ft_influence(t_popu *pop, int flush, int comeback)
 	int		j;
 	int		pos;
 
+	(void)comeback;
 	j = 0;
 	if (flush)
 	{
@@ -80,10 +81,9 @@ void	ft_influence(t_popu *pop, int flush, int comeback)
 	{
 		pop->pop[pos].weight[0][j] = pop->pop[pop->elite[i]].weight[0][j];
 		if (j >= min && j <= max)
-			pop->pop[pos].weight[0][j] += random_dbl(-(comeback / 10), (comeback / 10));
+			pop->pop[pos].weight[0][j] += random_dbl(-1.0, 1.0);
 		j++;
 	}
-	
 	i++;
 }
 
@@ -160,7 +160,48 @@ double	ft_get_fitness(int *elite)
 	i = 0;
 	while (elite[i] != -1)
 		i++;
-	return ((double)(i / 343) * 100);
+	return ((double)((double)i / 343) * 100);
+}
+
+char	*ft_dtoa(double nb)
+{
+	char	*dest;
+	int	i;
+
+	i = 0;
+	printf("%f\n", nb);
+	if (!(dest = (char*)malloc(sizeof(char) * 5)))
+		return (NULL);
+	dest[0] = (int)nb + '0';
+	nb -= (int)nb;
+	dest[1] = '.';
+	while (i < 3)
+	{
+		nb = nb * 10;
+		dest[i + 2] = (int)nb + '0';
+		nb -= (int)nb;
+		i++;
+	}
+	dest[i + 2] = '\n';
+	return (dest);
+}
+
+void	ft_export_weigths(double **weights)
+{
+	char		*tmp;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open("weights", O_CREAT | O_WRONLY, 777);
+	while (i < 343)
+	{
+		dprintf(fd, "%f\n", weights[0][i]);
+		ft_strdel(&tmp);
+		i++;
+	}
+	close(fd);
+	exit (EXIT_SUCCESS);
 }
 
 void	ft_train(void)
@@ -194,19 +235,20 @@ void	ft_train(void)
 		return ;
 	comeback = 0;
 	save = ft_save_weights(pop.pop[0].weight, save);
-	while (gen <= 100000)
+	while (gen <= 1000000)
 	{
 		ft_fight(&n, chess, &pop, player);
 		pop.fitness = ft_get_fitness(pop.elite);
+		printf("------- Generation %d -------\nFitness %f\n", gen, pop.fitness);
 		if (pop.fitness >= 90)
 		{
+			ft_export_weigths(pop.pop[pop.elite[0]].weight);
 			player++;
 			save = ft_save_weights(pop.pop[pop.elite[0]].weight, save);
 		}
 		else
 			comeback++;
 		ft_gangbang(&pop, save, comeback);
-		printf("------- Generation %d -------\nFitness %f\n", gen, pop.fitness);
 		ft_clear_stats(&pop);
 		gen++;
 	}

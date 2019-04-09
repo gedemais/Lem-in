@@ -34,5 +34,6 @@ int			export_weight(t_netw n)
 		}
 		dprintf(fd, "\n");
 	}
+	close(fd);
 	return (0);
 }

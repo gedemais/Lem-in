@@ -182,7 +182,7 @@ int		ft_p41(t_netw *n1, char **chess, int gen, int first, int display)
 			else if ((first == 0 && turns % 2 == 0) || (first == 1 && turns % 2 == 1))
 			{
 				if (gen == 2)
-					move = ft_col(move, fills);
+					move = ft_casselescouilles(move, fills);
 				else if (gen == 3)
 					move = ft_line(move, fills);
 				else if (gen == 4)
@@ -225,13 +225,12 @@ int		ft_p41(t_netw *n1, char **chess, int gen, int first, int display)
 	else
 		return (2);
 }
-
+/*
 int		main(void)
 {
-	
 //	write(STDOUT_FILENO, "\e[1;1H\e[2J", 11);
 //	if (ft_p4() == -1)
 //		return (1);
 	ft_train();
 	return (0);
-}
+}*/

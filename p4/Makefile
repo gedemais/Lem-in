@@ -43,7 +43,8 @@ SRCS_NAME = main.c\
 			players.c\
 			prepare_nw.c\
 			ft_fight.c\
-			train.c
+			train.c\
+			test.c
 
 SRCS_PATH = srcs/
 

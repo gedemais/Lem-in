@@ -87,27 +87,42 @@ void	ft_fight(t_netw *n, char **chess, t_popu *pop, int player)
 	{
 //		PUT
 		ft_apply_weights(n, pop->pop[i].weight);
-		if (dis == 1)
-			score = ft_p41(n, chess, player, 0, 1); // Player first'
-		else
+//		if (i % 10 == 0)
+	//		score = ft_p41(n, chess, player, 0, 1); // Player first'
+	//	else
 			score = ft_p41(n, chess, player, 0, 0); // Player first'
 //		PUT1
-		if (dis == 1)
-			tmp = ft_p41(n, chess, player, 1, 1); // Network first
-		else
+	//	if (i % 10 == 0)
+	//		tmp = ft_p41(n, chess, player, 1, 1); // Network first
+	//	else
 			tmp = ft_p41(n, chess, player, 1, 0); // Network first
 //		PUT2
 		if (score == 1 && tmp == 2) // Defaite
-			pop->pop[i].loose = 1;
-		else if ((score == 2 && tmp == 1) || tmp == 0 || score == 0) // Victoire
 		{
-			pop->elite[j] = i;
+//			ft_putnbr(i);
+//			ft_putchar(' ');
+//			ft_putstr("Loose\n");
 			pop->pop[i].wins = 1;
+		}
+		else if (score == 2 && tmp == 1) // Victoire
+		{
+//			ft_putnbr(i);
+//			ft_putchar(' ');
+//			ft_putstr("Win\n");
+			pop->elite[j] = i;
+			pop->pop[i].loose = 1;
 			j++;
+		}
+		else
+		{
+			pop->pop[i].wins = 0;
+			pop->pop[i].loose = 0;
+//			ft_putnbr(i);
+//			ft_putchar(' ');
+//			ft_putstr("Draw\n");
 		}
 		i++;
 	}
-	PUT
 	dis++;
 	pop->elite[j] = -1;
 }
