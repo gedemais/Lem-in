@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/07/23 07:05:30 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/07/23 23:58:36 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static inline int		lem_in(void)
 {
-	char	*file;
-	t_room	*graph;
+	t_env	env;
 
-	if (!(file = read_fd_zero()) || !(graph = parsing(file)))
+	if (!(env.file = read_fd_zero()) || parsing(&env) != 0)
 		return (-1);
 	return (0);
 }

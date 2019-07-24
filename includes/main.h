@@ -17,6 +17,16 @@
 
 # define BUFF_READ 4194304
 
+typedef struct		s_env
+{
+	int				**graph;
+	int				**r_graph;
+	char			**rooms;
+	char			*file;
+	unsigned int	nb_rooms;
+	unsigned int	nb_pipes;
+}					t_env;
+
 typedef struct		s_room
 {
 	char			*name;
@@ -27,6 +37,6 @@ typedef struct		s_room
 ** Parsing
 */
 char				*read_fd_zero(void);
-t_room				*parsing(char *file);
+int					parsing(t_env *env);
 
 #endif

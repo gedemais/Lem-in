@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/07/23 07:22:41 by gedemais         ###   ########.fr        #
+#    Updated: 2019/07/24 00:11:00 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ NAME=lem_in
 SRCS_PATH=srcs/
 SRCS_NAME=	main.c\
 			read_fd_zero.c\
-			parsing.c
+			parsing.c\
+			get_rooms.c
 SRCS=$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS_PATH=objs/

@@ -1,28 +1,40 @@
 #include "main.h"
+
 /*
-static inline bool	check_nb_ant(char *file)
+** Parse the first line of the file, supposed to contain the number of ants.
+*/
+static inline bool	check_nb_ant(char *file, unsigned int *index)
 {
 	unsigned int	i;
 
 	i = 0;
+	if (file[0] == '\0')
+		return (true);
 	while (file[i] && file[i] != '\n')
 	{
 		if (ft_isdigit(file[i]) == 0)
 				return (true);
 		i++;
 	}
-	if (i >= 10 || ft_atoi(file) > INT_MAX)
+	if (i > 10 || ft_atoi(file) > INT_MAX)
 		return (true);
+	*index = i + 1;
 	return (false);
-}*/
+}
 
-t_room		*parsing(char *file)
+/*
+** Create a memory representation of the graph
+*/
+int					parsing(t_env *env)
 {
-	t_room			*graph;
+	unsigned int	i;
 
-	graph = NULL;
-	ft_putstr(file);
-	if (!file)
-		return (NULL);
-	return (graph);
+	i = 0;
+	if (!env->file || check_nb_ant(env->file, &i))
+	{
+		ft_putstr_fd(env->file ? "Invalid number of ants.\n" : "read_fd_zero failed.\n", 2);
+		return (-1);
+	}
+	free(env->file);
+	return (0);
 }
