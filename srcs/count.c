@@ -25,55 +25,11 @@ static inline unsigned int	get_name_len(char *line, bool last)
 */
 static inline int		find_from(t_env *env, char *line)
 {
-	unsigned int	i;
-	unsigned int	len;
-	int		ret;
-	char		s;
 
-	i = 0;
-	ret = 0;
-	s = 0;
-	len = get_name_len(line, false);
-	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
-	{
-		if (s == 'p' && ft_strncmp(&env->file[i], line, len) == 0)
-			return (ret);
-		while (env->file[i] && env->file[i] != '\n')
-			i++;
-		i++;
-		ret++;
-	}
-	if (s == 0)
-		return (-1);
-	return (ret);
 }
 
 static inline int		find_to(t_env *env, char *line)
 {
-	unsigned int	i;
-	unsigned int	len;
-	int		ret;
-	char		s;
-	
-	i = 0;
-	ret = 0;
-	s = 0;
-	len = get_name_len(line, false);
-	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
-	{
-		while (env->file[i] && env->file[i] != '\n' && env->file[i] != '-')
-			i++;
-		i++;
-		if (s == 'p' && ft_strncmp(&env->file[i], line, len) == 0)
-			return (ret);
-		while (env->file[i] && env->file[i] != '\n')
-			i++;
-		i++;
-		ret++;
-	}
-	if (s == 0)
-		return (-1);
-	return (ret);
 }
 
 /*
@@ -115,7 +71,6 @@ unsigned int			*count_pipes(t_env *env, unsigned int i)
 			* env->nb_rooms)))
 		return (NULL);
 	ft_memset(env->nb_pipes, 0, sizeof(unsigned int) * env->nb_rooms);
-	ft_putendl(&env->file[i]);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
 		if (s == 'p')
@@ -124,11 +79,14 @@ unsigned int			*count_pipes(t_env *env, unsigned int i)
 				return (NULL);
 			else if ((to = find_to(env, &env->file[i])) == -1)
 				return (NULL);
+			ft_putendl(&env->file[i]);
+			printf("From %d to %d\n", from, to);
 			env->nb_pipes[from]++;
 			env->nb_pipes[to]++;
 		}
 		while (env->file[i] && env->file[i] != '\n')
 			i++;
+		i++;
 	}
 	i = 0;
 	while (i < env->nb_rooms)
