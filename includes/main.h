@@ -17,26 +17,39 @@
 
 # define BUFF_READ 4194304
 
-typedef struct		s_env
-{
-	int				**graph;
-	int				**r_graph;
-	char			**rooms;
-	char			*file;
-	unsigned int	nb_rooms;
-	unsigned int	nb_pipes;
-}					t_env;
-
 typedef struct		s_room
 {
-	char			*name;
+	char		*name;
 	unsigned int	*pipes;
-}					t_room;
+	unsigned int	index;
+	char		type;
+	char		pad[3];
+}			t_room;
+
+typedef struct		s_env
+{
+	char		*file;
+	t_room		*graph;
+	unsigned int	*nb_pipes;
+	unsigned int	nb_rooms;
+	unsigned int	pad;
+}			t_env;
 
 /*
 ** Parsing
 */
 char				*read_fd_zero(void);
-int					parsing(t_env *env);
+t_room				*parsing(t_env *env);
+unsigned int			count_rooms(char *file, unsigned int *j);
+unsigned int			*count_pipes(t_env *env, unsigned int i);
+t_room				*make_graph(t_env *env);
+int				load_line(t_env *env, char s, unsigned int i, int room);
+char				get_line_state(char *line, bool flush);
+bool				is_room(char *line);
+bool				is_pipe(char *line);
+bool				is_comment(char *line);
+
+
+t_env				*free_env(t_env *env);
 
 #endif

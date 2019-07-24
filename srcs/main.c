@@ -16,7 +16,8 @@ static inline int		lem_in(void)
 {
 	t_env	env;
 
-	if (!(env.file = read_fd_zero()) || parsing(&env) != 0)
+	ft_memset(&env, 0, sizeof(env));
+	if (!(env.file = read_fd_zero()) || !(env.graph = parsing(&env)))
 		return (-1);
 	return (0);
 }

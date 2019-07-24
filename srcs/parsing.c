@@ -25,7 +25,7 @@ static inline bool	check_nb_ant(char *file, unsigned int *index)
 /*
 ** Create a memory representation of the graph
 */
-int					parsing(t_env *env)
+t_room				*parsing(t_env *env)
 {
 	unsigned int	i;
 
@@ -33,8 +33,23 @@ int					parsing(t_env *env)
 	if (!env->file || check_nb_ant(env->file, &i))
 	{
 		ft_putstr_fd(env->file ? "Invalid number of ants.\n" : "read_fd_zero failed.\n", 2);
-		return (-1);
+		return (NULL);
+	}
+	if ((env->nb_rooms = count_rooms(env->file, &i)) < 2)
+	{
+		ft_putstr_fd("Not enough rooms\n", 2);
+		return (NULL);
+	}
+	if (!(env->nb_pipes = count_pipes(env, i)))
+	{
+		ft_putstr_fd("Invalid pipes\n", 2);
+		return (NULL);
+	}
+	if (!(env->graph = make_graph(env)))
+	{
+		free(env->file);
+		return (NULL);
 	}
 	free(env->file);
-	return (0);
+	return (env->graph);
 }

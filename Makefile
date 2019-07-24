@@ -27,7 +27,11 @@ SRCS_PATH=srcs/
 SRCS_NAME=	main.c\
 			read_fd_zero.c\
 			parsing.c\
-			get_rooms.c
+			make_graph.c\
+			load_line.c\
+			count.c\
+			free.c\
+			states.c
 SRCS=$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS_PATH=objs/
