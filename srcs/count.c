@@ -1,5 +1,5 @@
 #include "main.h"
-
+/*
 static inline unsigned int	get_name_len(char *line, bool last)
 {
 	unsigned int	i;
@@ -18,11 +18,12 @@ static inline unsigned int	get_name_len(char *line, bool last)
 	else
 		return (i);
 
-}
+}*/
 
 /*
 ** Find the index of a room by chasing its name in the file string
 */
+/*
 static inline int		find_from(t_env *env, char *line)
 {
 
@@ -30,7 +31,7 @@ static inline int		find_from(t_env *env, char *line)
 
 static inline int		find_to(t_env *env, char *line)
 {
-}
+}*/
 
 /*
 ** Count the number of rooms in the file
@@ -61,6 +62,7 @@ unsigned int			count_rooms(char *file, unsigned int *j)
 /*
 ** Count the number of pipes per rooms
 */
+/*
 unsigned int			*count_pipes(t_env *env, unsigned int i)
 {
 	char		s;
@@ -75,12 +77,6 @@ unsigned int			*count_pipes(t_env *env, unsigned int i)
 	{
 		if (s == 'p')
 		{
-			if ((from = find_from(env, &env->file[i])) == -1)
-				return (NULL);
-			else if ((to = find_to(env, &env->file[i])) == -1)
-				return (NULL);
-			ft_putendl(&env->file[i]);
-			printf("From %d to %d\n", from, to);
 			env->nb_pipes[from]++;
 			env->nb_pipes[to]++;
 		}
@@ -95,4 +91,4 @@ unsigned int			*count_pipes(t_env *env, unsigned int i)
 		i++;
 	}
 	return (env->nb_pipes);
-}
+}*/

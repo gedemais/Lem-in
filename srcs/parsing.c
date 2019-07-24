@@ -40,11 +40,6 @@ t_room				*parsing(t_env *env)
 		ft_putstr_fd("Not enough rooms\n", 2);
 		return (NULL);
 	}
-	if (!(env->nb_pipes = count_pipes(env, i)))
-	{
-		ft_putstr_fd("Invalid pipes\n", 2);
-		return (NULL);
-	}
 	if (!(env->graph = make_graph(env)))
 	{
 		free(env->file);

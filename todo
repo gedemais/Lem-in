@@ -6,3 +6,5 @@
 6. Faire passer les fourmis et stocker leurs deplacements dans un buffer
 7. Display le buffer sur la sortie standard
 8. Pipe the bitch into a python visualiser
+
+Attribuer le type des rooms

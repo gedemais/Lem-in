@@ -22,8 +22,10 @@ typedef struct		s_room
 	char		*name;
 	unsigned int	*pipes;
 	unsigned int	index;
+	int		x;
+	int		y;
 	char		type;
-	char		pad[3];
+	char		_pad[3];
 }			t_room;
 
 typedef struct		s_env

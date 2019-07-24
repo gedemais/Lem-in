@@ -82,12 +82,9 @@ t_room			*make_graph(t_env *env)
 	next_line(env->file, &i);
 	if (!(env->graph = (t_room*)malloc(sizeof(t_room) * (env->nb_rooms + 1))))
 		return (NULL);
-	while (env->file[i])
+	while (env->file[i] && (s = get_line_state(&env->file[i], false)) && room < (int)env->nb_rooms)
 	{
-	//	print_line(env->file, i);
-		if ((s = get_line_state(&env->file[i], false)) == 0)
-			return (env->graph);
-		else if ((s == 'r' || s == 'p') && load_line(env, s, i, ++room))
+		if (s == 'r' && load_line(env, s, i, ++room))
 			return (env->graph);
 		else if ((s == 's' || s == 'e') && note_start_end(&s_e[0], s))
 			return (env->graph);
