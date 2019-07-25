@@ -14,12 +14,20 @@
 
 char	*ft_strndup(char *str, int size)
 {
-	char	*dest;
+	char		*dest;
+	unsigned int	i;
 
-	if (size > (int)ft_strlen(str))
+	 i = 0;
+	while (str[i] && (int)i < size)
+		i++;
+	if (!(dest = (char*)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
-	if (!(dest = (char*)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	dest = ft_strncpy(dest, str, size);
+	i = 0;
+	while (str[i] && (int)i < size)
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	dest[i] = '\0';
 	return (dest);
 }

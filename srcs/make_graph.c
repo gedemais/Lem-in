@@ -82,6 +82,7 @@ t_room			*make_graph(t_env *env)
 	next_line(env->file, &i);
 	if (!(env->graph = (t_room*)malloc(sizeof(t_room) * (env->nb_rooms + 1))))
 		return (NULL);
+	env->graph = ft_memset(env->graph, 0, sizeof(t_room) * (env->nb_rooms + 1));
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)) && room < (int)env->nb_rooms)
 	{
 		if (s == 'r' && load_line(env, s, i, ++room))

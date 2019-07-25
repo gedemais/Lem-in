@@ -13,13 +13,12 @@ static inline t_env	*free_graph(t_env *env)
 			free(env->graph[i].pipes);
 		i++;
 	}
+	free(env->graph);
 	return (env);
 }
 
 t_env			*free_env(t_env *env)
 {
-	if (env->file)
-		free(env->file);
 	if (env->graph)
 		env = free_graph(env);
 	return (env);
