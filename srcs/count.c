@@ -1,5 +1,5 @@
 #include "main.h"
-/*
+
 static inline unsigned int	get_name_len(char *line, bool last)
 {
 	unsigned int	i;
@@ -11,6 +11,7 @@ static inline unsigned int	get_name_len(char *line, bool last)
 		i++;
 	if (last)
 	{
+		i++;
 		while (line[i + ret] && line[i + ret] != '\n')
 			ret++;
 		return (ret);
@@ -18,20 +19,51 @@ static inline unsigned int	get_name_len(char *line, bool last)
 	else
 		return (i);
 
-}*/
+}
 
 /*
 ** Find the index of a room by chasing its name in the file string
 */
-/*
-static inline int		find_from(t_env *env, char *line)
-{
 
+int		find_from(t_env *env, char *line)
+{
+	unsigned int	len;
+	int				ret;
+
+	ret = 0;
+	len = get_name_len(line, false);
+	while (ret < (int)env->nb_rooms)
+	{
+		if (line[0] == env->graph[ret].name[0])
+			if (ft_strncmp(line, env->graph[ret].name, len) == 0)
+				return (ret);
+		ret++;
+	}
+	return (-1);
 }
 
-static inline int		find_to(t_env *env, char *line)
+
+int		find_to(t_env *env, char *line)
 {
-}*/
+	unsigned int	len;
+	unsigned int	i;
+	int				ret;
+
+	i = 0;
+	ret = 0;
+	len = get_name_len(line, true);
+	while (line[i] && line[i] != '\n' && line[i] != '-')
+			i++;
+	i++;
+	while (ret < (int)env->nb_rooms)
+	{
+		if (line[i] == env->graph[ret].name[0])
+			if (ft_strncmp(&line[i], env->graph[ret].name, len) == 0)
+					return (ret);
+		ret++;
+	}
+	return (-1);
+}
 
 /*
 ** Count the number of rooms in the file
@@ -50,9 +82,7 @@ unsigned int			count_rooms(char *file, unsigned int *j)
 			ret++;
 		else if (s == 0)
 			return (0);
-		while (file[i] && file[i] != '\n')
-			i++;
-		i++;
+		next_line(file, &i);
 	}
 	get_line_state(file, true);
 	*j = i;
@@ -62,7 +92,6 @@ unsigned int			count_rooms(char *file, unsigned int *j)
 /*
 ** Count the number of pipes per rooms
 */
-/*
 unsigned int			*count_pipes(t_env *env, unsigned int i)
 {
 	char		s;
@@ -77,18 +106,13 @@ unsigned int			*count_pipes(t_env *env, unsigned int i)
 	{
 		if (s == 'p')
 		{
+			if ((from = find_from(env, &env->file[i])) == -1
+				|| (to = find_to(env, &env->file[i])) == -1)
+					return (NULL);
 			env->nb_pipes[from]++;
 			env->nb_pipes[to]++;
 		}
-		while (env->file[i] && env->file[i] != '\n')
-			i++;
-		i++;
-	}
-	i = 0;
-	while (i < env->nb_rooms)
-	{
-		printf("room %d : %u pipes\n", i, env->nb_pipes[i]);
-		i++;
+		next_line(env->file, &i);
 	}
 	return (env->nb_pipes);
-}*/
+}

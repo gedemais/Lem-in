@@ -40,11 +40,10 @@ static inline void	print_line(char *file, unsigned int i)
 	write(1, &file[i], j + 1);
 }*/
 
-
 /*
 ** Replace the index going through the file string at the start of the next line
 */
-static inline void	next_line(char *file, unsigned int *i)
+void	next_line(char *file, unsigned int *i)
 {
 	unsigned int	j;
 
@@ -77,21 +76,23 @@ t_room			*make_graph(t_env *env)
 	char		s; // 's' for start, 'e' for end, 'r' for regular
 
 	i = 0;
-	room = -1;
+	room = 0;
 	ft_memset(&s_e[0], 0, sizeof(bool) * 2);
 	next_line(env->file, &i);
 	if (!(env->graph = (t_room*)malloc(sizeof(t_room) * (env->nb_rooms + 1))))
 		return (NULL);
 	env->graph = ft_memset(env->graph, 0, sizeof(t_room) * (env->nb_rooms + 1));
-	while (env->file[i] && (s = get_line_state(&env->file[i], false)) && room < (int)env->nb_rooms)
+	while (env->file[i] && (s = get_line_state(&env->file[i], false))
+		&& room < (int)env->nb_rooms && s != 'p')
 	{
-		if (s == 'r' && load_line(env, s, i, ++room))
+		if (load_line(env, s, i, room))
 			return (env->graph);
-		else if ((s == 's' || s == 'e') && note_start_end(&s_e[0], s))
+		room += (s == 'r') ? 1 : 0;
+		if ((s == 's' || s == 'e') && note_start_end(&s_e[0], s))
 			return (env->graph);
 		next_line(env->file, &i);
 	}
-	if (!s_e[0] && !s_e[1])
+	if (!s_e[0] || !s_e[1])
 		return (NULL);
 	return (env->graph);
 }

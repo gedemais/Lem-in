@@ -7,4 +7,5 @@
 7. Display le buffer sur la sortie standard
 8. Pipe the bitch into a python visualiser
 
-Attribuer le type des rooms
+Checker qu'il y a un start et un end
+

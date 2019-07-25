@@ -21,5 +21,11 @@ t_env			*free_env(t_env *env)
 {
 	if (env->graph)
 		env = free_graph(env);
+	if (env->file)
+			free(env->file);
+	if (env->nb_pipes)
+			free(env->nb_pipes);
+	if (env->tmp)
+			free(env->tmp);
 	return (env);
 }

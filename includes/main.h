@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <time.h>
 
 # define PUT ft_putstr("There\n");
 # define PUT1 ft_putstr("There1\n");
@@ -19,38 +20,42 @@
 
 typedef struct		s_room
 {
-	char		*name;
+	char			*name;
 	unsigned int	*pipes;
 	unsigned int	index;
-	int		x;
-	int		y;
-	char		type;
-	char		_pad[3];
-}			t_room;
+	int				x;
+	int				y;
+	char			type;
+	char			_pad[3];
+}					t_room;
 
 typedef struct		s_env
 {
-	char		*file;
-	t_room		*graph;
+	char			*file;
+	t_room			*graph;
 	unsigned int	*nb_pipes;
+	unsigned int	*tmp;
 	unsigned int	nb_rooms;
 	unsigned int	pad;
-}			t_env;
+}					t_env;
 
 /*
 ** Parsing
 */
 char				*read_fd_zero(void);
 t_room				*parsing(t_env *env);
-unsigned int			count_rooms(char *file, unsigned int *j);
-unsigned int			*count_pipes(t_env *env, unsigned int i);
+void				next_line(char *file, unsigned int *i);
+unsigned int		count_rooms(char *file, unsigned int *j);
+unsigned int		*count_pipes(t_env *env, unsigned int i);
 t_room				*make_graph(t_env *env);
-int				load_line(t_env *env, char s, unsigned int i, int room);
+t_room				*make_pipes(t_env *env, unsigned int i);
+int					load_line(t_env *env, char s, unsigned int i, int room);
 char				get_line_state(char *line, bool flush);
 bool				is_room(char *line);
 bool				is_pipe(char *line);
 bool				is_comment(char *line);
-
+int					find_from(t_env *env, char *line);
+int					find_to(t_env *env, char *line);
 
 t_env				*free_env(t_env *env);
 
