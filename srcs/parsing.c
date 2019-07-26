@@ -3,16 +3,15 @@
 /*
 ** Debug
 */
-/*
+
 static inline void	print_config(t_env *env)
 {
 	unsigned int	i;
-	unsigned int	j;
 
 	i = 0;
+	printf("Number of rooms : %u\n", env->nb_rooms);
 	while (i < env->nb_rooms)
 	{
-		j = 0;
 		printf("----- Room |%u| -----\n", env->graph[i].index);
 		if (env->graph[i].type == 's')
 			printf("START\n");
@@ -21,16 +20,9 @@ static inline void	print_config(t_env *env)
 		printf("Name = |%s|\n", env->graph[i].name);
 		printf("x = %d | y = %d\n", env->graph[i].x, env->graph[i].y);
 		printf("Type = |%c|\n", env->graph[i].type);
-		printf("Pipes :\n");
-		while (j < env->nb_pipes[i])
-		{
-			printf("%s <---> %s\n", env->graph[i].name, env->graph[env->graph[i].pipes[j]].name);
-			j++;
-		}
-		printf("-------------------\n");
 		i++;
 	}
-}*/
+}
 
 /*
 ** Parse the first line of the file, supposed to contain the number of ants.
@@ -73,10 +65,9 @@ t_room				*parsing(t_env *env)
 		return (NULL);
 	}
 	if (!(env->graph = make_graph(env))
-		|| !(env ->graph = make_pipes(env, i)))
+		|| !(env->matrix = make_matrix(env, i)))
 		return (NULL);
 	ft_memdel((void**)&env->file);
-//	printf("Number of rooms : %u\n", env->nb_rooms);
-//	print_config(env);
+	print_config(env);
 	return (env->graph);
 }

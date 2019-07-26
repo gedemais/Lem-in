@@ -88,31 +88,3 @@ unsigned int			count_rooms(char *file, unsigned int *j)
 	*j = i;
 	return (ret);
 }
-
-/*
-** Count the number of pipes per rooms
-*/
-unsigned int			*count_pipes(t_env *env, unsigned int i)
-{
-	char		s;
-	int		from;
-	int		to;
-
-	if (!(env->nb_pipes = (unsigned int*)malloc(sizeof(unsigned int)
-			* env->nb_rooms)))
-		return (NULL);
-	ft_memset(env->nb_pipes, 0, sizeof(unsigned int) * env->nb_rooms);
-	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
-	{
-		if (s == 'p')
-		{
-			if ((from = find_from(env, &env->file[i])) == -1
-				|| (to = find_to(env, &env->file[i])) == -1)
-					return (NULL);
-			env->nb_pipes[from]++;
-			env->nb_pipes[to]++;
-		}
-		next_line(env->file, &i);
-	}
-	return (env->nb_pipes);
-}

@@ -16,12 +16,13 @@
 # define PUT6 ft_putstr("There6\n");
 # define PUT7 ft_putstr("There7\n");
 
-# define BUFF_READ 4194304
+# define BUFF_READ 65536
+# define BUFF_WRITE 65536
+# define INT_BITS 32
 
 typedef struct		s_room
 {
 	char			*name;
-	unsigned int	*pipes;
 	unsigned int	index;
 	int				x;
 	int				y;
@@ -33,8 +34,7 @@ typedef struct		s_env
 {
 	char			*file;
 	t_room			*graph;
-	unsigned int	*nb_pipes;
-	unsigned int	*tmp;
+	unsigned int	**matrix;
 	unsigned int	nb_rooms;
 	unsigned int	pad;
 }					t_env;
@@ -48,7 +48,8 @@ void				next_line(char *file, unsigned int *i);
 unsigned int		count_rooms(char *file, unsigned int *j);
 unsigned int		*count_pipes(t_env *env, unsigned int i);
 t_room				*make_graph(t_env *env);
-t_room				*make_pipes(t_env *env, unsigned int i);
+unsigned int		**make_matrix(t_env *env, unsigned int i);
+void				add_bit(unsigned int *integer, unsigned int bit);
 int					load_line(t_env *env, char s, unsigned int i, int room);
 char				get_line_state(char *line, bool flush);
 bool				is_room(char *line);
