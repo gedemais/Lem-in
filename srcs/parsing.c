@@ -3,7 +3,7 @@
 /*
 ** Debug
 */
-
+/*
 static inline void	print_config(t_env *env)
 {
 	unsigned int	i;
@@ -22,7 +22,7 @@ static inline void	print_config(t_env *env)
 		printf("Type = |%c|\n", env->graph[i].type);
 		i++;
 	}
-}
+}*/
 
 /*
 ** Parse the first line of the file, supposed to contain the number of ants.
@@ -68,6 +68,6 @@ t_room				*parsing(t_env *env)
 		|| !(env->matrix = make_matrix(env, i)))
 		return (NULL);
 	ft_memdel((void**)&env->file);
-	print_config(env);
+//	print_config(env);
 	return (env->graph);
 }
