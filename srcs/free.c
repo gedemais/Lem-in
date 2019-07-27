@@ -9,8 +9,6 @@ static inline t_env	*free_graph(t_env *env)
 	{
 		if (env->graph[i].name)
 			free(env->graph[i].name);
-		if (env->graph[i].pipes)
-			free(env->graph[i].pipes);
 		i++;
 	}
 	free(env->graph);
@@ -23,9 +21,5 @@ t_env			*free_env(t_env *env)
 		env = free_graph(env);
 	if (env->file)
 			free(env->file);
-	if (env->nb_pipes)
-			free(env->nb_pipes);
-	if (env->tmp)
-			free(env->tmp);
 	return (env);
 }

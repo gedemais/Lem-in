@@ -34,7 +34,7 @@ typedef struct		s_env
 {
 	char			*file;
 	t_room			*graph;
-	unsigned int	**matrix;
+	char			**matrix;
 	unsigned int	nb_rooms;
 	unsigned int	pad;
 }					t_env;
@@ -49,6 +49,7 @@ unsigned int		count_rooms(char *file, unsigned int *j);
 unsigned int		*count_pipes(t_env *env, unsigned int i);
 t_room				*make_graph(t_env *env);
 unsigned int		**make_matrix(t_env *env, unsigned int i);
+unsigned int		**allocate_matrix(t_env *env);
 void				add_bit(unsigned int *integer, unsigned int bit);
 int					load_line(t_env *env, char s, unsigned int i, int room);
 char				get_line_state(char *line, bool flush);

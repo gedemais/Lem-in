@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/07/26 11:11:29 by gedemais         ###   ########.fr        #
+#    Updated: 2019/07/27 18:52:14 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_NAME=	main.c\
 			read_fd_zero.c\
 			parsing.c\
 			make_graph.c\
+			make_matrix.c\
 			load_line.c\
 			count.c\
 			free.c\
