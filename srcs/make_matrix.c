@@ -1,21 +1,21 @@
 #include "main.h"
 
-char						**allocate_matrix(t_env *env)
+char			**allocate_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 
 	i = 0;
-	if (!(env->matrix = (char**)malloc(sizeof(char*) * env->nb_rooms)))
+	if (!(matrix = (char**)malloc(sizeof(char*) * n)))
 			return (NULL);
-	while (i < env->nb_rooms)
+	while (i < n)
 	{
-		if (!(env->matrix[i] = (char*)malloc(sizeof(char)
-			* env->nb_rooms)))
+		if (!(matrix[i] = (char*)malloc(sizeof(char)
+			* n)))
 			return (NULL);
-		ft_memset(env->matrix[i], 0, sizeof(char) * env->nb_rooms);
+		ft_memset(matrix[i], 0, sizeof(char) * n);
 		i++;
 	}
-	return (env->matrix);
+	return (matrix);
 }
 
 static inline char	**write_pipe(t_env *env, char *line)
@@ -31,8 +31,8 @@ static inline char	**write_pipe(t_env *env, char *line)
 	env->matrix[to][from] = 1;
 	return (env->matrix);
 }
-/*
-static inline void			print_matrix(t_env *env)
+
+static inline void	print_matrix(t_env *env)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -50,13 +50,15 @@ static inline void			print_matrix(t_env *env)
 		ft_putchar('\n');
 		i++;
 	}
-}*/
+}
 
-char					**make_matrix(t_env *env, unsigned int i)
+char			**make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 
-	if (!(env->matrix = allocate_matrix(env)))
+	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
+			return (NULL);
+	if (!(env->r_matrix = allocate_matrix(env->r_matrix, env->nb_rooms)))
 			return (NULL);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
@@ -64,5 +66,6 @@ char					**make_matrix(t_env *env, unsigned int i)
 			env->matrix = write_pipe(env, &env->file[i]);
 		next_line(env->file, &i);
 	}
+	print_matrix(env);
 	return (env->matrix);
 }
