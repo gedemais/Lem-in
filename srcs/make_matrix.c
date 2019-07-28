@@ -31,25 +31,44 @@ static inline char	**write_pipe(t_env *env, char *line)
 	env->matrix[to][from] = 1;
 	return (env->matrix);
 }
-
-static inline void	print_matrix(t_env *env)
+/*
+static inline void	print_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 	unsigned int	j;
 
 	i = 0;
-	while (i < env->nb_rooms)
+	while (i < n)
 	{
 		j = 0;
-		while (j < env->nb_rooms)
+		while (j < n)
 		{
-			ft_putnbr(env->matrix[i][j]);
+			ft_putnbr(matrix[i][j]);
 			ft_putchar(' ');
 			j++;
 		}
 		ft_putchar('\n');
 		i++;
 	}
+}*/
+
+char			**matrix_cpy(char **dest, char **src, unsigned int n)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < n)
+	{
+		j = 0;
+		while (j < n)
+		{
+			dest[i][j] = src[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (dest);
 }
 
 char			**make_matrix(t_env *env, unsigned int i)
@@ -66,6 +85,6 @@ char			**make_matrix(t_env *env, unsigned int i)
 			env->matrix = write_pipe(env, &env->file[i]);
 		next_line(env->file, &i);
 	}
-	print_matrix(env);
+	env->r_matrix = matrix_cpy(env->r_matrix, env->matrix, env->nb_rooms);
 	return (env->matrix);
 }

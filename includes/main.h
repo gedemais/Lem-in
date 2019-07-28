@@ -20,6 +20,15 @@
 # define BUFF_WRITE 65536
 # define INT_BITS 32
 
+typedef struct s_queue	t_queue;
+
+struct				s_queue
+{
+	t_queue			*next;
+	unsigned int	index;
+	int				_pad;
+};
+
 typedef struct		s_room
 {
 	char			*name;
@@ -32,12 +41,16 @@ typedef struct		s_room
 
 typedef struct		s_env
 {
-	char			*file;
-	t_room			*graph;
 	char			**matrix;
 	char			**r_matrix;
+	char			*file
+	t_room			*graph;
+	int				*parent;
+	bool			*visited;
+	int				start;
+	int				end;
 	unsigned int	nb_rooms;
-	unsigned int	pad;
+	unsigned int	_pad;
 }					t_env;
 
 /*
@@ -47,18 +60,28 @@ char				*read_fd_zero(void);
 t_room				*parsing(t_env *env);
 void				next_line(char *file, unsigned int *i);
 unsigned int		count_rooms(char *file, unsigned int *j);
-unsigned int		*count_pipes(t_env *env, unsigned int i);
 t_room				*make_graph(t_env *env);
-char			**make_matrix(t_env *env, unsigned int i);
-char			**allocate_matrix(char **matrix, unsigned int n);
-void				add_bit(unsigned int *integer, unsigned int bit);
-int					load_line(t_env *env, char s, unsigned int i, int room);
 char				get_line_state(char *line, bool flush);
 bool				is_room(char *line);
 bool				is_pipe(char *line);
 bool				is_comment(char *line);
+int					load_line(t_env *env, char s, unsigned int i, int room);
+
+/*
+** Matrices
+*/
+char				**make_matrix(t_env *env, unsigned int i);
+char				**matrix_cpy(char **dest, char **src, unsigned int n);
+char				**allocate_matrix(char **matrix, unsigned int n);
 int					find_from(t_env *env, char *line);
 int					find_to(t_env *env, char *line);
+
+/*
+** Solving
+*/
+int					solve(t_env *env);
+bool				bfs(t_env *env, int s, int t);
+bool				find_start_end(t_env *env);
 
 t_env				*free_env(t_env *env);
 

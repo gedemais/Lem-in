@@ -65,7 +65,8 @@ t_room				*parsing(t_env *env)
 		return (NULL);
 	}
 	if (!(env->graph = make_graph(env))
-		|| !(env->matrix = make_matrix(env, i)))
+		|| !(env->matrix = make_matrix(env, i))
+		|| find_start_end(env))
 		return (NULL);
 	ft_memdel((void**)&env->file);
 //	print_config(env);

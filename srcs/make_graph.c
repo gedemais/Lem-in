@@ -1,5 +1,12 @@
 #include "main.h"
-
+/*
+** Returns a char representing the state of line :
+** s for the start room
+** e for the end room
+** r for a regular room
+** p for a pipe
+** c for a comment
+*/
 char			get_line_state(char *line, bool flush)
 {
 	static bool	pipe = false;
@@ -54,30 +61,16 @@ void	next_line(char *file, unsigned int *i)
 }
 
 /*
-** Notifiy if a start or end is readed. If one of those is not present, ERROR
-*/
-static inline int	note_start_end(bool *s_e, char state)
-{
-	if (state == 's')
-		s_e[0] = true;
-	else if (state == 'e')
-		s_e[1] = true;
-	return (0);
-}
-
-/*
 ** Create the t_room array
 */
 t_room			*make_graph(t_env *env)
 {
 	unsigned int	i;
-	bool		s_e[2];
 	int		room;
-	char		s; // 's' for start, 'e' for end, 'r' for regular
+	char		s;
 
 	i = 0;
 	room = 0;
-	ft_memset(&s_e[0], 0, sizeof(bool) * 2);
 	next_line(env->file, &i);
 	if (!(env->graph = (t_room*)malloc(sizeof(t_room) * (env->nb_rooms + 1))))
 		return (NULL);
@@ -88,11 +81,7 @@ t_room			*make_graph(t_env *env)
 		if (load_line(env, s, i, room))
 			return (env->graph);
 		room += (s == 'r') ? 1 : 0;
-		if ((s == 's' || s == 'e') && note_start_end(&s_e[0], s))
-			return (env->graph);
 		next_line(env->file, &i);
 	}
-	if (!s_e[0] || !s_e[1])
-		return (NULL);
 	return (env->graph);
 }
