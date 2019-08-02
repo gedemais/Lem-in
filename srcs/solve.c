@@ -8,9 +8,6 @@ int		solve(t_env *env)
 	int				pflow;
 
 	max_flow = 0;
-	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
-		|| !(env->parent = (int*)malloc(sizeof(int) * env->nb_rooms)))
-		return (false);
 	while (bfs(env, env->start, env->end))
 	{
 		pflow = INT_MAX;

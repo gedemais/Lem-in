@@ -43,7 +43,7 @@ typedef struct		s_env
 {
 	char			**matrix;
 	char			**r_matrix;
-	char			*file
+	char			*file;
 	t_room			*graph;
 	int				*parent;
 	bool			*visited;

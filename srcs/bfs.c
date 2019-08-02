@@ -49,7 +49,7 @@ static inline int		queue_pop(t_queue **queue)
 	*queue = tmp;
 	return (0);
 }
-/*
+
 static inline void		print_lst(t_queue *queue)
 {
 	t_queue	*tmp = queue;
@@ -60,7 +60,28 @@ static inline void		print_lst(t_queue *queue)
 			tmp = tmp->next;
 		}
 				printf("\n");
-}*/
+}
+
+static inline void			save_path(t_env *env, t_queue *queue)
+{
+	t_queue		*tmp;
+	unsigned int	i;
+
+	i = 0;
+	tmp = queue;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	tmp = queue;
+	while (tmp && i > 0)
+	{
+		env->parent[i] = (int)tmp->index;
+		tmp = tmp->next;
+		i--;
+	}
+}
 
 bool					bfs(t_env *env, int s, int t)
 {
@@ -69,10 +90,12 @@ bool					bfs(t_env *env, int s, int t)
 	unsigned int	i;
 
 	room = 0;
-	if (!(queue = queue_lstnew((unsigned int)s)))
-			return (false);
+	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
+		|| !(env->parent = (int*)malloc(sizeof(int) * env->nb_rooms))
+		|| !(queue = queue_lstnew((unsigned int)s)))
+			return (NULL);
 	queue->next = NULL;
-//	env->visited = ft_memset(env->visited, false, sizeof(bool) * env->nb_rooms);
+	env->visited = ft_memset(env->visited, false, sizeof(bool) * env->nb_rooms);
 	env->parent = ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms);
 	env->visited[s] = true;
 	while (queue)
@@ -85,9 +108,10 @@ bool					bfs(t_env *env, int s, int t)
 			if (env->visited[i] == false && env->r_matrix[room][i] > 0)
 			{
 				queue_push(&queue, queue_lstnew(i));
-		//		print_lst(queue);
-				env->parent[i] = (int)room;
+				print_lst(queue);
 				env->visited[i] = true;
+				if (i == (unsigned int)t)
+					save_path(env, queue);
 			}
 			i++;
 		}

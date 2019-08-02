@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 
 #include "main.h"
+/*
+static inline void		print_path(int *parent)
+{
+	unsigned int	i;
+
+	i = 1;
+	printf("Start->");
+	while (parent[i] != -1)
+	{
+		printf("%d", parent[i]);
+		i++;
+		if (parent[i] != -1)
+			printf("->");
+	}
+	printf("(End)\n");
+}*/
 
 static inline int		lem_in(void)
 {
@@ -19,8 +35,9 @@ static inline int		lem_in(void)
 	ft_memset(&env, 0, sizeof(env));
 	if (!(env.file = read_fd_zero()) || !(env.graph = parsing(&env)))
 		return (-1);
-	if (bfs(&env, env.start, env.end))
-	printf("%d", solve(&env));
+//	if (bfs(&env, env.start, env.end))
+//		print_path(env.parent);
+	printf("solve = %d\n", solve(&env));
 	free_env(&env);
 	return (0);
 }
