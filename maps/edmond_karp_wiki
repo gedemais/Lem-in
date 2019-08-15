@@ -1,0 +1,23 @@
+50
+##start
+A 0 0
+B 0 2
+C 1 1
+#comment
+D 3 0
+E 3 2
+F 4 0
+##end
+G 4 3
+#links
+A-B
+A-D
+B-C
+C-A
+C-D
+C-E
+D-F
+D-E
+E-B
+E-G
+F-G
