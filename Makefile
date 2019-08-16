@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/08/15 04:49:58 by gedemais         ###   ########.fr        #
+#    Updated: 2019/08/17 01:41:22 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ NAME=lem_in
 
 SRCS_PATH=srcs/
 SRCS_NAME=	main.c\
+			bfs.c\
+			list.c\
 			read_fd_zero.c\
 			parsing.c\
 			make_graph.c\

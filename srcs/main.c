@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/15 04:58:16 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:42:45 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ static inline int		lem_in(t_env *env)
 	ft_memset(env, 0, sizeof(env));
 	if (!(env->file = read_fd_zero()) || !(env->graph = parsing(env)))
 		return (-1);
-/*	if (!(env.visited = (bool*)malloc(sizeof(bool) * env.nb_rooms))
-		|| !(env.parent = (int*)malloc(sizeof(int) * (env.nb_rooms + 1))))
-		return (false);*/
+	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
+		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
+		return (false);
+	breadth_first_search(env);
 	free_env(env);
 	return (0);
 }

@@ -45,8 +45,8 @@ typedef struct		s_env
 	char			**r_matrix;
 	char			*file;
 	t_room			*graph;
-	int				*parent;
 	bool			*visited;
+	int				*parent;
 	int				start;
 	int				end;
 	unsigned int	nb_rooms;
@@ -79,6 +79,17 @@ int					find_to(t_env *env, char *line);
 /*
 ** Solving
 */
+bool				breadth_first_search(t_env *env);
+
+/*
+** Lists
+*/
+void		print_lst(t_queue *lst);
+t_queue		*lm_lstnew(int room);
+int			lm_lst_pop(t_queue **lst);
+int			lm_lst_push(t_queue **lst, t_queue *new);
+int			ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
+
 
 t_env				*free_env(t_env *env);
 
