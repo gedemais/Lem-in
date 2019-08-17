@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:19:43 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/17 01:47:29 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/17 05:21:57 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ bool	breadth_first_search(t_env *env)
 	env->visited[env->start] = true; // Note the start room as visited
 	while (queue)
 	{
-		printf("First\n");
-		print_lst(queue);
-		printf("\n");
-		v = 0;
-		u = (int)queue->index;
+		u = (int)(*queue).index;
+		printf("u = %d\n", u);
 		lm_lst_pop(&queue);
-		while (v < (int)env->nb_rooms)
+		v = 0;
+		while ((unsigned int)v < env->nb_rooms)
 		{
 			if (env->visited[v] == false && env->r_matrix[u][v] > 0)
 			{
@@ -55,6 +53,6 @@ bool	breadth_first_search(t_env *env)
 			v++;
 		}
 	}
-	print_lst(queue);
+	print_path(env->parent);
 	return (env->visited[env->end]);
 }
