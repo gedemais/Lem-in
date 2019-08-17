@@ -21,7 +21,8 @@ static inline int		lem_in(t_env *env)
 	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
 		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
 		return (false);
-	breadth_first_search(env);
+	if (!breadth_first_search(env))
+			printf("No path found !\n");
 	free_env(env);
 	return (0);
 }

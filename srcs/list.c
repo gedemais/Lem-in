@@ -17,6 +17,7 @@ void		print_lst(t_queue *lst)
 	t_queue	*tmp;
 	
 	tmp = lst;
+	printf("lst :\n");
 	while (tmp)
 	{
 		printf("%d\n", tmp->index);
@@ -31,6 +32,7 @@ t_queue		*lm_lstnew(int room)
 	if (!(new = (t_queue*)malloc(sizeof(t_queue))))
 		return (NULL);
 	new->index = (unsigned int)room;
+	new->next = NULL;
 	return (new);
 }
 

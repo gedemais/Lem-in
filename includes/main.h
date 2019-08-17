@@ -80,6 +80,7 @@ int					find_to(t_env *env, char *line);
 ** Solving
 */
 bool				breadth_first_search(t_env *env);
+void				print_path(int *path);
 
 /*
 ** Lists
