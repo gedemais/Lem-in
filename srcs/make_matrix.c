@@ -32,7 +32,7 @@ static inline char	**write_pipe(t_env *env, char *line)
 	return (env->matrix);
 }
 
-static inline void	print_matrix(char **matrix, unsigned int n)
+void				print_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -75,9 +75,8 @@ char			**make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 
-	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
-			return (NULL);
-	if (!(env->r_matrix = allocate_matrix(env->r_matrix, env->nb_rooms)))
+	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)) ||
+			!(env->r_matrix = allocate_matrix(env->r_matrix, env->nb_rooms)))
 			return (NULL);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{

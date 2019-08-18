@@ -6,21 +6,23 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:29:20 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/17 01:42:03 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/18 04:36:54 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void		print_lst(t_queue *lst)
+void		print_lst(t_env *env, t_queue *lst)
 {
 	t_queue	*tmp;
 	
+	if (!lst)
+			return ;
 	tmp = lst;
 	printf("lst :\n");
 	while (tmp)
 	{
-		printf("%d\n", tmp->index);
+		printf("%s\n", env->graph[tmp->index].name);
 		tmp = tmp->next;
 	}
 }
@@ -46,10 +48,23 @@ int			lm_lst_pop(t_queue **lst)
 	return (0);
 }
 
-int			lm_lst_push(t_queue **lst, t_queue *new)
+int			lm_lst_push(t_queue **lst, int index)
 {
-	new->next = (*lst);
-	(*lst) = new;
+	t_queue	*tmp;
+
+	tmp = (*lst);
+	if (!*lst)
+	{
+		if (!(*lst = lm_lstnew(index)))
+				return (-1);
+		(*lst)->next = NULL;
+		return (0);
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	if (!(tmp->next = lm_lstnew(index)))
+			return (-1);
+	tmp->next->next = NULL;
 	return (0);
 }
 

@@ -6,12 +6,11 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/17 01:42:45 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/18 03:57:13 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include <assert.h>
 
 static inline int		lem_in(t_env *env)
 {
@@ -23,6 +22,7 @@ static inline int		lem_in(t_env *env)
 		return (false);
 	if (!breadth_first_search(env))
 			printf("No path found !\n");
+	print_path(env, env->parent);
 	free_env(env);
 	return (0);
 }

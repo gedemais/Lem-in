@@ -70,6 +70,7 @@ int					load_line(t_env *env, char s, unsigned int i, int room);
 /*
 ** Matrices
 */
+void				print_matrix(char **matrix, unsigned int n);
 char				**make_matrix(t_env *env, unsigned int i);
 char				**matrix_cpy(char **dest, char **src, unsigned int n);
 char				**allocate_matrix(char **matrix, unsigned int n);
@@ -80,16 +81,17 @@ int					find_to(t_env *env, char *line);
 ** Solving
 */
 bool				breadth_first_search(t_env *env);
-void				print_path(int *path);
+void				print_path(t_env *env, int *path);
 
 /*
 ** Lists
 */
-void		print_lst(t_queue *lst);
-t_queue		*lm_lstnew(int room);
-int			lm_lst_pop(t_queue **lst);
-int			lm_lst_push(t_queue **lst, t_queue *new);
-int			ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
+void				print_lst(t_env *env, t_queue *lst);
+unsigned int		lm_lstlen(t_queue *lst);
+t_queue				*lm_lstnew(int room);
+int					lm_lst_pop(t_queue **lst);
+int					lm_lst_push(t_queue **lst, int index);
+int					ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
 
 
 t_env				*free_env(t_env *env);
