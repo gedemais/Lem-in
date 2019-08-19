@@ -50,7 +50,7 @@ typedef struct		s_env
 	int				start;
 	int				end;
 	unsigned int	nb_rooms;
-	unsigned int	_pad;
+	unsigned int	max_flow;
 }					t_env;
 
 /*
@@ -80,9 +80,10 @@ int					find_to(t_env *env, char *line);
 /*
 ** Solving
 */
-int					edmond_karp(t_env *env);
+unsigned int		edmond_karp(t_env *env);
 bool				breadth_first_search(t_env *env, int s, int e);
 int					store_paths(t_env *env, int room, bool next);
+void				print_path(t_env *env, int *path);
 
 /*
 ** Lists

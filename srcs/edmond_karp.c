@@ -1,6 +1,6 @@
 #include "main.h"
-/*
-static inline void	print_path(t_env *env)
+
+void	print_path(t_env *env, int *path)
 {
 	int		r;
 
@@ -8,9 +8,9 @@ static inline void	print_path(t_env *env)
 	while (r != -1)
 	{
 		printf("%s\n", env->graph[r].name);
-		r = env->parent[r];
+		r = path[r];
 	}
-}*/
+}
 
 static inline void	clear_buffs(t_env *env)
 {
@@ -18,11 +18,11 @@ static inline void	clear_buffs(t_env *env)
 	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 }
 
-int		edmond_karp(t_env *env)
+unsigned int		edmond_karp(t_env *env)
 {
-	int		max_flow;
-	int		u;
-	int		v;
+	unsigned int	max_flow;
+	int				u;
+	int				v;
 
 	max_flow = 0;
 	clear_buffs(env);

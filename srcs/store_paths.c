@@ -55,8 +55,6 @@ int					store_paths(t_env *env, int room, bool next)
 	}
 	else
 	{
-		printf("which = %d\nindex = %d\n", which, index);
-		fflush(stdout);
 		env->paths[which][index] = room;
 		index++;
 	}
