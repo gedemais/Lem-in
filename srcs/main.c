@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/18 03:57:13 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/19 07:10:47 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static inline int		lem_in(t_env *env)
 	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
 		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
 		return (false);
-	if (!breadth_first_search(env))
-			printf("No path found !\n");
-	print_path(env, env->parent);
+	printf("max_flow = %d\n", edmond_karp(env));
 	free_env(env);
 	return (0);
 }

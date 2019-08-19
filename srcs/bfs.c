@@ -6,84 +6,48 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:19:43 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/18 04:45:30 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/19 06:35:55 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void				print_path(t_env *env, int *path)
+static inline int	get_queue_back(t_queue *queue)
 {
-	unsigned int	i;
+	t_queue	*tmp;
 
-	i = 1;
-	printf("Path :\n");
-	printf("%s\n", env->graph[0].name);
-	while (path[i] != -1 || i < 10)
-	{
-		if (path[i] != -1)
-			printf("%s\n", env->graph[path[i]].name);
-		else
-			printf("%d\n", path[i]);
-		i++;
-	}
+	tmp = queue;
+	if (!queue->next)
+			return ((int)queue->index);
+	while (tmp->next)
+		tmp = tmp->next;
+	return ((int)tmp->index);
 }
-/*
-static inline int	*cpy_q(t_queue *queue, int *path)
-{
-	t_queue			*tmp;
-	unsigned int	len;
 
-	len = 0;
-	tmp = queue;
-	while (tmp)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	tmp = queue;
-	while (tmp)
-	{
-		path[len] = (int)tmp->index;
-		tmp = tmp->next;
-		len--;
-	}
-	return (path);
-}*/
-
-bool				breadth_first_search(t_env *env)
+bool				breadth_first_search(t_env *env, int s, int e)
 {
 	t_queue		*queue;
 	int			u;
 	int			v;
 
-	u = 0;
-	v = 0;
-	ft_memset(env->visited, false, sizeof(bool) * env->nb_rooms); // Flush visited rooms
-	ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms + 1); // Flush visited rooms
-	if (!(queue = lm_lstnew(env->start)))
-			return (false);
-	env->visited[env->start] = true; // Note the start room as visited
+	if (!(queue = lm_lstnew(s)))
+		return (false);
+	env->visited[s] = true;
 	while (queue)
 	{
-		printf("Top\n");
-		u = (int)queue->index;
+		u = get_queue_back(queue);
 		lm_lst_pop(&queue);
-		print_lst(env, queue);
-		v = 0;
-		while (v < (int)env->nb_rooms)
-		{
-			if (env->visited[v] == false && env->r_matrix[u][v] > 0)
+		v = -1;
+		while (++v < (int)env->nb_rooms)
+			if (env->visited[v] == false && env->matrix[u][v] > 0)
 			{
-				lm_lst_push(&queue, v);
-				env->visited[v] = true;
+				if (lm_lst_push(&queue, v) != 0)
+					return (false);
 				env->parent[v] = u;
-				printf("v = %s\n", env->graph[v].name);
-				print_path(env, env->parent);
-				print_lst(env, queue);
+				env->visited[v] = true;
+				if (v == e)
+					return (true);
 			}
-			v++;
-		}
 	}
-	return (env->visited[env->end]);
+	return (false);
 }

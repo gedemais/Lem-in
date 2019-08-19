@@ -6,6 +6,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <time.h>
+# include <assert.h>
 
 # define PUT ft_putstr("There\n");
 # define PUT1 ft_putstr("There1\n");
@@ -18,7 +19,6 @@
 
 # define BUFF_READ 65536
 # define BUFF_WRITE 65536
-# define INT_BITS 32
 
 typedef struct s_queue	t_queue;
 
@@ -42,7 +42,7 @@ typedef struct		s_room
 typedef struct		s_env
 {
 	char			**matrix;
-	char			**r_matrix;
+	int				**paths;
 	char			*file;
 	t_room			*graph;
 	bool			*visited;
@@ -80,8 +80,9 @@ int					find_to(t_env *env, char *line);
 /*
 ** Solving
 */
-bool				breadth_first_search(t_env *env);
-void				print_path(t_env *env, int *path);
+int					edmond_karp(t_env *env);
+bool				breadth_first_search(t_env *env, int s, int e);
+int					store_paths(t_env *env, int room, bool next);
 
 /*
 ** Lists
@@ -92,7 +93,6 @@ t_queue				*lm_lstnew(int room);
 int					lm_lst_pop(t_queue **lst);
 int					lm_lst_push(t_queue **lst, int index);
 int					ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
-
 
 t_env				*free_env(t_env *env);
 

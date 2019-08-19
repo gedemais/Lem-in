@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:29:20 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/18 04:36:54 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/19 03:00:29 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,23 @@ t_queue		*lm_lstnew(int room)
 int			lm_lst_pop(t_queue **lst)
 {
 	t_queue	*tmp;
+	t_queue	*tmp2;
 
-	tmp = (*lst);
-	(*lst) = (tmp->next) ? tmp->next : NULL;
+	tmp = *lst;
+	tmp2 = *lst;
+	if (!tmp->next)
+	{
+		free(tmp);
+		(*lst) = NULL;
+		return (0);
+	}
+	while (tmp->next)
+	{
+		tmp2 = (tmp == *lst) ? tmp2 : tmp2->next;
+		tmp = tmp->next;
+	}
 	free(tmp);
+	tmp2->next = NULL;
 	return (0);
 }
 
@@ -60,11 +73,10 @@ int			lm_lst_push(t_queue **lst, int index)
 		(*lst)->next = NULL;
 		return (0);
 	}
-	while (tmp->next)
-		tmp = tmp->next;
-	if (!(tmp->next = lm_lstnew(index)))
+	if (!(tmp = lm_lstnew(index)))
 			return (-1);
-	tmp->next->next = NULL;
+	tmp->next = (*lst);
+	(*lst) = tmp;
 	return (0);
 }
 

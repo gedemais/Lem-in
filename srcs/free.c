@@ -37,7 +37,5 @@ t_env			*free_env(t_env *env)
 			free(env->file);
 	if (env->matrix)
 		env->matrix = free_matrix(env->matrix, env->nb_rooms);
-	if (env->r_matrix)
-		env->r_matrix = free_matrix(env->r_matrix, env->nb_rooms);
 	return (env);
 }

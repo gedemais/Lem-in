@@ -75,8 +75,7 @@ char			**make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 
-	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)) ||
-			!(env->r_matrix = allocate_matrix(env->r_matrix, env->nb_rooms)))
+	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
 			return (NULL);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
@@ -84,7 +83,6 @@ char			**make_matrix(t_env *env, unsigned int i)
 			env->matrix = write_pipe(env, &env->file[i]);
 		next_line(env->file, &i);
 	}
-	env->r_matrix = matrix_cpy(env->r_matrix, env->matrix, env->nb_rooms);
-	print_matrix(env->matrix, env->nb_rooms);
+	//print_matrix(env->matrix, env->nb_rooms);
 	return (env->matrix);
 }
