@@ -18,23 +18,23 @@ static inline void	clear_buffs(t_env *env)
 	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 }
 
-static inline int	**rev_paths(int **paths)
+static inline t_path	*rev_paths(t_path *paths)
 {
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	k;
 
 	i = 0;
-	while (paths[i] && paths[i][0] != -1)
+	while (paths[i].path && paths[i].path[0] != -1)
 	{
 		j = 0;
 		k = 0;
-		while (paths[i][k] != -1)
+		while (paths[i].path[k] != -1)
 			k++;
 		k--;
 		while (j < k)
 		{
-			ft_swap(&paths[i][j], &paths[i][k]);
+			ft_swap(&paths[i].path[j], &paths[i].path[k]);
 			j++;
 			k--;
 		}
@@ -63,15 +63,15 @@ unsigned int		edmond_karp(t_env *env)
 		v = env->end;
 		while (v != env->start)
 		{
-			env->paths[path][i] = v;
+			env->paths[path].path[i] = v;
 			u = env->parent[v];
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
 			v = env->parent[v];
 			i++;
 		}
-		env->paths[path][i] = env->start;
-		env->paths[path][i + 1] = -1;
+		env->paths[path].path[i] = env->start;
+		env->paths[path].path[i + 1] = -1;
 		clear_buffs(env);
 		path++;
 		max_flow++;

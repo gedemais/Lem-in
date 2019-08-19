@@ -20,23 +20,23 @@ static inline int	get_path_max(t_env *env)
 	return (ret_s > ret_e ? ret_e : ret_s);
 }
 
-int	**allocate_paths(t_env *env)
+t_path				*allocate_paths(t_env *env)
 {
 	int				path_max;
 	unsigned int	i;
 
 	i = 0;
 	path_max = get_path_max(env);
-	if (!(env->paths = (int**)malloc(sizeof(int*) * (unsigned long)
+	if (!(env->paths = (t_path*)malloc(sizeof(t_path) * (unsigned long)
 		(path_max + 1))))
 		return (NULL);
 	while (i < (unsigned int)path_max)
 	{
-		if (!(env->paths[i] = (int*)malloc(sizeof(int) * env->nb_rooms)))
+		if (!(env->paths[i].path = (int*)malloc(sizeof(int) * env->nb_rooms)))
 			return (NULL);
-		ft_memset(env->paths[i], -1, sizeof(int) * env->nb_rooms);
+		ft_memset(env->paths[i].path, -1, sizeof(int) * env->nb_rooms);
 		i++;
 	}
-	env->paths[i] = NULL;
+	env->paths[i].path = NULL;
 	return (env->paths);
 }

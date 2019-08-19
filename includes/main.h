@@ -35,16 +35,23 @@ typedef struct		s_room
 	unsigned int	index;
 	int				x;
 	int				y;
+	int				ant;
 	char			type;
-	char			_pad[3];
 }					t_room;
+
+typedef struct		s_path
+{
+	int				*path;
+	unsigned int	start;
+	unsigned int	len;
+}					t_path;
 
 typedef struct		s_env
 {
 	char			**matrix;
-	int				**paths;
 	char			*file;
 	t_room			*graph;
+	t_path			*paths;
 	bool			*visited;
 	int				*parent;
 	int				start;
@@ -73,7 +80,7 @@ int					load_line(t_env *env, char s, unsigned int i, int room);
 void				print_matrix(char **matrix, unsigned int n);
 char				**make_matrix(t_env *env, unsigned int i);
 char				**matrix_cpy(char **dest, char **src, unsigned int n);
-char				**allocate_matrix(char **matrix, unsigned int n);
+t_path				*allocate_paths(t_env *env);
 int					find_from(t_env *env, char *line);
 int					find_to(t_env *env, char *line);
 
@@ -82,7 +89,6 @@ int					find_to(t_env *env, char *line);
 */
 unsigned int		edmond_karp(t_env *env);
 bool				breadth_first_search(t_env *env, int s, int e);
-int				**allocate_paths(t_env *env);
 void				print_path(t_env *env, int *path);
 
 /*

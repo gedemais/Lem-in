@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/19 07:54:21 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/19 23:00:03 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static inline int		lem_in(t_env *env)
 		i++;
 	}*/
 //	if (env->nb_ants < env->max_flow)
-
 	free_env(env);
 	return (0);
 }
