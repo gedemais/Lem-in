@@ -20,7 +20,7 @@ static inline int	get_path_max(t_env *env)
 	return (ret_s > ret_e ? ret_e : ret_s);
 }
 
-static inline int	**allocate_paths(t_env *env)
+int	**allocate_paths(t_env *env)
 {
 	int				path_max;
 	unsigned int	i;
@@ -39,24 +39,4 @@ static inline int	**allocate_paths(t_env *env)
 	}
 	env->paths[i] = NULL;
 	return (env->paths);
-}
-
-int					store_paths(t_env *env, int room, bool next)
-{
-	static int	which = 0;
-	static int	index = 0;
-
-	if (!env->paths && !(env->paths = allocate_paths(env)))
-		return (-1);
-	if (next)
-	{
-		index = 0;
-		which++;
-	}
-	else
-	{
-		env->paths[which][index] = room;
-		index++;
-	}
-	return (0);
 }

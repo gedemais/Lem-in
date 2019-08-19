@@ -4,11 +4,11 @@ void	print_path(t_env *env, int *path)
 {
 	int		r;
 
-	r = env->end;
-	while (r != -1)
+	r = 0;
+	while (path[r] != -1)
 	{
-		printf("%s\n", env->graph[r].name);
-		r = path[r];
+		printf("%s\n", env->graph[path[r]].name);
+		r++;
 	}
 }
 
@@ -18,30 +18,64 @@ static inline void	clear_buffs(t_env *env)
 	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 }
 
+static inline int	**rev_paths(int **paths)
+{
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+
+	i = 0;
+	while (paths[i] && paths[i][0] != -1)
+	{
+		j = 0;
+		k = 0;
+		while (paths[i][k] != -1)
+			k++;
+		k--;
+		while (j < k)
+		{
+			ft_swap(&paths[i][j], &paths[i][k]);
+			j++;
+			k--;
+		}
+		i++;
+	}
+	return (paths);
+}
+
 unsigned int		edmond_karp(t_env *env)
 {
 	unsigned int	max_flow;
-	int				u;
-	int				v;
+	unsigned int	path;
+	unsigned int	i;
+	int		u;
+	int		v;
 
 	max_flow = 0;
+	path = 0;
 	clear_buffs(env);
 	env->paths = NULL;
+	if (!(env->paths = allocate_paths(env)))
+		return (0);
 	while (breadth_first_search(env, env->start, env->end))
 	{
+		i = 0;
 		v = env->end;
-		store_paths(env, v, false);
 		while (v != env->start)
 		{
+			env->paths[path][i] = v;
 			u = env->parent[v];
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
 			v = env->parent[v];
-			store_paths(env, v, false);
+			i++;
 		}
-		store_paths(env, v, true);
+		env->paths[path][i] = env->start;
+		env->paths[path][i + 1] = -1;
 		clear_buffs(env);
+		path++;
 		max_flow++;
 	}
+	env->paths = rev_paths(env->paths);
 	return (max_flow);
 }

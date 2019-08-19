@@ -30,6 +30,8 @@ static inline int		lem_in(t_env *env)
 		printf("\n");
 		i++;
 	}*/
+//	if (env->nb_ants < env->max_flow)
+
 	free_env(env);
 	return (0);
 }

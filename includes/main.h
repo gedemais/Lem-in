@@ -82,7 +82,7 @@ int					find_to(t_env *env, char *line);
 */
 unsigned int		edmond_karp(t_env *env);
 bool				breadth_first_search(t_env *env, int s, int e);
-int					store_paths(t_env *env, int room, bool next);
+int				**allocate_paths(t_env *env);
 void				print_path(t_env *env, int *path);
 
 /*
