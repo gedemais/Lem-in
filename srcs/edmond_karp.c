@@ -72,9 +72,10 @@ unsigned int		edmond_karp(t_env *env)
 		}
 		env->paths[path].path[i] = env->start;
 		env->paths[path].path[i + 1] = -1;
+		env->paths[path].len = i;
 		clear_buffs(env);
-		path++;
 		max_flow++;
+		path++;
 	}
 	env->paths = rev_paths(env->paths);
 	return (max_flow);

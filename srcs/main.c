@@ -6,31 +6,46 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/19 23:00:03 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/08/20 03:59:31 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+/*
+static inline void		print_paths(t_env *env, t_path *paths)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (paths[i].path && paths[i].path[0] != -1)
+	{
+		j = 0;
+		printf("--- Path %u ---\n%u edges\n", i, paths[i].len);
+		while (paths[i].path[j] != -1)
+		{
+			printf("%s\n", env->graph[paths[i].path[j]].name);
+			j++;
+		}
+		printf("----------------\n");
+		i++;
+	}
+}*/
 
 static inline int		lem_in(t_env *env)
 {
 	ft_memset(env, 0, sizeof(env));
-	if (!(env->file = read_fd_zero()) || !(env->graph = parsing(env)))
-		return (-1);
-	if (!(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
+	if (!(env->file = read_fd_zero(&env->file_len)) || !(env->graph = parsing(env))
+		|| !(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
 		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
-		return (false);
+		return (-1);
 	if ((env->max_flow = edmond_karp(env)) <= 0)
 			return (-1);
-/*	int	 i = 0;
-	while (env->paths[i] && env->paths[i][0] != -1)
-	{
-		printf("Path[%d] :\n", i);
-		print_path(env, env->paths[i]);
-		printf("\n");
-		i++;
-	}*/
+//	print_paths(env, env->paths);
+	if (crossing(env) != 0)
+			return (-1);
 //	if (env->nb_ants < env->max_flow)
+	display(env);
 	free_env(env);
 	return (0);
 }

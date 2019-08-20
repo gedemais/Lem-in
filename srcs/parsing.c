@@ -27,7 +27,7 @@ static inline void	print_config(t_env *env)
 /*
 ** Parse the first line of the file, supposed to contain the number of ants.
 */
-static inline bool	check_nb_ant(char *file, unsigned int *index)
+static inline bool	check_nb_ant(t_env *env, char *file, unsigned int *index)
 {
 	unsigned int	i;
 
@@ -40,7 +40,8 @@ static inline bool	check_nb_ant(char *file, unsigned int *index)
 				return (true);
 		i++;
 	}
-	if (i > 10 || ft_atoi(file) > INT_MAX)
+	env->nb_ants = ft_atoi(file);
+	if (i > 10 || env->nb_ants <= 0 || env->nb_ants > INT_MAX)
 		return (true);
 	*index = i + 1;
 	return (false);
@@ -74,7 +75,7 @@ t_room				*parsing(t_env *env)
 	unsigned int	i;
 
 	i = 0;
-	if (!env->file || check_nb_ant(env->file, &i))
+	if (!env->file || check_nb_ant(env, env->file, &i))
 	{
 		ft_putstr_fd(env->file ? "Invalid number of ants.\n" : "read_fd_zero failed.\n", 2);
 		return (NULL);
@@ -88,7 +89,6 @@ t_room				*parsing(t_env *env)
 		|| !(env->matrix = make_matrix(env, i))
 		|| find_start_end(env))
 		return (NULL);
-	ft_memdel((void**)&env->file);
 //	print_config(env);
 	return (env->graph);
 }

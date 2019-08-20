@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/08/19 07:14:45 by gedemais         ###   ########.fr        #
+#    Updated: 2019/08/20 03:59:47 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,10 @@ SRCS_PATH=srcs/
 SRCS_NAME=	main.c\
 			bfs.c\
 			list.c\
+			display.c\
 			edmond_karp.c\
 			store_paths.c\
+			crossing.c\
 			read_fd_zero.c\
 			parsing.c\
 			make_graph.c\

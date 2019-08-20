@@ -32,9 +32,11 @@ t_path				*allocate_paths(t_env *env)
 		return (NULL);
 	while (i < (unsigned int)path_max)
 	{
-		if (!(env->paths[i].path = (int*)malloc(sizeof(int) * env->nb_rooms)))
+		if (!(env->paths[i].path = (int*)malloc(sizeof(int) * env->nb_rooms))
+			|| !(env->paths[i].ants = (int*)malloc(sizeof(int) * env->nb_rooms)))
 			return (NULL);
 		ft_memset(env->paths[i].path, -1, sizeof(int) * env->nb_rooms);
+		ft_memset(env->paths[i].ants, -1, sizeof(int) * env->nb_rooms);
 		i++;
 	}
 	env->paths[i].path = NULL;

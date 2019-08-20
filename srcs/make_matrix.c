@@ -1,6 +1,6 @@
 #include "main.h"
 
-char			**allocate_matrix(char **matrix, unsigned int n)
+static inline char	**allocate_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 
@@ -52,7 +52,7 @@ void				print_matrix(char **matrix, unsigned int n)
 	}
 }
 
-char			**matrix_cpy(char **dest, char **src, unsigned int n)
+char				**matrix_cpy(char **dest, char **src, unsigned int n)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -71,7 +71,7 @@ char			**matrix_cpy(char **dest, char **src, unsigned int n)
 	return (dest);
 }
 
-char			**make_matrix(t_env *env, unsigned int i)
+char				**make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 

@@ -37,11 +37,13 @@ typedef struct		s_room
 	int				y;
 	int				ant;
 	char			type;
+	char			_pad[7];
 }					t_room;
 
 typedef struct		s_path
 {
 	int				*path;
+	int				*ants;
 	unsigned int	start;
 	unsigned int	len;
 }					t_path;
@@ -58,12 +60,15 @@ typedef struct		s_env
 	int				end;
 	unsigned int	nb_rooms;
 	unsigned int	max_flow;
+	long long int	nb_ants;
+	unsigned int	count;
+	int				file_len;
 }					t_env;
 
 /*
 ** Parsing
 */
-char				*read_fd_zero(void);
+char				*read_fd_zero(int *len);
 t_room				*parsing(t_env *env);
 void				next_line(char *file, unsigned int *i);
 unsigned int		count_rooms(char *file, unsigned int *j);
@@ -90,6 +95,8 @@ int					find_to(t_env *env, char *line);
 unsigned int		edmond_karp(t_env *env);
 bool				breadth_first_search(t_env *env, int s, int e);
 void				print_path(t_env *env, int *path);
+int					crossing(t_env *env);
+int					display(t_env *env);
 
 /*
 ** Lists
