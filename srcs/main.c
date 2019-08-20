@@ -42,10 +42,10 @@ static inline int		lem_in(t_env *env)
 	if ((env->max_flow = edmond_karp(env)) <= 0)
 			return (-1);
 //	print_paths(env, env->paths);
+	display(env);
 	if (crossing(env) != 0)
 			return (-1);
 //	if (env->nb_ants < env->max_flow)
-	display(env);
 	free_env(env);
 	return (0);
 }

@@ -56,6 +56,7 @@ typedef struct		s_env
 	t_path			*paths;
 	bool			*visited;
 	int				*parent;
+	char				*moves;
 	int				start;
 	int				end;
 	unsigned int	nb_rooms;
