@@ -1,91 +1,77 @@
 #include "main.h"
 
-static inline void	flush_moves(char *buffer)
+static inline int	*rotate_path(t_env *env, int path, int *moves)
 {
-	unsigned int	i;
-
-	i = BUFF_WRITE;
-	while (buffer[i] == '\0')
-		i--;
-	write(1, buffer, i);
-	buffer = ft_memset(buffer, 0, sizeof(char) * BUFF_WRITE);
-}
-
-static inline int	store_moves(t_env *env, int ant, int room, bool new_line)
-{
-	static int	index = 0;
-	unsigned int	len;
-	char		*tmp;
-
-	if (new_line)
-	{
-		if (ant == -1)
-			flush_moves(env->moves);
-		else
-			env->moves[index++] = '\n';
-		return (0);
-	}
-	if ((!env->moves && !(env->moves = ft_strnew(BUFF_WRITE)))
-		|| !(tmp = ft_itoa(ant)))
-		return (-1);
-	len = (unsigned int)(1 + ft_strlen(tmp) + 1 + ft_strlen(env->graph[room].name) + 1);
-	if (index + (int)len > BUFF_WRITE)
-		flush_moves(env->moves);
-	env->moves[index++] = 'L';
-	ft_strcat(&env->moves[index], tmp);
-	index += ft_strlen(tmp);
-	free(tmp);
-	env->moves[index++] = '-';
-	ft_strcat(&env->moves[index], env->graph[room].name);
-	index += ft_strlen(env->graph[room].name);
-	env->moves[index++] = ' ';
-	return (0);
-}
-
-static inline void	rotate_path(t_env *env, unsigned int p)
-{
+	int				index;
 	unsigned int	i;
 
 	i = 0;
-	env->paths[p].ants[i] = (int)env->count;
-	while (env->paths[p].path[i] != env->end)
+	index = 0;
+	while (env->paths[path].path[i] != env->end)
+		i++;
+	while (env->paths[path].path[i] != env->start)
 	{
-		env->paths[p].ants[i + 1] = env->paths[p].ants[i];
-		if (store_moves(env, env->paths[p].ants[i], env->paths[p].path[i + 1], false) != 0)
-			return ;
+		env->paths[path].ants[i] = env->paths[path].ants[i - 1];
+		if (env->paths[path].ants[i] != -1)
+		{
+			moves[index++] = env->paths[path].ants[i];
+			moves[index++] = env->paths[path].path[i];
+		}
+		i--;
+	}
+	env->paths[path].ants[i] = (int)env->count++;
+/*	int		j = 0;
+	printf("---Path %d ---\n", path);
+	while (j <= index)
+	{
+		printf("%d -> %s\n", moves[j], env->graph[moves[j + 1]].name);
+		j += 2;
+	}
+	printf("\n");*/
+	return (moves);
+}
+
+static inline int	**allocate_moves_buffer(t_env *env)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (env->paths[i].path && env->paths[i].path[0] != -1)
+		i++;
+	j = i;
+	if (!(env->path_moves = (int**)malloc(sizeof(int*) * (unsigned int)(i + 1))))
+			return (NULL);
+	i = 0;
+	while (i < j)
+	{
+		if (!(env->path_moves[i] = (int*)malloc(sizeof(int) * env->nb_rooms * 2)))
+			return (NULL);
 		i++;
 	}
-	if (store_moves(env, env->paths[p].ants[i], env->end, true) != 0)
-		return ;
-	env->count++;
+	env->path_moves[i] = NULL;
+	return (env->path_moves);
 }
 
 int					crossing(t_env *env)
 {
 	unsigned int	i;
-	int				k;
-	int				epoch = 0;
 
-	env->count = 0;
-	while (env->count < env->nb_ants)
+	i = 0;
+	env->count = 1;
+	env->paths[0].ants[0] = (int)env->count++;
+	if (!(env->path_moves = allocate_moves_buffer(env)))
+			return (-1);
+	while (env->count < env->nb_ants) // Loop iterating through every ants
 	{
-//		printf("Epoch %d\n", epoch);
 		i = 0;
-		while (env->paths[i].path && env->paths[i].path[0] != -1)
+		while (env->paths[i].path && env->paths[i].path[0] != -1 && env->count < env->nb_ants) // ___ paths
 		{
-//			printf("path %u :\n", i);
-			rotate_path(env, i);
-			k = 0;
-			while (env->paths[i].path[k] != -1)
-			{
-//				printf("%s : %d\n", env->graph[env->paths[i].path[k]].name, env->paths[i].ants[k]);
-				k++;
-			}
-//			printf("\n---------------\n");
+			ft_memset(env->path_moves[i], -1, sizeof(int) * env->nb_rooms * 2);
+			env->path_moves[i] = rotate_path(env, (int)i, env->path_moves[i]);
+			display_moves(env);
 			i++;
 		}
-		epoch++;
 	}
-	store_moves(env, -1, 0, true);
 	return (0);
 }

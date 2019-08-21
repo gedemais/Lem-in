@@ -51,12 +51,12 @@ typedef struct		s_path
 typedef struct		s_env
 {
 	char			**matrix;
+	int				**path_moves;
 	char			*file;
 	t_room			*graph;
 	t_path			*paths;
 	bool			*visited;
 	int				*parent;
-	char				*moves;
 	int				start;
 	int				end;
 	unsigned int	nb_rooms;
@@ -97,7 +97,7 @@ unsigned int		edmond_karp(t_env *env);
 bool				breadth_first_search(t_env *env, int s, int e);
 void				print_path(t_env *env, int *path);
 int					crossing(t_env *env);
-int					display(t_env *env);
+int					display_moves(t_env *env);
 
 /*
 ** Lists
@@ -110,5 +110,11 @@ int					lm_lst_push(t_queue **lst, int index);
 int					ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
 
 t_env				*free_env(t_env *env);
+
+/*
+** Singletons
+*/
+int					*max_index(void);
+
 
 #endif
