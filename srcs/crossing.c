@@ -47,6 +47,7 @@ static inline int	**allocate_moves_buffer(t_env *env)
 	{
 		if (!(env->path_moves[i] = (int*)malloc(sizeof(int) * env->nb_rooms * 2)))
 			return (NULL);
+		ft_memset(env->path_moves[i], -1, sizeof(int) * env->nb_rooms * 2);
 		i++;
 	}
 	env->path_moves[i] = NULL;
@@ -67,9 +68,8 @@ int					crossing(t_env *env)
 		i = 0;
 		while (env->paths[i].path && env->paths[i].path[0] != -1 && env->count < env->nb_ants) // ___ paths
 		{
-			ft_memset(env->path_moves[i], -1, sizeof(int) * env->nb_rooms * 2);
 			env->path_moves[i] = rotate_path(env, (int)i, env->path_moves[i]);
-			display_moves(env);
+			display_moves(env); // A marche pas
 			i++;
 		}
 	}

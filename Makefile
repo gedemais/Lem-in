@@ -40,6 +40,7 @@ SRCS_NAME=	main.c\
 			count.c\
 			free.c\
 			states.c
+
 SRCS=$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS_PATH=objs/

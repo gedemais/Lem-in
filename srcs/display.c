@@ -8,6 +8,7 @@ static inline void	flush_buffer(char buffer[BUFF_WRITE])
 	while (buffer[i] == '\0')
 		i--;
 	write(1, buffer, i);
+	ft_memset(&buffer[0], 0, sizeof(char) * BUFF_WRITE);
 }
 
 static inline int	store_move(t_env *env, int ant, int room, bool newline)
@@ -72,10 +73,13 @@ int		display_moves(t_env *env)
 		j = 0;
 		while (env->path_moves[j])
 		{
-			store_move(env, env->path_moves[j][i], env->path_moves[j][i + 1], false);
+			if (env->path_moves[j][i] != -1 && env->path_moves[j][i + 1] != -1)
+			{
+				store_move(env, env->path_moves[j][i], env->path_moves[j][i + 1], false);
+			}
 			j++;
 		}
-		store_move(env, env->path_moves[j][i], env->path_moves[j][i + 1], true);
+		store_move(env, 0, 0, true);
 		i += 2;
 	}
 	return (0);
