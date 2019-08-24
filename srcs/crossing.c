@@ -12,7 +12,7 @@ static inline unsigned int	count_paths(t_env *env)
 
 static inline int			rotate_path(t_env *env, unsigned int p)
 {
-	unsigned int	i;
+	int		i;
 
 	i = 0;
 	while (env->paths[p].path[i] != env->end && env->paths[p].path[i] != -1)
