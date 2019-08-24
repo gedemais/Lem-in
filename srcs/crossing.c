@@ -1,91 +1,58 @@
 #include "main.h"
 
-static inline void	flush_moves(char *buffer)
+static inline unsigned int	count_paths(t_env *env)
 {
-	unsigned int	i;
+	unsigned int	ret;
 
-	i = BUFF_WRITE;
-	while (buffer[i] == '\0')
-		i--;
-	write(1, buffer, i);
-	buffer = ft_memset(buffer, 0, sizeof(char) * BUFF_WRITE);
+	ret = 0;
+	while (env->paths[ret].path && env->paths[ret].path[0] != -1)
+			ret++;
+	return (ret);
 }
 
-static inline int	store_moves(t_env *env, int ant, int room, bool new_line)
-{
-	static int	index = 0;
-	unsigned int	len;
-	char		*tmp;
-
-	if (new_line)
-	{
-		if (ant == -1)
-			flush_moves(env->moves);
-		else
-			env->moves[index++] = '\n';
-		return (0);
-	}
-	if ((!env->moves && !(env->moves = ft_strnew(BUFF_WRITE)))
-		|| !(tmp = ft_itoa(ant)))
-		return (-1);
-	len = (unsigned int)(1 + ft_strlen(tmp) + 1 + ft_strlen(env->graph[room].name) + 1);
-	if (index + (int)len > BUFF_WRITE)
-		flush_moves(env->moves);
-	env->moves[index++] = 'L';
-	ft_strcat(&env->moves[index], tmp);
-	index += ft_strlen(tmp);
-	free(tmp);
-	env->moves[index++] = '-';
-	ft_strcat(&env->moves[index], env->graph[room].name);
-	index += ft_strlen(env->graph[room].name);
-	env->moves[index++] = ' ';
-	return (0);
-}
-
-static inline void	rotate_path(t_env *env, unsigned int p)
+static inline int			rotate_path(t_env *env, unsigned int p)
 {
 	unsigned int	i;
 
 	i = 0;
-	env->paths[p].ants[i] = (int)env->count;
-	while (env->paths[p].path[i] != env->end)
-	{
-		env->paths[p].ants[i + 1] = env->paths[p].ants[i];
-		if (store_moves(env, env->paths[p].ants[i], env->paths[p].path[i + 1], false) != 0)
-			return ;
+	while (env->paths[p].path[i] != env->end && env->paths[p].path[i] != -1)
 		i++;
+	while (env->paths[p].path[i] != env->start)
+	{
+		env->paths[p].ants[i] = env->paths[p].ants[i - 1];
+		i--;
 	}
-	if (store_moves(env, env->paths[p].ants[i], env->end, true) != 0)
-		return ;
-	env->count++;
+	if (env->paths[p + 1].path && env->paths[p + 1].path[0] != -1)
+		env->paths[p + 1].ants[0] = (int)env->count++;
+	int		j = 1;
+	while (env->paths[p].path[j] != env->end)
+	{
+		printf("path %d [%d] = %d\n", p, j, env->paths[p].ants[j]);
+		j++;
+	}
+	printf("\n");
+	return (0);
 }
 
-int					crossing(t_env *env)
+int							crossing(t_env *env)
 {
 	unsigned int	i;
-	int				k;
-	int				epoch = 0;
+	unsigned int	nb_paths;
 
-	env->count = 0;
-	while (env->count < env->nb_ants)
+	env->count = 1;
+	nb_paths = count_paths(env);
+	env->paths[0].ants[0] = (int)env->count++;
+	while (env->count < env->nb_ants) // Tant qu'il y a des fourmis a envoyer
 	{
-//		printf("Epoch %d\n", epoch);
 		i = 0;
-		while (env->paths[i].path && env->paths[i].path[0] != -1)
+		while (i < nb_paths && env->count < env->nb_ants)
 		{
-//			printf("path %u :\n", i);
+			// Rotate le chemin i et stocker tous ses mouvements valides
 			rotate_path(env, i);
-			k = 0;
-			while (env->paths[i].path[k] != -1)
-			{
-//				printf("%s : %d\n", env->graph[env->paths[i].path[k]].name, env->paths[i].ants[k]);
-				k++;
-			}
-//			printf("\n---------------\n");
 			i++;
 		}
-		epoch++;
+		env->paths[0].ants[0] = (int)env->count;
+		env->count++;
 	}
-	store_moves(env, -1, 0, true);
 	return (0);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.h"
+
 /*
 static inline void		print_paths(t_env *env, t_path *paths)
 {
