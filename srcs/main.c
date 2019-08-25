@@ -33,19 +33,30 @@ static inline void		print_paths(t_env *env, t_path *paths)
 	}
 }*/
 
+static inline int		init_env(t_env *env)
+{
+	ft_memset(env, 0, sizeof(t_env));
+	if (!(env->file = read_fd_zero(&env->file_len))
+		|| !(env->graph = parsing(env))
+		|| !(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
+		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1)))
+		|| !(env->arriveds = (bool*)malloc(sizeof(bool) *
+		(unsigned int)(env->nb_ants + 1))))
+		return (-1);
+	ft_memset(env->arriveds, false, sizeof(bool) * (unsigned int)(env->nb_ants + 1));
+	return (0);
+}
+
 static inline int		lem_in(t_env *env)
 {
-	ft_memset(env, 0, sizeof(env));
-	if (!(env->file = read_fd_zero(&env->file_len)) || !(env->graph = parsing(env))
-		|| !(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
-		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
+	if (init_env(env) == -1)
 		return (-1);
 	if ((env->max_flow = edmond_karp(env)) <= 0)
-			return (-1);
+		return (-1);
 //	print_paths(env, env->paths);
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
-			return (-1);
+		return (-1);
 //	if (env->nb_ants < env->max_flow)
 	free_env(env);
 	return (0);

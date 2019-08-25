@@ -28,6 +28,7 @@ SRCS_NAME=	main.c\
 			bfs.c\
 			list.c\
 			singletons.c\
+			output_buffer.c\
 			display.c\
 			edmond_karp.c\
 			store_paths.c\

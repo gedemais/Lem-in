@@ -55,6 +55,7 @@ typedef struct		s_env
 	char			*file;
 	t_room			*graph;
 	t_path			*paths;
+	bool			*arriveds;
 	bool			*visited;
 	int				*parent;
 	int				start;
@@ -98,6 +99,7 @@ bool				breadth_first_search(t_env *env, int s, int e);
 void				print_path(t_env *env, int *path);
 int					crossing(t_env *env);
 int					display_moves(t_env *env);
+int					output_buffer(t_env *env, int move[2], bool n_l, bool f);
 
 /*
 ** Lists
