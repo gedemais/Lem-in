@@ -98,7 +98,18 @@ int		nb_len(int nb)
 int		toultemps(void *param)
 {
 	t_mlx		*env;
+	static int	step = 0;
+	char		*line;
 
+	env = ((t_mlx*)param);
+	if (!(line = ft_strduptil(env->moves[step], ' ')))
+		return (-1);
+	ft_putendl(line);
+	free(line);
+//	if (arrived(env->ants))
+	step++;
+	if (!env->moves[step])
+		exit(0);
 	return (0);
 }
 
@@ -115,6 +126,8 @@ int		visualiser(void)
 		|| !(env.pipes = make_pipes(&env, &i))
 		|| !(env.ants = make_ants(&env)))
 		return (-1);
+	i = 0;
+//	ft_putendl(env.input);
 	while (env.input[i] && !(env.input[i] == 'L' && env.input[i - 1] == '\n'))
 		i++;
 	if (!(env.moves = ft_strsplit(&env.input[i], '\n')))

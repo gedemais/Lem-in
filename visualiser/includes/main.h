@@ -42,6 +42,7 @@ typedef	struct			s_ant
 	t_point				pos;
 	t_point				goal;
 	unsigned int		id;
+	float				speed;
 }						t_ant;
 
 typedef struct				s_pipe
