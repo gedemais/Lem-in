@@ -12,21 +12,6 @@
 
 #include "main.h"
 
-void		print_lst(t_env *env, t_queue *lst)
-{
-	t_queue	*tmp;
-	
-	if (!lst)
-			return ;
-	tmp = lst;
-	printf("lst :\n");
-	while (tmp)
-	{
-		printf("%s\n", env->graph[tmp->index].name);
-		tmp = tmp->next;
-	}
-}
-
 t_queue		*lm_lstnew(int room)
 {
 	t_queue	*new;
@@ -77,6 +62,14 @@ int			lm_lst_push(t_queue **lst, int index)
 			return (-1);
 	tmp->next = (*lst);
 	(*lst) = tmp;
+	return (0);
+}
+
+int		lm_lstdel(t_queue *queue)
+{
+	if (queue && queue->next)
+		lm_lstdel(queue->next);
+	free(queue);
 	return (0);
 }
 

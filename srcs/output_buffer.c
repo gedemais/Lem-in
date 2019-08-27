@@ -7,6 +7,13 @@ static inline int	flush_buffer(char buffer[BUFF_WRITE], int *index)
 	ft_memset(&buffer[0], 0, sizeof(char) * BUFF_WRITE);
 	return (0);
 }
+/*
+static inline char	*ant_itoa(char *buff, int *index, int n)
+{
+	*index += ft_nblen(n);
+	while ()
+	return (buff);
+}*/
 
 int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 {
@@ -18,7 +25,7 @@ int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 		return (0);
 	if (f || index >= BUFF_WRITE)
 		return (flush_buffer(buff, &index));
-	if (n_l)
+	if (n_l && --index)
 	{
 		buff[index++] = '\n';
 		return (0);
@@ -34,5 +41,6 @@ int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 	ft_strcat(&buff[index], env->graph[move[1]].name);
 	index += ft_strlen(env->graph[move[1]].name);
 	buff[index++] = ' ';
+	free(tmp);
 	return (0);
 }

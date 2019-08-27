@@ -46,8 +46,12 @@ bool				breadth_first_search(t_env *env, int s, int e)
 				env->parent[v] = u;
 				env->visited[v] = true;
 				if (v == e)
+				{
+				//	lm_lstdel(queue);
 					return (true);
+				}
 			}
 	}
+//	lm_lstdel(queue);
 	return (false);
 }

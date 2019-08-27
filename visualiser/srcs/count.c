@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../includes/main.h"
 
 static inline unsigned int	get_name_len(char *line, bool last)
 {
@@ -21,7 +21,7 @@ static inline unsigned int	get_name_len(char *line, bool last)
 
 }
 
-int		find_from(t_env *env, char *line)
+int		find_from(t_mlx *env, char *line)
 {
 	unsigned int	len;
 	int				ret;
@@ -39,7 +39,7 @@ int		find_from(t_env *env, char *line)
 }
 
 
-int		find_to(t_env *env, char *line)
+int		find_to(t_mlx *env, char *line)
 {
 	unsigned int	len;
 	unsigned int	i;

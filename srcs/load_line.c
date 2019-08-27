@@ -32,7 +32,6 @@ static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 		i--;
 	if (i == 0 || !(env->graph[room].name = ft_strndup(&env->file[j], (int)(i - j + 1))))
 		return (NULL);
-//	printf("Room %d :\nName = %s\nx = %d\ny = %d\n\n", room, env->graph[room].name, env->graph[room].x, env->graph[room].y);
 	return (env);
 }
 

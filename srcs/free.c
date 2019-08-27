@@ -1,6 +1,6 @@
 #include "main.h"
 
-static inline t_env	*free_graph(t_env *env)
+static inline t_env		*free_graph(t_env *env)
 {
 	unsigned int	i;
 
@@ -15,7 +15,7 @@ static inline t_env	*free_graph(t_env *env)
 	return (env);
 }
 
-static inline char	**free_matrix(char **matrix, unsigned int n)
+static inline char		**free_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 
@@ -29,7 +29,22 @@ static inline char	**free_matrix(char **matrix, unsigned int n)
 	return ((matrix = NULL));
 }
 
-t_env			*free_env(t_env *env)
+static inline t_path	*free_paths(t_path *paths)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (paths[i].path)
+	{
+		free(paths[i].path);
+		free(paths[i].ants);
+		i++;
+	}
+	free(paths);
+	return (paths);
+}
+
+t_env				*free_env(t_env *env)
 {
 	if (env->graph)
 		env = free_graph(env);
@@ -37,5 +52,13 @@ t_env			*free_env(t_env *env)
 			free(env->file);
 	if (env->matrix)
 		env->matrix = free_matrix(env->matrix, env->nb_rooms);
+	if (env->paths)
+		env->paths = free_paths(env->paths);
+	if (env->visited)
+		free(env->visited);
+	if (env->arriveds)
+		free(env->arriveds);
+	if (env->parent)
+		free(env->parent);
 	return (env);
 }

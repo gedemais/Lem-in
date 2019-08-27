@@ -1,0 +1,20 @@
+- E : ERROR
+- O : OK
+- S : STOP
+
+Parsing :
+- Pas de start - E
+- Pas de end - E
+- end avant start - O
+- Plusieurs starts - E
+- Plusieurs ends - E
+- Salle commencant par 'L' ou '#' - E
+- Salle reliee a elle meme - O
+- Salle invalide - S
+- Ligne(s) vide(s) - S
+- Ligne(s) invalide(s) - S
+- Commande (##) inconnue - O
+- Nombre de fourmis invalide - E
+- Pipe invalide - S
+- Pas de lien entre start et end - E
+- Pas de pipes - E

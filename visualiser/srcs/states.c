@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../includes/main.h"
 
 static inline bool	is_coords(char *line, unsigned int *j)
 {

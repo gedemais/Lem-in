@@ -33,17 +33,17 @@ static inline void		print_paths(t_env *env, t_path *paths)
 	}
 }*/
 
-static inline int		init_env(t_env *env)
+static inline int		init_env(t_env *e)
 {
-	ft_memset(env, 0, sizeof(t_env));
-	if (!(env->file = read_fd_zero(&env->file_len))
-		|| !(env->graph = parsing(env))
-		|| !(env->visited = (bool*)malloc(sizeof(bool) * env->nb_rooms))
-		|| !(env->parent = (int*)malloc(sizeof(int) * (env->nb_rooms + 1)))
-		|| !(env->arriveds = (bool*)malloc(sizeof(bool) *
-		(unsigned int)(env->nb_ants + 1))))
+	ft_memset(e, 0, sizeof(t_env));
+	if (!(e->file = read_fd_zero(&e->file_len))  || !(e->graph = parsing(e)))
+		return  (-1);
+	if  (!(e->visited = (bool*)malloc(sizeof(bool) * e->nb_rooms))
+		|| !(e->parent = (int*)malloc(sizeof(int) * (e->nb_rooms + 1)))
+		|| !(e->arriveds = (bool*)malloc(sizeof(bool) *
+		(unsigned int)(e->nb_ants + 1))))
 		return (-1);
-	ft_memset(env->arriveds, false, sizeof(bool) * (unsigned int)(env->nb_ants + 1));
+	ft_memset(e->arriveds, false, sizeof(bool) * (unsigned int)(e->nb_ants + 1));
 	return (0);
 }
 
@@ -74,3 +74,5 @@ int						main(void)
 	}
 	return (0);
 }
+
+

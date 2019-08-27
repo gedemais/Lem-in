@@ -1,17 +1,5 @@
 #include "main.h"
 
-void	print_path(t_env *env, int *path)
-{
-	int		r;
-
-	r = 0;
-	while (path[r] != -1)
-	{
-		printf("%s\n", env->graph[path[r]].name);
-		r++;
-	}
-}
-
 static inline void	clear_buffs(t_env *env)
 {
 	env->parent = ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms);

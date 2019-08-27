@@ -32,45 +32,6 @@ static inline char	**write_pipe(t_env *env, char *line)
 	return (env->matrix);
 }
 
-void				print_matrix(char **matrix, unsigned int n)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < n)
-	{
-		j = 0;
-		while (j < n)
-		{
-			ft_putnbr(matrix[i][j]);
-			ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-}
-
-char				**matrix_cpy(char **dest, char **src, unsigned int n)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < n)
-	{
-		j = 0;
-		while (j < n)
-		{
-			dest[i][j] = src[i][j];
-			j++;
-		}
-		i++;
-	}
-	return (dest);
-}
-
 char				**make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
@@ -83,6 +44,5 @@ char				**make_matrix(t_env *env, unsigned int i)
 			env->matrix = write_pipe(env, &env->file[i]);
 		next_line(env->file, &i);
 	}
-	//print_matrix(env->matrix, env->nb_rooms);
 	return (env->matrix);
 }

@@ -1,16 +1,8 @@
 #include "main.h"
-/*
-** Returns a char representing the state of line :
-** s for the start room
-** e for the end room
-** r for a regular room
-** p for a pipe
-** c for a comment
-*/
+
 char			get_line_state(char *line, bool flush)
 {
 	static bool	pipe = false;
-
 
 	if (flush)
 		pipe = false;
@@ -33,23 +25,6 @@ char			get_line_state(char *line, bool flush)
 	return (0);
 }
 
-/*
-** debug
-*/
-/*
-static inline void	print_line(char *file, unsigned int i)
-{
-	unsigned int	j;
-
-	j = 0;
-	while (file[i + j] && file[i + j] != '\n')
-		j++;
-	write(1, &file[i], j + 1);
-}*/
-
-/*
-** Replace the index going through the file string at the start of the next line
-*/
 void	next_line(char *file, unsigned int *i)
 {
 	unsigned int	j;
@@ -60,9 +35,6 @@ void	next_line(char *file, unsigned int *i)
 	*i = j + 1;
 }
 
-/*
-** Create the t_room array
-*/
 t_room			*make_graph(t_env *env)
 {
 	unsigned int	i;

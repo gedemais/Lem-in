@@ -7,8 +7,8 @@ static void	draw_line(t_mlx *env, t_point f, t_point s)
 	t_point	cur;
 	int		error[2];
 
-	delta.x = abs(s.x - f.x);
-	delta.y = abs(s.y - f.y);
+	delta.x = fabs(s.x - f.x);
+	delta.y = fabs(s.y - f.y);
 	sign.x = f.x < s.x ? 1 : -1;
 	sign.y = f.y < s.y ? 1 : -1;
 	error[0] = delta.x - delta.y;
@@ -29,30 +29,6 @@ static void	draw_line(t_mlx *env, t_point f, t_point s)
 	}
 }
 
-void	fill_pipe(t_pipe *pipe, t_room *start, t_room *end, float scale)
-{
-	float	sq[2];
-	float	tmp;
-	float	dist;
-
-	sq[0] = end->x - start->x;
-	sq[1] = end->y - start->y;
-	dist = sqrt((sq[0] * sq[0]) + (sq[1] * sq[1]));
-	sq[0] /= dist;
-	sq[1] /= dist;
-	tmp = sq[0];
-	sq[0] = sq[1];
-	sq[1] = tmp;
-	pipe->x_ls = start->x - (sq[1] * scale);
-	pipe->y_ls = start->y - (sq[0] * scale);
-	pipe->x_le = end->x + (sq[1] * scale);
-	pipe->y_le = end->y + (sq[0] * scale);
-	pipe->x_rs = start->x + (sq[1] * scale);
-	pipe->y_rs = start->y + (sq[0] * scale);
-	pipe->x_re = end->x - (sq[1] * scale);
-	pipe->y_re = end->y - (sq[0] * scale);
-}
-
 void	draw_pipe(t_mlx *env, t_point start, t_point end)
 {
 	unsigned int	i;
@@ -62,28 +38,26 @@ void	draw_pipe(t_mlx *env, t_point start, t_point end)
 
 	s = start;
 	e = end;
-	i = 0;
-	start.x--;
-	start.y--;
-	end.x--;
-	end.y--;
-	while (i < 3)
+	i = -1;
+	start.x -= 3;
+	start.y -= 3;
+	end.x -= 3;
+	end.y -= 3;
+	while (++i < 7)
 	{
-		j = 0;
-		while (j < 3)
+		j = -1;
+		while (++j < 7)
 		{
-			start.x = s.x + j;
-			start.y = s.y + i;
-			end.x = e.x + j;
-			end.y = e.y + i;
+			start.x = s.x + j - 1;
+			start.y = s.y + i - 1;
+			end.x = e.x + j - 1;
+			end.y = e.y + i - 1;
 			draw_line(env, start, end);
-			j++;
 		}
-		i++;
 	}
 }
 
-int	link_pipes(t_mlx *env)
+int		draw_pipes(t_mlx *env)
 {
 	t_point		start;
 	t_point		end;
@@ -96,13 +70,47 @@ int	link_pipes(t_mlx *env)
 	end.y = 200;
 	while (i < env->nb_pipes)
 	{
-		fill_pipe(&env->pipes[i], &env->graph[(int)env->pipes[i].start], &env->graph[(int)env->pipes[i].end], 10);
-		start.x = env->pipes[i].x_ls;
-		start.y = env->pipes[i].y_ls;
-		end.x = env->pipes[i].x_le;
-		end.y = env->pipes[i].y_le;
-		draw_pipe(env, start, end);
+		draw_pipe(env, env->pipes[i].start, env->pipes[i].end);
 		i++;
 	}
 	return (0);
+}
+
+t_pipe		*write_pipe(t_mlx *env, char *line)
+{
+	unsigned int	i;
+	int				from;
+	int				to;
+
+	i = 0;
+	from = find_from(env, line);
+	to = find_to(env, line);
+
+	env->pipes[env->nb_pipes].start.x = env->graph[from].x;
+	env->pipes[env->nb_pipes].start.y = env->graph[from].y;
+
+	env->pipes[env->nb_pipes].end.x = env->graph[to].x;
+	env->pipes[env->nb_pipes].end.y = env->graph[to].y;
+
+	return (env->pipes);
+}
+
+t_pipe		*make_pipes(t_mlx *env, int *index)
+{
+	unsigned int	i;
+	char			s;
+
+	i = (int)(*index);
+	if (!(env->pipes = (t_pipe*)malloc(sizeof(t_pipe) * MAX_PIPES)))
+		return (NULL);
+	while (env->input[i] && (s = get_line_state(&env->input[i], false)))
+	{
+		if (env->nb_pipes + 1 == MAX_PIPES)
+			break ;
+		if (s == 'p')
+			env->pipes = write_pipe(env, &env->input[i]);
+		next_line(env->input, &i);
+		env->nb_pipes++;
+	}
+	return (env->pipes);
 }

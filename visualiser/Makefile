@@ -12,17 +12,23 @@
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Weveryhting
 
 OFLAGS = -O3 -Ofast -march=native
 
 INC = includes/fractol.h
 
-SRCS_NAME =		main.c\
+SRCS_NAME = cross_ant.c\
 			draw_circle.c\
-			render.c\
-			pipes.c\
+			load_line.c\
+			main.c\
+			make_graph.c\
 			mlx_fts_1.c\
+			pipes.c\
+			read_fd_zero.c\
+			render.c\
+			states.c\
+			count.c\
 			utils.c
 
 SRCS_PATH = srcs/

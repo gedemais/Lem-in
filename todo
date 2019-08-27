@@ -1,8 +1,1 @@
-1. Lire le fichier qui contient la map
-2. Representer le graphe en memoire
-3. Trouver les meilleurs chemins
-4. Les combiner en fonction du nombre de fourmis
-5. Definir les departs de fourmis dans les differents chemins
-6. Faire passer les fourmis et stocker leurs deplacements dans un buffer
-7. Display le buffer sur la sortie standard
-8. Pipe the bitch into a python visualiser
+Virer le index dans le typedef t_room

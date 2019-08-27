@@ -24,7 +24,6 @@ static inline bool			arriveds(t_env *env)
 	return (false);
 }
 
-
 static inline int			rotate_path(t_env *env, unsigned int p)
 {
 	int		move[2];
@@ -36,7 +35,7 @@ static inline int			rotate_path(t_env *env, unsigned int p)
 	while (env->paths[p].path[i] != env->start)
 	{
 		env->paths[p].ants[i] = env->paths[p].ants[i - 1];
-		if (env->paths[p].path[i] == env->end && env->paths[p].ants[i] != -1)
+		if (env->paths[p].path[i] == env->end && env->paths[p].ants[i] != -1 && env->end && env->paths[p].ants[i] < env->nb_ants)
 			env->arriveds[env->paths[p].ants[i]] = true;
 		if (env->paths[p].ants[i] != -1 && env->paths[p].path[i] != -1)
 		{
