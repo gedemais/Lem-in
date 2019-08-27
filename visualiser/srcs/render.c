@@ -39,5 +39,6 @@ int		render(t_mlx *env)
 	draw_pipes(env);
 	draw_rooms(env);
 	draw_ants(env);
+	mlx_put_image_to_window(env, env->mlx_win, env->img_ptr, 0, 0);
 	return (0);
 }

@@ -86,7 +86,7 @@ typedef struct			s_mlx
 }						t_mlx;
 
 int						render(t_mlx *env);
-int						cross_ant(t_mlx *env, t_room goal, unsigned int ant);
+int						cross_ant(t_mlx *env, float x, float y, unsigned int ant);
 void					ft_fill_pixel(char *img_str, int x, int y, int color);
 char					*ft_clear_image(void *param, char *img_data);
 void					draw_circle(t_mlx *env, t_point point, float radius, int color);

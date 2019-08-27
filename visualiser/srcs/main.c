@@ -40,7 +40,6 @@ int		ft_set_env(t_mlx *env)
 	env->room_size = 20;
 	env->nb_pipes = 1;
 	env->speed = 3;
-	env->nb_ants = (unsigned int)ft_atoi(env->input);
 	if (!(env->mlx_ptr = mlx_init()))
 		return (-1);
 	if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, WDT, HGT, "Lem_in visualiser")))
@@ -62,7 +61,7 @@ char		*ft_strduptil(char *src, char c)
 	while (src[i] && src[i] != c)
 		i++;
 	if (!(dest = ft_strnew(i)))
-	i = 0;
+		return (NULL);
 	ft_strncpy(dest, src, i);
 	return (dest);
 }
@@ -95,21 +94,62 @@ int		nb_len(int nb)
 	return (ret);
 }
 
+t_ant		*handle_move(t_mlx *env, char *line)
+{
+	unsigned int	ant;
+	unsigned int	goal;
+
+	ant = (unsigned int)ft_atoi(&line[1]);
+	goal = find_room(env, &line[3 + nb_len(ant)]);
+
+	env->ants[ant].goal.x = env->graph[goal].x;
+	env->ants[ant].goal.y = env->graph[goal].y;
+	env->ants[ant].id = ant;
+	env->ants[ant].speed = 1;
+	return (env->ants);
+}
+
+bool		arrived(t_mlx *env)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < env->nb_ants)
+	{
+		if (env->ants[i].pos.x != env->ants[i].goal.x || env->ants[i].pos.y != env->ants[i].goal.y)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int		toultemps(void *param)
 {
 	t_mlx		*env;
 	static int	step = 0;
-	char		*line;
+	char		**line;
+	unsigned int	i;
 
+	i = 0;
 	env = ((t_mlx*)param);
-	if (!(line = ft_strduptil(env->moves[step], ' ')))
+	if (!(line = ft_strsplit(env->moves[step], ' ')))
 		return (-1);
-	ft_putendl(line);
-	free(line);
-//	if (arrived(env->ants))
+	while (line[i])
+	{
+		env->ants = handle_move(env, line[i]);
+		i++;
+	}
+	while (arrived(env) == false)
+	{
+		i = 0;
+		while (i < env->nb_ants)
+		{
+			cross_ant(env, env->ants[i].goal.x, env->ants[i].goal.y, i);
+			render(env);
+			i++;
+		}
+	}
 	step++;
-	if (!env->moves[step])
-		exit(0);
 	return (0);
 }
 
@@ -122,19 +162,17 @@ int		visualiser(void)
 	if (ft_set_env(&env) == -1)
 		return (-1);
 	if (!(env.input = read_fd_zero(&env.file_size))
+		|| ((env.nb_ants = (unsigned int)ft_atoi(env.input)) == 0)
 		|| !(env.graph = make_graph(&env, &i))
 		|| !(env.pipes = make_pipes(&env, &i))
 		|| !(env.ants = make_ants(&env)))
 		return (-1);
 	i = 0;
-//	ft_putendl(env.input);
 	while (env.input[i] && !(env.input[i] == 'L' && env.input[i - 1] == '\n'))
 		i++;
 	if (!(env.moves = ft_strsplit(&env.input[i], '\n')))
 		return (-1);
 	env.i = i;
-	render(&env);
-	mlx_put_image_to_window(&env, env.mlx_win, env.img_ptr, 0, 0);
 	mlx_loop_hook(env.mlx_ptr, &toultemps, &env);
 	mlx_hook(env.mlx_win, 17, (1L << 17), ft_exit, &env);
 	mlx_loop(env.mlx_ptr);
