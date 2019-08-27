@@ -58,11 +58,11 @@ int		toultemps(void *param)
 	t_mlx			*env;
 
 	env = ((t_mlx*)param);
-//	while ()
-//	{
+	while (env->input[env->i])
+	{
 		cross_ant(env, env->graph[1], 0);
-		
-//	}
+		next_line(&env->input[env->i], &env->i);
+	}
 	render(env);
 	mlx_put_image_to_window(env, env->mlx_win, env->img_ptr, 0, 0);
 //	usleep(100000);
@@ -82,6 +82,7 @@ int		visualiser(void)
 		|| !(env.pipes = make_pipes(&env, &i))
 		|| !(env.ants = make_ants(&env)))
 		return (-1);
+	env->i = i;
 //	mlx_hook(env.mlx_win, KEY_PRESS, KEY_PRESS_MASK, ft_deal_key, &env);
 //	mlx_hook(env.mlx_win, 4, (1L << 2), ft_press, &env);
 //	mlx_hook(env.mlx_win, 6, 0, ft_pos, &env);

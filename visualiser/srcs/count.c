@@ -38,7 +38,6 @@ int		find_from(t_mlx *env, char *line)
 	return (-1);
 }
 
-
 int		find_to(t_mlx *env, char *line)
 {
 	unsigned int	len;

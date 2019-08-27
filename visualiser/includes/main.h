@@ -79,6 +79,7 @@ typedef struct			s_mlx
 	unsigned int		nb_ants;
 	unsigned int		room_size;
 	unsigned int		nb_pipes;
+	int					i;
 	float				speed;
 }						t_mlx;
 
