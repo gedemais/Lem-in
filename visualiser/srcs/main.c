@@ -53,19 +53,52 @@ int		ft_set_env(t_mlx *env)
 	return (0);
 }
 
+char		*ft_strduptil(char *src, char c)
+{
+	char		*dest;
+	unsigned int	i;
+
+	i = 0;
+	while (src[i] && src[i] != c)
+		i++;
+	if (!(dest = ft_strnew(i)))
+	i = 0;
+	ft_strncpy(dest, src, i);
+	return (dest);
+}
+
+unsigned int	find_room(t_mlx *env, char *name)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (env->graph[i].name)
+	{
+		if (env->graph[i].name[0] == name[0])
+			if (ft_strcmp(env->graph[i].name, name) == 0)
+				return (i);
+		i++;
+	}
+	return (0);
+}
+
+int		nb_len(int nb)
+{
+	int	ret;
+
+	ret = 0;
+	while (nb > 10)
+	{
+		nb = nb / 10;
+		ret++;
+	}
+	return (ret);
+}
+
 int		toultemps(void *param)
 {
-	t_mlx			*env;
+	t_mlx		*env;
 
-	env = ((t_mlx*)param);
-	while (env->input[env->i])
-	{
-		cross_ant(env, env->graph[1], 0);
-		next_line(&env->input[env->i], &env->i);
-	}
-	render(env);
-	mlx_put_image_to_window(env, env->mlx_win, env->img_ptr, 0, 0);
-//	usleep(100000);
 	return (0);
 }
 
@@ -82,10 +115,13 @@ int		visualiser(void)
 		|| !(env.pipes = make_pipes(&env, &i))
 		|| !(env.ants = make_ants(&env)))
 		return (-1);
-	env->i = i;
-//	mlx_hook(env.mlx_win, KEY_PRESS, KEY_PRESS_MASK, ft_deal_key, &env);
-//	mlx_hook(env.mlx_win, 4, (1L << 2), ft_press, &env);
-//	mlx_hook(env.mlx_win, 6, 0, ft_pos, &env);
+	while (env.input[i] && !(env.input[i] == 'L' && env.input[i - 1] == '\n'))
+		i++;
+	if (!(env.moves = ft_strsplit(&env.input[i], '\n')))
+		return (-1);
+	env.i = i;
+	render(&env);
+	mlx_put_image_to_window(&env, env.mlx_win, env.img_ptr, 0, 0);
 	mlx_loop_hook(env.mlx_ptr, &toultemps, &env);
 	mlx_hook(env.mlx_win, 17, (1L << 17), ft_exit, &env);
 	mlx_loop(env.mlx_ptr);

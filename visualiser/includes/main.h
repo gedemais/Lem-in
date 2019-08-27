@@ -71,6 +71,7 @@ typedef struct			s_mlx
 	t_room				*graph;
 	t_pipe				*pipes;
 	t_ant				*ants;
+	char				**moves;
 	int					bpp;
 	int					s_l;
 	int					endian;
