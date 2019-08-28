@@ -13,7 +13,7 @@ void		draw_rooms(t_mlx *env)
 	{
 		pos.x = env->graph[i].x;
 		pos.y = env->graph[i].y;
-		draw_circle(env, pos, env->room_size, 0xffffff);
+		draw_circle(env, pos, env->room_size, (env->graph[i].type == 'e') ? 0x00cc00 :0xffffff);
 		color = (env->graph[i].type == 's') ? 0x5962ca : 0xc8c800;
 		color = (env->graph[i].type == 'e') ? 0x00cc00 : color;
 		draw_circle(env, pos, center, color);
@@ -28,7 +28,7 @@ void	draw_ants(t_mlx *env)
 	i = 0;
 	while (i < env->nb_ants)
 	{
-		draw_circle(env, env->ants[i].pos, 10, 0x00ff00);
+		draw_circle(env, env->ants[i].pos, 10, 0x0000ff);
 		i++;
 	}
 }

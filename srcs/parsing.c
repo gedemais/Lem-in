@@ -30,13 +30,13 @@ static inline bool	find_start_end(t_env *env)
 	while (i < env->nb_rooms)
 	{
 		if (env->graph[i].type == 's')
-					env->start = (int)i;
+				env->start = (int)i;
 		else if (env->graph[i].type == 'e')
 					env->end = (int)i;
 		i++;
 	}
 	if (env->start == -1 || env->end == -1)
-			return (true);
+		return (true);
 	return (false);
 }
 
@@ -46,18 +46,12 @@ t_room				*parsing(t_env *env)
 
 	i = 0;
 	if (!env->file || check_nb_ant(env, env->file, &i))
-	{
-		ft_putstr_fd(env->file ? "Invalid number of ants.\n" : "read_fd_zero failed.\n", 2);
 		return (NULL);
-	}
 	if ((env->nb_rooms = count_rooms(env->file, &i)) < 2)
-	{
-		ft_putstr_fd("Not enough rooms\n", 2);
 		return (NULL);
-	}
 	if (!(env->graph = make_graph(env))
-		|| !(env->matrix = make_matrix(env, i))
-		|| find_start_end(env))
+		|| find_start_end(env)
+		|| !(env->matrix = make_matrix(env, i)))
 		return (NULL);
 	return (env->graph);
 }

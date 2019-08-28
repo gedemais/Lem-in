@@ -21,7 +21,7 @@ endif
 LIB_PATH=libft/
 LIB=$(LIB_PATH)libft.a
 
-NAME=lem_in
+NAME=lem-in
 
 SRCS_PATH=srcs/
 SRCS_NAME=	main.c\

@@ -12,27 +12,6 @@
 
 #include "main.h"
 
-/*
-static inline void		print_paths(t_env *env, t_path *paths)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (paths[i].path && paths[i].path[0] != -1)
-	{
-		j = 0;
-		printf("--- Path %u ---\n%u edges\n", i, paths[i].len);
-		while (paths[i].path[j] != -1)
-		{
-			printf("%s\n", env->graph[paths[i].path[j]].name);
-			j++;
-		}
-		printf("----------------\n");
-		i++;
-	}
-}*/
-
 static inline int		init_env(t_env *e)
 {
 	ft_memset(e, 0, sizeof(t_env));
@@ -49,11 +28,9 @@ static inline int		init_env(t_env *e)
 
 static inline int		lem_in(t_env *env)
 {
-	if (init_env(env) == -1)
+	if (init_env(env) == -1 
+		|| (env->max_flow = edmond_karp(env)) <= 0)
 		return (-1);
-	if ((env->max_flow = edmond_karp(env)) <= 0)
-		return (-1);
-//	print_paths(env, env->paths);
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
 		return (-1);

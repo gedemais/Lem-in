@@ -43,6 +43,8 @@ typedef	struct			s_ant
 	t_point				goal;
 	unsigned int		id;
 	float				speed;
+	int					vec[2];
+	int					vecs[2];
 }						t_ant;
 
 typedef struct				s_pipe
@@ -72,6 +74,8 @@ typedef struct			s_mlx
 	t_room				*graph;
 	t_pipe				*pipes;
 	t_ant				*ants;
+	int					*moving;
+	unsigned int		movings;
 	char				**moves;
 	int					bpp;
 	int					s_l;
@@ -81,7 +85,6 @@ typedef struct			s_mlx
 	unsigned int		nb_ants;
 	unsigned int		room_size;
 	unsigned int		nb_pipes;
-	int					i;
 	float				speed;
 }						t_mlx;
 

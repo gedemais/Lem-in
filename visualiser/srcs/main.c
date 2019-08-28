@@ -29,6 +29,7 @@ t_ant	*make_ants(t_mlx *env)
 		env->ants[i].id = i;
 		env->ants[i].pos.x = env->graph[start].x;
 		env->ants[i].pos.y = env->graph[start].y;
+		env->ants[i].goal = env->ants[i].pos;
 		i++;
 	}
 	return (env->ants);
@@ -98,14 +99,16 @@ t_ant		*handle_move(t_mlx *env, char *line)
 {
 	unsigned int	ant;
 	unsigned int	goal;
-
+	
+//	printf("line : %s\n", line);
 	ant = (unsigned int)ft_atoi(&line[1]);
 	goal = find_room(env, &line[3 + nb_len(ant)]);
 
+//	printf("ant %u : \ngoal : %u \n", ant, goal);
 	env->ants[ant].goal.x = env->graph[goal].x;
 	env->ants[ant].goal.y = env->graph[goal].y;
 	env->ants[ant].id = ant;
-	env->ants[ant].speed = 1;
+	env->ants[ant].speed = 10;
 	return (env->ants);
 }
 
@@ -113,10 +116,10 @@ bool		arrived(t_mlx *env)
 {
 	unsigned int	i;
 
-	i = 0;
+	i = 1;
 	while (i < env->nb_ants)
 	{
-		if (env->ants[i].pos.x != env->ants[i].goal.x || env->ants[i].pos.y != env->ants[i].goal.y)
+		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1 || fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
 			return (false);
 		i++;
 	}
@@ -125,31 +128,33 @@ bool		arrived(t_mlx *env)
 
 int		toultemps(void *param)
 {
-	t_mlx		*env;
-	static int	step = 0;
-	char		**line;
+	t_mlx			*env;
+	static int		step = -1;
+	char			**line;
 	unsigned int	i;
 
 	i = 0;
 	env = ((t_mlx*)param);
-	if (!(line = ft_strsplit(env->moves[step], ' ')))
-		return (-1);
-	while (line[i])
+	if (step == -1 || arrived(env))
 	{
-		env->ants = handle_move(env, line[i]);
-		i++;
-	}
-	while (arrived(env) == false)
-	{
-		i = 0;
-		while (i < env->nb_ants)
+		step++;
+		if (!env->moves[step])
+			exit(0);
+		if (!(line = ft_strsplit(env->moves[step], ' ')))
+			return (0);
+		while (line[i])
 		{
-			cross_ant(env, env->ants[i].goal.x, env->ants[i].goal.y, i);
-			render(env);
+			env->ants = handle_move(env, line[i]);
 			i++;
 		}
 	}
-	step++;
+	while (i < env->nb_ants)
+	{
+		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1 || fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
+			cross_ant(env, env->ants[i].goal.x, env->ants[i].goal.y, i);
+		i++;
+	}
+	render(env);
 	return (0);
 }
 
@@ -172,7 +177,6 @@ int		visualiser(void)
 		i++;
 	if (!(env.moves = ft_strsplit(&env.input[i], '\n')))
 		return (-1);
-	env.i = i;
 	mlx_loop_hook(env.mlx_ptr, &toultemps, &env);
 	mlx_hook(env.mlx_win, 17, (1L << 17), ft_exit, &env);
 	mlx_loop(env.mlx_ptr);

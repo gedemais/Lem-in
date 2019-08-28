@@ -14,7 +14,7 @@ int		cross_ant(t_mlx *env, float x, float y, unsigned int ant)
 	dist = sqrt((v[0] * v[0]) + (v[1] * v[1]));
 	v[0] /= dist;
 	v[1] /= dist;
-	env->ants[ant].pos.x += (v[0] * env->ants[ant].speed);
-	env->ants[ant].pos.y += (v[1] * env->ants[ant].speed);
+	env->ants[ant].pos.x += (v[0] * env->ants[ant].speed * (dist / 100));
+	env->ants[ant].pos.y += (v[1] * env->ants[ant].speed * (dist / 100));
 	return (0);
 }

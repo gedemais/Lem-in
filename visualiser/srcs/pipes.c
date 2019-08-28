@@ -15,7 +15,7 @@ static void	draw_line(t_mlx *env, t_point f, t_point s)
 	cur = f;
 	while (cur.x != s.x || cur.y != s.y)
 	{
-		ft_fill_pixel(env->img_data, cur.x, cur.y, 0xffffff);
+		ft_fill_pixel(env->img_data, cur.x, cur.y, 0xcccccc);
 		if ((error[1] = error[0] * 2) > -delta.y)
 		{
 			error[0] -= delta.y;
