@@ -1,6 +1,6 @@
 #include "main.h"
 
-static inline t_env		*free_graph(t_env *env)
+t_env		*free_graph(t_env *env)
 {
 	unsigned int	i;
 

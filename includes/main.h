@@ -108,6 +108,7 @@ int					lm_lst_pop(t_queue **lst);
 int					lm_lst_push(t_queue **lst, int index);
 int					ft_ms_lst_pushfront(t_queue **lst, t_queue *new);
 
+t_env				*free_graph(t_env *env);
 t_env				*free_env(t_env *env);
 
 #endif

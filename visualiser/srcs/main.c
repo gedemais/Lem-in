@@ -38,7 +38,7 @@ t_ant	*make_ants(t_mlx *env)
 int		ft_set_env(t_mlx *env)
 {
 	srand(time(0));
-	env->room_size = 20;
+	env->room_size = 25;
 	env->nb_pipes = 1;
 	env->speed = 3;
 	if (!(env->mlx_ptr = mlx_init()))

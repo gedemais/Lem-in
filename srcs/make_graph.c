@@ -35,6 +35,27 @@ void	next_line(char *file, unsigned int *i)
 	*i = j + 1;
 }
 
+static inline t_room	*check_reverse(t_room *graph)
+{
+	t_room		tmp;
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	while (graph[i].name && graph[i].type != 's')
+		i++;
+	while (graph[j].name && graph[j].type != 'e')
+		j++;
+	if (i > j)
+	{
+		tmp = graph[i];
+		graph[i] = graph[j];
+		graph[j] = tmp;
+	}
+	return (graph);
+}
+
 t_room			*make_graph(t_env *env)
 {
 	unsigned int	i;
@@ -55,5 +76,5 @@ t_room			*make_graph(t_env *env)
 		room += (s == 'r') ? 1 : 0;
 		next_line(env->file, &i);
 	}
-	return (env->graph);
+	return (check_reverse(env->graph));
 }

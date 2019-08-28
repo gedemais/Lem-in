@@ -1,5 +1,23 @@
 #include "../includes/main.h"
 
+void		background(t_mlx *env)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < HGT)
+	{
+		j = 0;
+		while (j < WDT)
+		{
+			ft_fill_pixel(env->img_data, j, i, 0x441100);
+			j++;
+		}
+		i++;
+	}
+}
+
 void		draw_rooms(t_mlx *env)
 {
 	t_point			pos;
@@ -35,7 +53,7 @@ void	draw_ants(t_mlx *env)
 
 int		render(t_mlx *env)
 {
-	ft_memset(env->img_data, 0x666600, sizeof(int) * HGT * WDT);
+	background(env);
 	draw_pipes(env);
 	draw_rooms(env);
 	draw_ants(env);

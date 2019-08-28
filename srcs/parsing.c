@@ -52,6 +52,9 @@ t_room				*parsing(t_env *env)
 	if (!(env->graph = make_graph(env))
 		|| find_start_end(env)
 		|| !(env->matrix = make_matrix(env, i)))
+	{
+		env = free_graph(env);
 		return (NULL);
+	}
 	return (env->graph);
 }
