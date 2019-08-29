@@ -43,11 +43,11 @@ int		load_line(t_env *env, char s, unsigned int i, int room)
 
 	if (s == 's')
 		start = true;
-	if (s == 'e')
+	else if (s == 'e')
 		end = true;
-	if (s == 'p')
+	else if (s == 'p')
 		pipe = true;
-	if (!pipe && s == 'r')
+	else if (!pipe && s == 'r')
 	{
 		if (start && (s = 's'))
 			start = false;
@@ -56,5 +56,7 @@ int		load_line(t_env *env, char s, unsigned int i, int room)
 		if (!(env = load_room(env, i, room, s)))
 			return (1);
 	}
+	else
+		return (-1);
 	return (0);
 }

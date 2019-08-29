@@ -139,7 +139,7 @@ int		toultemps(void *param)
 	{
 		step++;
 		if (!env->moves[step])
-			exit(0);
+			while (1);
 		if (!(line = ft_strsplit(env->moves[step], ' ')))
 			return (0);
 		while (line[i])

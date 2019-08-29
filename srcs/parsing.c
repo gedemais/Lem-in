@@ -30,9 +30,17 @@ static inline bool	find_start_end(t_env *env)
 	while (i < env->nb_rooms)
 	{
 		if (env->graph[i].type == 's')
+		{
+				if (env->start != -1)
+					return (true);
 				env->start = (int)i;
+		}
 		else if (env->graph[i].type == 'e')
-					env->end = (int)i;
+		{
+				if (env->end != -1)
+					return (true);
+				env->end = (int)i;
+		}
 		i++;
 	}
 	if (env->start == -1 || env->end == -1)
@@ -51,7 +59,8 @@ t_room				*parsing(t_env *env)
 		return (NULL);
 	if (!(env->graph = make_graph(env))
 		|| find_start_end(env)
-		|| !(env->matrix = make_matrix(env, i)))
+		|| !(env->matrix = make_matrix(env, i))
+		|| room_err_cases(env))
 	{
 		env = free_graph(env);
 		return (NULL);

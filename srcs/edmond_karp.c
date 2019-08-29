@@ -30,6 +30,25 @@ static inline t_path	*rev_paths(t_path *paths)
 	}
 	return (paths);
 }
+/*
+static inline void	print_matrix(char **matrix, unsigned int n)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < n)
+	{
+		j = 0;
+		while (j < n)
+		{
+			printf("%d ", matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}*/
 
 unsigned int		edmond_karp(t_env *env)
 {
@@ -56,6 +75,7 @@ unsigned int		edmond_karp(t_env *env)
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
 			v = env->parent[v];
+//			printf("%s\n", env->graph[v].name);
 			i++;
 		}
 		env->paths[path].path[i] = env->start;
@@ -64,6 +84,14 @@ unsigned int		edmond_karp(t_env *env)
 		clear_buffs(env);
 		max_flow++;
 		path++;
+	}
+	i = 0;
+	while (env->paths[i].path && env->paths[i].path[i] != -1)
+	{
+/*		for (int j = 1; env->paths[i].path[j] != -1 ; j++)
+			printf("Path %u [%u] : %s\n", i, j, env->graph[env->paths[i].path[j]].name);
+		printf("\n");*/
+		i++;
 	}
 	env->paths = rev_paths(env->paths);
 	return (max_flow);

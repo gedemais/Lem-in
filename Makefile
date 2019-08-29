@@ -36,6 +36,7 @@ SRCS_NAME=	main.c\
 			make_graph.c\
 			make_matrix.c\
 			load_line.c\
+			room_err_cases.c\
 			count.c\
 			free.c\
 			states.c

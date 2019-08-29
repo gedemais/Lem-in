@@ -59,6 +59,14 @@ int							crossing(t_env *env)
 	env->nb_ants++;
 	nb_paths = count_paths(env);
 	env->paths[0].ants[0] = (int)env->count++;
+	i = 0;
+/*	while (env->paths[i].path && env->paths[i].path[0] != -1)
+	{
+		for (int j = 0; env->paths[i].path[j] != env->end ; j++)
+			printf("Path %u [%u] : %s\n", i, j, env->graph[env->paths[i].path[j]].name);
+		printf("\n");
+		i++;
+	}*/
 	while (env->count <= env->nb_ants || arriveds(env)) // Tant qu'il y a des fourmis a envoyer
 	{
 		i = 0;

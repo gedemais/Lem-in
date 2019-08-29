@@ -46,7 +46,7 @@ void	draw_ants(t_mlx *env)
 	i = 0;
 	while (i < env->nb_ants)
 	{
-		draw_circle(env, env->ants[i].pos, 10, 0x0000ff);
+		draw_circle(env, env->ants[i].pos, 10, (i % 2 == 0) ? 0x0000ff : 0x00ff00);
 		i++;
 	}
 }

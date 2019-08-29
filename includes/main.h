@@ -80,6 +80,7 @@ bool				is_room(char *line);
 bool				is_pipe(char *line);
 bool				is_comment(char *line);
 int					load_line(t_env *env, char s, unsigned int i, int room);
+bool				room_err_cases(t_env *env);
 
 /*
 ** Matrices

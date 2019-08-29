@@ -30,14 +30,14 @@ bool			is_room(char *line)
 	unsigned int	i;
 
 	i = 0;
+	if (line[0] == '#' || line[0] == 'L')
+		return (false);
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (i < 5)
 		return (false);
 	i--;
-	if (!is_coords(line, &i))
-		return (false);
-	if (line[0] == '#' || line[0] == 'L')
+	if (is_coords(line, &i) == false)
 		return (false);
 	return (true);
 }

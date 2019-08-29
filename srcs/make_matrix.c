@@ -5,12 +5,11 @@ static inline char	**allocate_matrix(char **matrix, unsigned int n)
 	unsigned int	i;
 
 	i = 0;
-	if (!(matrix = (char**)malloc(sizeof(char*) * n)))
+	if (!(matrix = (char**)malloc(sizeof(char*) * (n + 1))))
 			return (NULL);
 	while (i < n)
 	{
-		if (!(matrix[i] = (char*)malloc(sizeof(char)
-			* n)))
+		if (!(matrix[i] = (char*)malloc(sizeof(char) * (n + 1))))
 			return (NULL);
 		ft_memset(matrix[i], 0, sizeof(char) * n);
 		i++;
