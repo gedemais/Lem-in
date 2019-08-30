@@ -21,7 +21,7 @@ static inline bool	is_coords(char *line, unsigned int *j)
 		i--;
 	if (i == 0 || ft_is_whitespace(line[i]) == 0)
 		return (false);
-	i = *j;
+	*j = i;
 	return (true);
 }
 
@@ -38,6 +38,14 @@ bool			is_room(char *line)
 		return (false);
 	i--;
 	if (is_coords(line, &i) == false)
+		return (false);
+	while (i > 0 && ft_is_whitespace(line[i]))
+		i--;
+	if (i == 0 && ft_is_whitespace(line[i]))
+		return (false);
+	while (i > 0 && ft_is_whitespace(line[i]) == 0)
+		i--;
+	if (i > 0)
 		return (false);
 	return (true);
 }
@@ -66,7 +74,7 @@ bool			is_pipe(char *line)
 
 bool			is_comment(char *line)
 {
-	if (line[0] == '#')
+	if (line[0] == '#' && line[1] != '#')
 		return (true);
 	return (false);
 }

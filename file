@@ -1,0 +1,29 @@
+20
+##start
+Start 120 120
+A 120 100
+B 120 80
+C 120 60
+##end
+End 120 10
+F 100 100
+U 100 80
+T 100 60
+G 140 80
+H 140 60
+X 140 40
+Q 140 20
+Start-A
+Start-F
+A-B
+B-C
+B-G
+C-End
+F-U
+U-T
+#test
+T-C
+G-H
+H-X
+X-Q
+Q-End

@@ -17,31 +17,38 @@ static inline char	**allocate_matrix(char **matrix, unsigned int n)
 	return (matrix);
 }
 
-static inline char	**write_pipe(t_env *env, char *line)
+static inline int	write_pipe(t_env *env, char *line)
 {
 	int				from;
 	int				to;
 
 	if ((from = find_from(env, line)) == -1)
-			return (NULL);
+			return (-1);
 	if ((to = find_to(env, line)) == -1)
-			return (NULL);
+			return (-1);
+//	printf("nb_rooms : %d\nfrom = %s\nto = %s\n", env->nb_rooms, env->graph[from].name, env->graph[to].name);
+//	fflush(stdout);
 	env->matrix[from][to] = 1;
 	env->matrix[to][from] = 1;
-	return (env->matrix);
+	return (0);
 }
 
-char				**make_matrix(t_env *env, unsigned int i)
+int					make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 
 	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
-			return (NULL);
+			return (-1);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
 		if (s == 'p')
-			env->matrix = write_pipe(env, &env->file[i]);
+		{
+			if (write_pipe(env, &env->file[i]) == -1)
+				return (-1);
+		}
+		else if (s != 'c')
+			return (-1);
 		next_line(env->file, &i);
 	}
-	return (env->matrix);
+	return (0);
 }

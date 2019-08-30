@@ -41,7 +41,9 @@ int		load_line(t_env *env, char s, unsigned int i, int room)
 	static bool	start = false;
 	static bool	end = false;
 
-	if (s == 's')
+	if (s == 'c')
+		return (0);
+	else if (s == 's')
 		start = true;
 	else if (s == 'e')
 		end = true;

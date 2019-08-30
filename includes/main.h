@@ -85,7 +85,7 @@ bool				room_err_cases(t_env *env);
 /*
 ** Matrices
 */
-char				**make_matrix(t_env *env, unsigned int i);
+int					make_matrix(t_env *env, unsigned int i);
 t_path				*allocate_paths(t_env *env);
 int					find_from(t_env *env, char *line);
 int					find_to(t_env *env, char *line);

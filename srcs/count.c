@@ -55,7 +55,7 @@ int		find_to(t_env *env, char *line)
 	{
 		if (line[i] == env->graph[ret].name[0])
 			if (ft_strncmp(&line[i], env->graph[ret].name, len) == 0)
-					return (ret);
+				return (ret);
 		ret++;
 	}
 	return (-1);
