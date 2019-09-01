@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.h"
-
+/*
 static inline int	get_queue_back(t_queue *queue)
 {
 	t_queue	*tmp;
@@ -22,7 +22,7 @@ static inline int	get_queue_back(t_queue *queue)
 	while (tmp->next)
 		tmp = tmp->next;
 	return ((int)tmp->index);
-}
+}*/
 
 bool				breadth_first_search(t_env *env, int s, int e)
 {
@@ -35,7 +35,7 @@ bool				breadth_first_search(t_env *env, int s, int e)
 	env->visited[s] = true;
 	while (queue)
 	{
-		u = get_queue_back(queue);
+		u = (int)queue->index;
 		lm_lst_pop(&queue);
 		v = -1;
 		while (++v < (int)env->nb_rooms)

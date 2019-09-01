@@ -26,23 +26,11 @@ t_queue		*lm_lstnew(int room)
 int			lm_lst_pop(t_queue **lst)
 {
 	t_queue	*tmp;
-	t_queue	*tmp2;
 
-	tmp = *lst;
-	tmp2 = *lst;
-	if (!tmp->next)
-	{
-		free(tmp);
-		(*lst) = NULL;
-		return (0);
-	}
-	while (tmp->next)
-	{
-		tmp2 = (tmp == *lst) ? tmp2 : tmp2->next;
-		tmp = tmp->next;
-	}
-	free(tmp);
-	tmp2->next = NULL;
+	tmp = (*lst)->next;
+	free(*lst);
+	(*lst) = NULL;
+	(*lst) = tmp;
 	return (0);
 }
 
