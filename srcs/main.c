@@ -34,7 +34,27 @@ static inline int		lem_in(t_env *env)
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
 		return (-1);
-//	if (env->nb_ants < env->max_flow)
+	unsigned int	i;
+
+	i = 0;
+	while (env->paths[i].path && env->paths[i].path[0] != -1)
+	{
+		printf("Path %d :\n", i);
+		for (int j = 0; env->paths[i].path[j] != -1; j++)
+			printf("%s\n", env->graph[env->paths[i].path[j]].name);
+		i++;
+	}
+	sort_paths(env);
+	i = 0;
+	while (env->paths[i].path && env->paths[i].path[0] != -1)
+	{
+		printf("Path %d :\n", i);
+		for (int j = 0; env->paths[i].path[j] != -1; j++)
+			printf("%s\n", env->graph[env->paths[i].path[j]].name);
+		i++;
+	}
+//	if (env->nb_ants < env->max_flow && sort_paths(env) != 0)
+//		return (-1);
 	free_env(env);
 	return (0);
 }
@@ -51,5 +71,3 @@ int						main(void)
 	}
 	return (0);
 }
-
-

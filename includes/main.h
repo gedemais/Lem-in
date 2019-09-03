@@ -58,13 +58,15 @@ typedef struct		s_env
 	int				*parent;
 	bool			*arriveds;
 	bool			*visited;
+	long long int	nb_ants;
 	int				start;
 	int				end;
 	int				file_len;
 	unsigned int	nb_rooms;
+	unsigned int	nb_paths;
 	unsigned int	max_flow;
 	unsigned int	count;
-	long long int	nb_ants;
+	char			_pad[4];
 }					t_env;
 
 /*
@@ -99,6 +101,7 @@ bool				breadth_first_search(t_env *env, int s, int e);
 int					crossing(t_env *env);
 int					output_buffer(t_env *env, int move[2], bool n_l, bool f);
 bool				*space(void);
+int					sort_paths(t_env *env);
 
 /*
 ** Lists

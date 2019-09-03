@@ -27,6 +27,7 @@ SRCS_PATH=srcs/
 SRCS_NAME=	main.c\
 			bfs.c\
 			list.c\
+			sort_paths.c\
 			output_buffer.c\
 			edmond_karp.c\
 			store_paths.c\

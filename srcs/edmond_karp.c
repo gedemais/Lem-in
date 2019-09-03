@@ -85,14 +85,7 @@ unsigned int		edmond_karp(t_env *env)
 		max_flow++;
 		path++;
 	}
-	i = 0;
-	while (env->paths[i].path && env->paths[i].path[i] != -1)
-	{
-/*		for (int j = 1; env->paths[i].path[j] != -1 ; j++)
-			printf("Path %u [%u] : %s\n", i, j, env->graph[env->paths[i].path[j]].name);
-		printf("\n");*/
-		i++;
-	}
+	env->nb_paths = path;
 	env->paths = rev_paths(env->paths);
 	return (max_flow);
 }
