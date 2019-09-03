@@ -29,7 +29,6 @@ int			lm_lst_pop(t_queue **lst)
 
 	tmp = (*lst)->next;
 	free(*lst);
-	(*lst) = NULL;
 	(*lst) = tmp;
 	return (0);
 }

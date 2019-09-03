@@ -30,6 +30,7 @@ static inline t_path	*rev_paths(t_path *paths)
 	}
 	return (paths);
 }
+
 /*
 static inline void	print_matrix(char **matrix, unsigned int n)
 {

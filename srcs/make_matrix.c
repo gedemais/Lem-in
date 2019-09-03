@@ -26,8 +26,6 @@ static inline int	write_pipe(t_env *env, char *line)
 			return (-1);
 	if ((to = find_to(env, line)) == -1)
 			return (-1);
-//	printf("nb_rooms : %d\nfrom = %s\nto = %s\n", env->nb_rooms, env->graph[from].name, env->graph[to].name);
-//	fflush(stdout);
 	env->matrix[from][to] = 1;
 	env->matrix[to][from] = 1;
 	return (0);
@@ -46,7 +44,7 @@ int					make_matrix(t_env *env, unsigned int i)
 			if (write_pipe(env, &env->file[i]) == -1)
 				return (-1);
 		}
-		else if (s != 'c')
+		else if (s == 'm' || s != 'c')
 			return (-1);
 		next_line(env->file, &i);
 	}

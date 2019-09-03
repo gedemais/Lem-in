@@ -12,8 +12,8 @@
 
 #include "main.h"
 /*
-static inline int	get_queue_back(t_queue *queue)
-{
+   static inline int	get_queue_back(t_queue *queue)
+   {
 	t_queue	*tmp;
 
 	tmp = queue;
@@ -22,6 +22,19 @@ static inline int	get_queue_back(t_queue *queue)
 	while (tmp->next)
 		tmp = tmp->next;
 	return ((int)tmp->index);
+}
+
+static inline void	print_queue(t_env *env, t_queue *queue)
+{
+		t_queue	*tmp;
+
+		tmp = queue;
+		while (queue)
+		{
+				printf("%s\n", env->graph[queue->index].name);
+				queue = queue->next;
+		}
+		printf("\n");
 }*/
 
 bool				breadth_first_search(t_env *env, int s, int e)
@@ -33,16 +46,23 @@ bool				breadth_first_search(t_env *env, int s, int e)
 	if (!(queue = lm_lstnew(s)))
 		return (false);
 	env->visited[s] = true;
+//	printf("--- Start ---\n");
 	while (queue)
 	{
+//		print_queue(env, queue);
+//		printf("--- Pop ---\n");
 		u = (int)queue->index;
 		lm_lst_pop(&queue);
 		v = -1;
+//		print_queue(env, queue);
 		while (++v < (int)env->nb_rooms)
 			if (env->visited[v] == false && env->matrix[u][v] > 0)
 			{
+//				print_queue(env, queue);
+//				printf("--- Push ---\n");
 				if (lm_lst_push(&queue, v) != 0)
 					return (false);
+//				print_queue(env, queue);
 				env->parent[v] = u;
 				env->visited[v] = true;
 				if (v == e)
@@ -51,6 +71,7 @@ bool				breadth_first_search(t_env *env, int s, int e)
 					return (true);
 				}
 			}
+//				print_queue(env, queue);
 	}
 	lm_lstdel(queue);
 	return (false);

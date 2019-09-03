@@ -78,3 +78,10 @@ bool			is_comment(char *line)
 		return (true);
 	return (false);
 }
+
+bool			is_cmd(char *line)
+{
+	if (line[0] == '#' && line[1] == '#' && line[2] != '#')
+		return (true);
+	return (false);
+}

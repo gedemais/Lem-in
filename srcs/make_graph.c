@@ -22,6 +22,8 @@ char			get_line_state(char *line, bool flush)
 	}
 	else if (is_comment(line))
 		return ('c');
+	else if (is_cmd(line))
+		return ('m');
 	return (0);
 }
 
