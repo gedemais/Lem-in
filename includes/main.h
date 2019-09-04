@@ -75,7 +75,7 @@ typedef struct		s_env
 char				*read_fd_zero(int *len);
 t_room				*parsing(t_env *env);
 void				next_line(char *file, unsigned int *i);
-unsigned int		count_rooms(char *file, unsigned int *j);
+unsigned int			count_rooms(char *file, unsigned int *j);
 t_room				*make_graph(t_env *env);
 char				get_line_state(char *line, bool flush);
 bool				is_room(char *line);
@@ -102,6 +102,7 @@ int					crossing(t_env *env);
 int					output_buffer(t_env *env, int move[2], bool n_l, bool f);
 bool				*space(void);
 int					sort_paths(t_env *env);
+int					treat_paths(t_env *env);
 
 /*
 ** Lists
