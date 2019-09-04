@@ -31,28 +31,10 @@ static inline int		lem_in(t_env *env)
 	if (init_env(env) == -1 
 		|| (env->max_flow = edmond_karp(env)) <= 0)
 		return (-1);
+	sort_paths(env);
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
 		return (-1);
-	unsigned int	i;
-
-	i = 0;
-	while (env->paths[i].path && env->paths[i].path[0] != -1)
-	{
-		printf("Path %d :\n", i);
-		for (int j = 0; env->paths[i].path[j] != -1; j++)
-			printf("%s\n", env->graph[env->paths[i].path[j]].name);
-		i++;
-	}
-	sort_paths(env);
-	i = 0;
-	while (env->paths[i].path && env->paths[i].path[0] != -1)
-	{
-		printf("Path %d :\n", i);
-		for (int j = 0; env->paths[i].path[j] != -1; j++)
-			printf("%s\n", env->graph[env->paths[i].path[j]].name);
-		i++;
-	}
 //	if (env->nb_ants < env->max_flow && sort_paths(env) != 0)
 //		return (-1);
 	free_env(env);
