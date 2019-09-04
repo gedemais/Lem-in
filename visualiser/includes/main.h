@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:50:23 by gedemais          #+#    #+#             */
-/*   Updated: 2019/06/10 22:47:32 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/04 07:50:49 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define NB_C 4
 
 # define MAX_PIPES 8192
+
+# define KEY_PRESS 2
+# define KEY_PRESS_MASK (1L<<0)
 
 # include "../../libft/libft.h"
 # include "mlx.h"
@@ -66,26 +69,26 @@ typedef struct			s_room
 
 typedef struct			s_mlx
 {
-	void				*mlx_ptr;
-	void				*mlx_win;
-	void				*img_ptr;
-	char				*img_data;
-	char				*input;
-	t_room				*graph;
-	t_pipe				*pipes;
-	t_ant				*ants;
-	int					*moving;
+	void			*mlx_ptr;
+	void			*mlx_win;
+	void			*img_ptr;
+	char			*img_data;
+	char			*input;
+	t_room			*graph;
+	t_pipe			*pipes;
+	t_ant			*ants;
+	int			*moving;
 	unsigned int		movings;
-	char				**moves;
-	int					bpp;
-	int					s_l;
-	int					endian;
-	int					file_size;
+	char			**moves;
+	int			bpp;
+	int			s_l;
+	int			endian;
+	int			file_size;
 	unsigned int		nb_rooms;
 	unsigned int		nb_ants;
 	unsigned int		room_size;
 	unsigned int		nb_pipes;
-	float				speed;
+	float			speed;
 }						t_mlx;
 
 int						render(t_mlx *env);
@@ -94,9 +97,11 @@ void					ft_fill_pixel(char *img_str, int x, int y, int color);
 char					*ft_clear_image(void *param, char *img_data);
 void					draw_circle(t_mlx *env, t_point point, float radius, int color);
 int						draw_pipes(t_mlx *env);
+int					deal_key(int key, void *param);
 
 int						ft_exit(void);
 int						ft_deal_key(int key, void *param);
+void						hud(t_mlx *env);
 
 int						ft_press(int button, int x, int y, void *param);
 int						ft_pos(int x, int y, void *param);

@@ -25,7 +25,7 @@ int					sort_paths(t_env *env)
 		{
 				j = i + 1;
 				b_index = j;
-				best = env->paths[i].len;
+				best = env->paths[j].len;
 				while (j < env->nb_paths)
 				{
 						if (best > env->paths[j].len)

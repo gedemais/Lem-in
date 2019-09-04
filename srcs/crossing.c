@@ -1,15 +1,5 @@
 #include "main.h"
 
-static inline unsigned int	count_paths(t_env *env)
-{
-	unsigned int	ret;
-
-	ret = 0;
-	while (env->paths[ret].path && env->paths[ret].path[0] != -1)
-			ret++;
-	return (ret);
-}
-
 static inline bool			arriveds(t_env *env)
 {
 	unsigned int	i;
@@ -53,24 +43,15 @@ static inline int			rotate_path(t_env *env, unsigned int p)
 int							crossing(t_env *env)
 {
 	unsigned int	i;
-	unsigned int	nb_paths;
 
 	env->count = 1;
 	env->nb_ants++;
-	nb_paths = count_paths(env);
 	env->paths[0].ants[0] = (int)env->count++;
 	i = 0;
-/*	while (env->paths[i].path && env->paths[i].path[0] != -1)
-	{
-		for (int j = 0; env->paths[i].path[j] != env->end ; j++)
-			printf("Path %u [%u] : %s\n", i, j, env->graph[env->paths[i].path[j]].name);
-		printf("\n");
-		i++;
-	}*/
-	while (env->count <= env->nb_ants || arriveds(env)) // Tant qu'il y a des fourmis a envoyer
+	while (env->count <= env->nb_ants || arriveds(env))
 	{
 		i = 0;
-		while (i < nb_paths && (env->count <= env->nb_ants || arriveds(env)))
+		while (i < env->nb_paths && (env->count <= env->nb_ants || arriveds(env)))
 		{
 			rotate_path(env, i);
 			i++;

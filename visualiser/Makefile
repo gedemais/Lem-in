@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/20 18:40:16 by gedemais          #+#    #+#              #
-#    Updated: 2019/06/10 22:25:29 by gedemais         ###   ########.fr        #
+#    Updated: 2019/09/04 07:37:52 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,18 @@ OFLAGS = -O3 -Ofast -march=native
 INC = includes/fractol.h
 
 SRCS_NAME = cross_ant.c\
-			draw_circle.c\
-			load_line.c\
-			main.c\
-			make_graph.c\
-			mlx_fts_1.c\
-			pipes.c\
-			read_fd_zero.c\
-			render.c\
-			states.c\
-			count.c\
-			utils.c
+		draw_circle.c\
+		deal_key.c\
+		load_line.c\
+		main.c\
+		make_graph.c\
+		mlx_fts_1.c\
+		pipes.c\
+		read_fd_zero.c\
+		render.c\
+		states.c\
+		count.c\
+		utils.c
 
 SRCS_PATH = srcs/
 
@@ -67,7 +68,7 @@ $(NAME) : $(MLX) $(INC) $(LIB_PATH) $(SRCS)
 
 $(LIB) :
 	@echo "Making $(SOU)Libft$(DEF) :"
-	@make -C ../libft/
+	@make -C $(LIB_PATH)
 
 $(MLX) : $(MLX_PATH)
 	@echo "Making $(SOU)MinilibX$(DEF) :"
@@ -76,12 +77,12 @@ $(MLX) : $(MLX_PATH)
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(MLX_OBJS)
-	@make -C libft/ clean
+	@make -C $(LIB_PATH) clean
 
 fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(OBJS)
 	@rm -rf $(MLX_PATH)/libmlx.a
-	@make -C libft/ fclean
+	@make -C $(LIB_PATH) fclean
 
 re : fclean all

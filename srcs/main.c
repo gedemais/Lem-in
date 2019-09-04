@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/20 03:59:31 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/04 07:16:58 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static inline int		init_env(t_env *e)
 		return  (-1);
 	if  (!(e->visited = (bool*)malloc(sizeof(bool) * e->nb_rooms))
 		|| !(e->parent = (int*)malloc(sizeof(int) * (e->nb_rooms + 1)))
-		|| !(e->arriveds = (bool*)malloc(sizeof(bool) *
-		(unsigned int)(e->nb_ants + 1))))
+		|| !(e->arriveds = (bool*)malloc(sizeof(bool) * (unsigned)(e->nb_ants + 1))))
 		return (-1);
 	ft_memset(e->arriveds, false, sizeof(bool) * (unsigned int)(e->nb_ants + 1));
 	return (0);
@@ -31,12 +30,11 @@ static inline int		lem_in(t_env *env)
 	if (init_env(env) == -1 
 		|| (env->max_flow = edmond_karp(env)) <= 0)
 		return (-1);
-	sort_paths(env);
+		
+//	if (treat_paths(env) != 0)
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
 		return (-1);
-//	if (env->nb_ants < env->max_flow && sort_paths(env) != 0)
-//		return (-1);
 	free_env(env);
 	return (0);
 }
