@@ -106,7 +106,11 @@ t_pipe		*make_pipes(t_mlx *env, int *index)
 	while (env->input[i] && (s = get_line_state(&env->input[i], false)))
 	{
 		if (env->nb_pipes + 1 == MAX_PIPES)
+		{
+			ft_putstr_fd("Too many pipes to draw.\n", 2);
+			exit (EXIT_FAILURE);
 			break ;
+		}
 		if (s == 'p')
 			env->pipes = write_pipe(env, &env->input[i]);
 		next_line(env->input, &i);

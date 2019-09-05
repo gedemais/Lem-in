@@ -21,7 +21,7 @@
 
 # define NB_C 4
 
-# define MAX_PIPES 8192
+# define MAX_PIPES 1000
 
 # define KEY_PRESS 2
 # define KEY_PRESS_MASK (1L<<0)
@@ -102,6 +102,11 @@ int					deal_key(int key, void *param);
 int						ft_exit(void);
 int						ft_deal_key(int key, void *param);
 void						hud(t_mlx *env);
+int						nb_len(int nb);
+bool						arrived(t_mlx *env);
+unsigned int					find_room(t_mlx *env, char *name);
+t_ant						*make_ants(t_mlx *env);
+t_ant						*handle_move(t_mlx *env, char *line);
 
 int						ft_press(int button, int x, int y, void *param);
 int						ft_pos(int x, int y, void *param);
