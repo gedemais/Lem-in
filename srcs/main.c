@@ -30,7 +30,6 @@ static inline int		lem_in(t_env *env)
 	if (init_env(env) == -1 
 		|| (env->max_flow = edmond_karp(env)) <= 0)
 		return (-1);
-		
 	if (treat_paths(env) != 0)
 		return (-1);
 	ft_putendl(env->file);
