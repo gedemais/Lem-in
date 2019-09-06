@@ -6,24 +6,12 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:19:43 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/19 06:35:55 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/06 06:29:11 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 /*
-   static inline int	get_queue_back(t_queue *queue)
-   {
-	t_queue	*tmp;
-
-	tmp = queue;
-	if (!queue->next)
-			return ((int)queue->index);
-	while (tmp->next)
-		tmp = tmp->next;
-	return ((int)tmp->index);
-}
-
 static inline void	print_queue(t_env *env, t_queue *queue)
 {
 		t_queue	*tmp;
@@ -37,7 +25,7 @@ static inline void	print_queue(t_env *env, t_queue *queue)
 		printf("\n");
 }*/
 
-bool				breadth_first_search(t_env *env, int s, int e)
+bool				breadth_first_search(t_env *env, int s, int e, bool up)
 {
 	t_queue		*queue;
 	int			u;
@@ -46,16 +34,26 @@ bool				breadth_first_search(t_env *env, int s, int e)
 	if (!(queue = lm_lstnew(s)))
 		return (false);
 	env->visited[s] = true;
+	env->parent[0] = -1;
+//	printf("Start\n");
 	while (queue)
 	{
+//		printf("Pre-pop :\n");
+//		print_queue(env, queue);
 		u = (int)queue->index;
 		lm_lst_pop(&queue);
-		v = -1;
-		while (++v < (int)env->nb_rooms)
+	//	printf("Post-pop :\n");
+	//	print_queue(env, queue);
+		v = up ? -1 : (int)env->nb_rooms;
+		while ((up && ++v < (int)env->nb_rooms) || (!up && --v >= 0))
 			if (env->visited[v] == false && env->matrix[u][v] > 0)
 			{
+		//		printf("Pre-push :\n");
+		//		print_queue(env, queue);
 				if (lm_lst_push(&queue, v) != 0)
 					return (false);
+			//	printf("Post-push :\n");
+			//	print_queue(env, queue);
 				env->parent[v] = u;
 				env->visited[v] = true;
 				if (v == e)

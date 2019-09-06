@@ -10,7 +10,7 @@ static inline bool	check_nb_ant(t_env *env, char *file, unsigned int *index)
 	while (file[i] && file[i] != '\n')
 	{
 		if (ft_isdigit(file[i]) == 0)
-				return (true);
+			return (true);
 		i++;
 	}
 	env->nb_ants = ft_atoi(file);
@@ -22,27 +22,24 @@ static inline bool	check_nb_ant(t_env *env, char *file, unsigned int *index)
 
 static inline bool	find_start_end(t_env *env)
 {
-	unsigned int	i;
+	int	i;
 
-	i = 0;
+	i = -1;
 	env->start = -1;
 	env->end = -1;
-	while (i < env->nb_rooms)
-	{
+	while (++i < (int)env->nb_rooms)
 		if (env->graph[i].type == 's')
 		{
-				if (env->start != -1)
-					return (true);
-				env->start = (int)i;
+			if (env->start != -1)
+				return (true);
+			env->start = (int)i;
 		}
 		else if (env->graph[i].type == 'e')
 		{
-				if (env->end != -1)
-					return (true);
-				env->end = (int)i;
+			if (env->end != -1)
+				return (true);
+			env->end = (int)i;
 		}
-		i++;
-	}
 	if (env->start == -1 || env->end == -1)
 		return (true);
 	return (false);

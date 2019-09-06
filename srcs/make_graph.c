@@ -5,25 +5,26 @@ char			get_line_state(char *line, bool flush)
 	static bool	pipe = false;
 
 	if (flush)
+	{
 		pipe = false;
+		return (0);
+	}
 	if (!pipe)
 	{
-		if (ft_strncmp(line, "##start\n", 8) == 0)
-			return ('s');
-		else if (ft_strncmp(line, "##end\n", 6) == 0)
-			return ('e');
+		if (is_cmd(line))
+			if (ft_strncmp(line, "##start\n", 8) == 0)
+				return ('s');
+			else if (ft_strncmp(line, "##end\n", 6) == 0)
+				return ('e');
+			else
+				return ('m');
 		else if (is_room(line))
 			return ('r');
 	}
-	if (is_pipe(line))
-	{
-		pipe = true;
+	if (is_pipe(line) && (pipe = true))
 		return ('p');
-	}
 	else if (is_comment(line))
 		return ('c');
-	else if (is_cmd(line))
-		return ('m');
 	return (0);
 }
 

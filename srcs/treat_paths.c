@@ -30,7 +30,6 @@ int				treat_paths(t_env *env)
 	}
 	else if (env->nb_ants <= graph_c) // Si il y a moins de fourmis que les capacites ajoutees des chemins choisis, ______ (choisir la repartition a travers les paths)
 	{
-		// Moguy's formula
 	}
 	// Sinon, aucun traitement supplementaire
 	return (0);

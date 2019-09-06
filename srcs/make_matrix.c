@@ -22,10 +22,9 @@ static inline int	write_pipe(t_env *env, char *line)
 	int				from;
 	int				to;
 
-	if ((from = find_from(env, line)) == -1)
-			return (-1);
-	if ((to = find_to(env, line)) == -1)
-			return (-1);
+	if ((from = find_from(env, line)) == -1
+		|| (to = find_to(env, line)) == -1)
+		return (-1);
 	env->matrix[from][to] = 1;
 	env->matrix[to][from] = 1;
 	return (0);
@@ -35,7 +34,8 @@ int					make_matrix(t_env *env, unsigned int i)
 {
 	char	s;
 
-	if (!(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
+	env->pipes_start = i;
+	if (!env->matrix && !(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
 			return (-1);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{

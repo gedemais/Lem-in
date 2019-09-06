@@ -15,7 +15,7 @@ t_env		*free_graph(t_env *env)
 	return (env);
 }
 
-static inline char		**free_matrix(char **matrix, unsigned int n)
+char		**free_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 

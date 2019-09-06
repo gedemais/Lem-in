@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/08/20 03:59:47 by gedemais         ###   ########.fr        #
+#    Updated: 2019/09/06 03:16:06 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_NAME=	main.c\
 			make_graph.c\
 			make_matrix.c\
 			load_line.c\
+			is_disjoint.c\
 			room_err_cases.c\
 			count.c\
 			free.c\

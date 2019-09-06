@@ -2,7 +2,7 @@
 
 static inline void	clear_buffs(t_env *env)
 {
-	env->parent = ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms);
+//	env->parent = ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms);
 	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 }
 
@@ -51,7 +51,7 @@ static inline void	print_matrix(char **matrix, unsigned int n)
 	}
 }*/
 
-unsigned int		edmond_karp(t_env *env)
+unsigned int		edmond_karp(t_env *env, bool up)
 {
 	unsigned int	max_flow;
 	unsigned int	path;
@@ -62,10 +62,9 @@ unsigned int		edmond_karp(t_env *env)
 	max_flow = 0;
 	path = 0;
 	clear_buffs(env);
-	env->paths = NULL;
-	if (!(env->paths = allocate_paths(env)))
+	if (!env->paths && !(env->paths = allocate_paths(env)))
 		return (0);
-	while (breadth_first_search(env, env->start, env->end))
+	while (breadth_first_search(env, env->start, env->end, up))
 	{
 		i = 0;
 		v = env->end;
@@ -75,6 +74,7 @@ unsigned int		edmond_karp(t_env *env)
 			u = env->parent[v];
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
+	//		printf("%s\n", env->graph[v].name);
 			v = env->parent[v];
 			i++;
 		}

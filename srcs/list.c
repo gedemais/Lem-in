@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:29:20 by gedemais          #+#    #+#             */
-/*   Updated: 2019/08/19 03:00:29 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/06 06:31:43 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,5 @@ int		lm_lstdel(t_queue *queue)
 	if (queue && queue->next)
 		lm_lstdel(queue->next);
 	free(queue);
-	return (0);
-}
-
-int	ft_ms_lst_pushfront(t_queue **lst, t_queue *new)
-{
-	t_queue	*tmp;
-
-	if (!new || !*lst)
-		return (-1);
-	tmp = *lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
 	return (0);
 }

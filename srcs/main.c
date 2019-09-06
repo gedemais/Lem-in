@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/04 07:16:58 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/06 08:53:46 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ static inline int		init_env(t_env *e)
 static inline int		lem_in(t_env *env)
 {
 	if (init_env(env) == -1 
-		|| (env->max_flow = edmond_karp(env)) <= 0)
+		|| (env->max_flow = edmond_karp(env, true)) <= 0)
+		return (-1);
+	if (is_disjoint(env) && (make_matrix(env, env->pipes_start) != 0 
+		|| (env->max_flow = edmond_karp(env, false)) <= 0))
 		return (-1);
 	if (treat_paths(env) != 0)
 		return (-1);
 	ft_putendl(env->file);
 	if (crossing(env) != 0)
 		return (-1);
+	printf("nb_paths = %u\n", env->nb_paths);
 	free_env(env);
 	return (0);
 }
