@@ -21,16 +21,17 @@ int				treat_paths(t_env *env)
 
 	if ((graph_c = graph_cap(env)) == 0)
 		return (1);
-//	printf("Graph capacity : %u\n", graph_c);
 	sort_paths(env);
 	if (env->nb_ants < env->paths[0].len) // Si il y a moins de fourmis que de salle dans le chemin le plus court, on envoie toutes les fourmis dedans en condamnant le tableau de paths
 	{
 		env->nb_paths = 1;
 		env->paths[1].path[0] = -1;
 	}
-	else if (env->nb_ants <= graph_c) // Si il y a moins de fourmis que les capacites ajoutees des chemins choisis, ______ (choisir la repartition a travers les paths)
+/*	else if (env->nb_ants <= graph_c)
 	{
 	}
-	// Sinon, aucun traitement supplementaire
+//	else
+//		choose_paths(env);
+	// Sinon, aucun traitement supplementaire*/
 	return (0);
 }

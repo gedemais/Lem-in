@@ -74,7 +74,6 @@ unsigned int		edmond_karp(t_env *env, bool up)
 			u = env->parent[v];
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
-	//		printf("%s\n", env->graph[v].name);
 			v = env->parent[v];
 			i++;
 		}
