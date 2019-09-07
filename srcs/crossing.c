@@ -38,7 +38,7 @@ static inline int			rotate_path(t_env *env, unsigned int p)
 	}
 	left = (unsigned int)(env->nb_ants - env->count + 1);
 	if (env->paths[p + 1].path && env->paths[p + 1].path[0] != -1)
-		env->paths[p + 1].ants[0] = (env->count < env->nb_ants && left > (env->paths[p].len - env->paths[0].len)) ? (int)env->count++ : -1;
+		env->paths[p + 1].ants[0] = (env->count < env->nb_ants && left > (env->paths[p + 1].len - env->paths[0].len)) ? (int)env->count++ : -1;
 	return (0);
 }
 
