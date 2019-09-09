@@ -1,6 +1,6 @@
 #include "main.h"
 
-static inline bool			arriveds(t_env *env)
+static inline bool	arriveds(t_env *env)
 {
 	unsigned int	i;
 
@@ -14,7 +14,7 @@ static inline bool			arriveds(t_env *env)
 	return (false);
 }
 
-static inline int			rotate_path(t_env *env, unsigned int p)
+static inline int	rotate_path(t_env *env, unsigned int p)
 {
 	int		move[2];
 	int		i;
@@ -44,7 +44,7 @@ static inline int			rotate_path(t_env *env, unsigned int p)
 	return (0);
 }
 
-int							crossing(t_env *env)
+int			crossing(t_env *env)
 {
 	unsigned int	i;
 

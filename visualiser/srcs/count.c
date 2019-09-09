@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/09 07:35:20 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/09 07:41:37 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/main.h"
 
 static inline unsigned int	get_name_len(char *line, bool last)
@@ -18,10 +30,9 @@ static inline unsigned int	get_name_len(char *line, bool last)
 	}
 	else
 		return (i);
-
 }
 
-int		find_from(t_mlx *env, char *line)
+int							find_from(t_mlx *env, char *line)
 {
 	unsigned int	len;
 	int				ret;
@@ -38,7 +49,7 @@ int		find_from(t_mlx *env, char *line)
 	return (-1);
 }
 
-int		find_to(t_mlx *env, char *line)
+int							find_to(t_mlx *env, char *line)
 {
 	unsigned int	len;
 	unsigned int	i;
@@ -48,23 +59,23 @@ int		find_to(t_mlx *env, char *line)
 	ret = 0;
 	len = get_name_len(line, true);
 	while (line[i] && line[i] != '\n' && line[i] != '-')
-			i++;
+		i++;
 	i++;
 	while (ret < (int)env->nb_rooms)
 	{
 		if (line[i] == env->graph[ret].name[0])
 			if (ft_strncmp(&line[i], env->graph[ret].name, len) == 0)
-					return (ret);
+				return (ret);
 		ret++;
 	}
 	return (-1);
 }
 
-unsigned int			count_rooms(char *file, unsigned int *j)
+unsigned int				count_rooms(char *file, unsigned int *j)
 {
 	unsigned int	ret;
 	unsigned int	i;
-	char		s;
+	char			s;
 
 	i = *j;
 	ret = 0;

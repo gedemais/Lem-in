@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:43:03 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/04 08:08:35 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/09 07:47:06 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		ft_set_env(t_mlx *env)
 	env->speed = 1;
 	if (!(env->mlx_ptr = mlx_init()))
 		return (-1);
-	if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, WDT, HGT, "Lem_in visualiser")))
+	if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, WDT, HGT,
+		"Lem_in visualiser")))
 		return (-1);
 	if (!(env->img_ptr = mlx_new_image(env->mlx_ptr, WDT, HGT)))
 		return (-1);
@@ -35,7 +36,7 @@ int		toultemps(void *param)
 	t_mlx			*env;
 	static int		step = -1;
 	char			**line;
-	int			i;
+	int				i;
 
 	i = -1;
 	env = ((t_mlx*)param);
@@ -43,7 +44,7 @@ int		toultemps(void *param)
 	{
 		step++;
 		if (!env->moves[step])
-			exit (EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		if (!(line = ft_strsplit(env->moves[step], ' ')))
 			return (0);
 		while (line[++i])
@@ -51,7 +52,8 @@ int		toultemps(void *param)
 	}
 	i = -1;
 	while (++i < (int)env->nb_ants)
-		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1 || fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
+		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1
+			|| fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
 			cross_ant(env, env->ants[i].goal.x, env->ants[i].goal.y, i);
 	render(env);
 	return (0);

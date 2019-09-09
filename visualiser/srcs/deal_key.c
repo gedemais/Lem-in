@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   deal_key.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/09 07:35:36 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/09 07:43:47 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/main.h"
 
 void		hud(t_mlx *env)
@@ -12,7 +24,7 @@ void		hud(t_mlx *env)
 	free(tmp);
 }
 
-int		deal_key(int key, void *param)
+int			deal_key(int key, void *param)
 {
 	if (key == 69 && ((t_mlx*)param)->speed < 4.99)
 		((t_mlx*)param)->speed += 0.01;
