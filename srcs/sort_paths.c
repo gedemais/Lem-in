@@ -47,7 +47,6 @@ int					sort_paths(t_env *env)
 	unsigned int	b_index;
 
 	i = 0;
-	print_paths(env);
 	if (spec_cases(env))
 		return (0);
 	while (i < env->nb_paths - 1)

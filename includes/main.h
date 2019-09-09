@@ -46,7 +46,7 @@ typedef struct			s_path
 {
 	int			*path;
 	int			*ants;
-	unsigned int		start;
+	unsigned int		ammos;
 	unsigned int		len;
 }				t_path;
 
