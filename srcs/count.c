@@ -31,7 +31,7 @@ int		find_from(t_env *env, char *line)
 	while (ret < (int)env->nb_rooms)
 	{
 		if (line[0] == env->graph[ret].name[0])
-			if (ft_strncmp(line, env->graph[ret].name, len) == 0)
+			if (ft_strlen(env->graph[ret].name) == len && ft_strncmp(line, env->graph[ret].name, len) == 0)
 				return (ret);
 		ret++;
 	}
@@ -54,7 +54,7 @@ int		find_to(t_env *env, char *line)
 	while (ret < (int)env->nb_rooms)
 	{
 		if (line[i] == env->graph[ret].name[0])
-			if (ft_strncmp(&line[i], env->graph[ret].name, len) == 0)
+			if (ft_strlen(env->graph[ret].name) == len && ft_strncmp(&line[i], env->graph[ret].name, len) == 0)
 				return (ret);
 		ret++;
 	}

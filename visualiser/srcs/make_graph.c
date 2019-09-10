@@ -6,13 +6,13 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:02 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:36:04 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:32:37 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-char			get_line_state(char *line, bool flush)
+char					get_line_state(char *line, bool flush)
 {
 	static bool	pipe = false;
 
@@ -37,7 +37,7 @@ char			get_line_state(char *line, bool flush)
 	return (0);
 }
 
-void	next_line(char *file, unsigned int *i)
+void					next_line(char *file, unsigned int *i)
 {
 	unsigned int	j;
 
@@ -47,46 +47,39 @@ void	next_line(char *file, unsigned int *i)
 	*i = j + 1;
 }
 
-t_room	*scale_rooms(t_room *graph)
+static inline t_room	*scale_rooms(t_room *graph)
 {
 	unsigned int	i;
 	float			delta[2];
 	int				maxs[2];
 	int				mins[2];
 
-	i = 0;
+	i = -1;
 	ft_memset(&maxs[0], INT_MIN, sizeof(int) * 2);
 	ft_memset(&mins[0], INT_MAX, sizeof(int) * 2);
-	while (graph[i].name)
+	while (graph[++i].name)
 	{
-		if (maxs[0] < graph[i].x)
-			maxs[0] = graph[i].x;
-		if (maxs[1] < graph[i].y)
-			maxs[1] = graph[i].y;
-
-		if (mins[0] > graph[i].x)
-			mins[0] = graph[i].x;
-		if (mins[1] > graph[i].y)
-			mins[1] = graph[i].y;
-		i++;
+		maxs[0] = (maxs[0] < graph[i].x) ? graph[i].x : maxs[0];
+		maxs[1] = (maxs[1] < graph[i].y) ? graph[i].y : maxs[1];
+		mins[0] = (mins[0] > graph[i].x) ? graph[i].x : mins[0];
+		mins[1] = (mins[1] > graph[i].y) ? graph[i].y : mins[1];
 	}
 	delta[0] = (WDT / (maxs[0] - mins[0] + 1));
-	delta[1] = (HGT / (maxs[1] - mins[1]+ 1));
-	i = 0;
-	while (graph[i].name)
+	delta[1] = (HGT / (maxs[1] - mins[1] + 1));
+	i = -1;
+	while (graph[++i].name)
 	{
 		graph[i].x *= delta[0];
 		graph[i].y *= delta[1];
-		i++;
 	}
 	return (graph);
 }
 
-t_room			*make_graph(t_mlx *env, int *j)
+t_room					*make_graph(t_mlx *env, int *j)
 {
 	unsigned int	i;
-	int		room;
-	char		s;
+	int				room;
+	char			s;
 
 	i = 0;
 	room = 0;

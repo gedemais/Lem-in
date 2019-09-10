@@ -6,13 +6,13 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:27 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:36:28 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:39:46 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-void		background(t_mlx *env)
+void			background(t_mlx *env)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -30,12 +30,12 @@ void		background(t_mlx *env)
 	}
 }
 
-void		draw_rooms(t_mlx *env)
+void			draw_rooms(t_mlx *env)
 {
 	t_point			pos;
 	unsigned int	i;
-	float		center;
-	int			color;
+	float			center;
+	int				color;
 
 	i = 0;
 	center = env->room_size - (env->room_size / 8);
@@ -43,7 +43,8 @@ void		draw_rooms(t_mlx *env)
 	{
 		pos.x = env->graph[i].x;
 		pos.y = env->graph[i].y;
-		draw_circle(env, pos, env->room_size, (env->graph[i].type == 'e') ? 0x00cc00 :0xffffff);
+		draw_circle(env, pos, env->room_size, (env->graph[i].type == 'e')
+				? 0x00cc00 : 0xffffff);
 		color = (env->graph[i].type == 's') ? 0x5962ca : 0xc8c800;
 		color = (env->graph[i].type == 'e') ? 0x00cc00 : color;
 		draw_circle(env, pos, center, color);
@@ -51,19 +52,20 @@ void		draw_rooms(t_mlx *env)
 	}
 }
 
-void	draw_ants(t_mlx *env)
+void			draw_ants(t_mlx *env)
 {
 	unsigned int	i;
 
 	i = 0;
 	while (i < env->nb_ants)
 	{
-		draw_circle(env, env->ants[i].pos, 10, (i % 2 == 0) ? 0x0000ff : 0x00ff00);
+		draw_circle(env, env->ants[i].pos, 10, (i % 2 == 0)
+				? 0x0000ff : 0x00ff00);
 		i++;
 	}
 }
 
-int		render(t_mlx *env)
+int				render(t_mlx *env)
 {
 	background(env);
 	draw_pipes(env);

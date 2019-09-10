@@ -6,13 +6,13 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:18 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:36:20 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:38:12 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-static void	draw_line(t_mlx *env, t_point f, t_point s)
+static void		draw_line(t_mlx *env, t_point f, t_point s)
 {
 	t_point	delta;
 	t_point	sign;
@@ -41,12 +41,12 @@ static void	draw_line(t_mlx *env, t_point f, t_point s)
 	}
 }
 
-void	draw_pipe(t_mlx *env, t_point start, t_point end)
+void			draw_pipe(t_mlx *env, t_point start, t_point end)
 {
 	unsigned int	i;
 	unsigned int	j;
-	t_point		s;
-	t_point		e;
+	t_point			s;
+	t_point			e;
 
 	s = start;
 	e = end;
@@ -69,10 +69,10 @@ void	draw_pipe(t_mlx *env, t_point start, t_point end)
 	}
 }
 
-int		draw_pipes(t_mlx *env)
+int				draw_pipes(t_mlx *env)
 {
-	t_point		start;
-	t_point		end;
+	t_point			start;
+	t_point			end;
 	unsigned int	i;
 
 	i = 0;
@@ -88,7 +88,7 @@ int		draw_pipes(t_mlx *env)
 	return (0);
 }
 
-t_pipe		*write_pipe(t_mlx *env, char *line)
+t_pipe			*write_pipe(t_mlx *env, char *line)
 {
 	unsigned int	i;
 	int				from;
@@ -97,17 +97,14 @@ t_pipe		*write_pipe(t_mlx *env, char *line)
 	i = 0;
 	from = find_from(env, line);
 	to = find_to(env, line);
-
 	env->pipes[env->nb_pipes].start.x = env->graph[from].x;
 	env->pipes[env->nb_pipes].start.y = env->graph[from].y;
-
 	env->pipes[env->nb_pipes].end.x = env->graph[to].x;
 	env->pipes[env->nb_pipes].end.y = env->graph[to].y;
-
 	return (env->pipes);
 }
 
-t_pipe		*make_pipes(t_mlx *env, int *index)
+t_pipe			*make_pipes(t_mlx *env, int *index)
 {
 	unsigned int	i;
 	char			s;
@@ -120,7 +117,7 @@ t_pipe		*make_pipes(t_mlx *env, int *index)
 		if (env->nb_pipes + 1 == MAX_PIPES)
 		{
 			ft_putstr_fd("Too many pipes to draw.\n", 2);
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 			break ;
 		}
 		if (s == 'p')

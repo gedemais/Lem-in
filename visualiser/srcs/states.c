@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:32 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:36:33 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:40:49 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline bool	is_coords(char *line, unsigned int *j)
 	return (true);
 }
 
-bool			is_room(char *line)
+bool				is_room(char *line)
 {
 	unsigned int	i;
 
@@ -54,7 +54,7 @@ bool			is_room(char *line)
 	return (true);
 }
 
-bool			is_pipe(char *line)
+bool				is_pipe(char *line)
 {
 	unsigned int	i;
 	unsigned int	dash;
@@ -71,12 +71,12 @@ bool			is_pipe(char *line)
 		}
 		i++;
 	}
-	if (dash != 1 ||  i < 3)
+	if (dash != 1 || i < 3)
 		return (false);
 	return (true);
 }
 
-bool			is_comment(char *line)
+bool				is_comment(char *line)
 {
 	if (line[0] == '#')
 		return (true);

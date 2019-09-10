@@ -6,18 +6,18 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 18:28:38 by gedemais          #+#    #+#             */
-/*   Updated: 2019/06/10 22:03:40 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:41:51 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-int		ft_exit(void)
+int				ft_exit(void)
 {
 	exit(EXIT_SUCCESS);
 }
 
-char	*ft_clear_image(void *param, char *img_data)
+char			*ft_clear_image(void *param, char *img_data)
 {
 	ft_memset(((t_mlx*)param)->img_data, 0, HGT * WDT * 4);
 	mlx_put_image_to_window((t_mlx*)param, ((t_mlx*)param)->mlx_win,
@@ -25,7 +25,7 @@ char	*ft_clear_image(void *param, char *img_data)
 	return (img_data);
 }
 
-int		nb_len(int nb)
+int				nb_len(int nb)
 {
 	int	ret;
 
@@ -38,14 +38,15 @@ int		nb_len(int nb)
 	return (ret);
 }
 
-bool		arrived(t_mlx *env)
+bool			arrived(t_mlx *env)
 {
 	unsigned int	i;
 
 	i = 1;
 	while (i < env->nb_ants)
 	{
-		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1 || fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
+		if (fabs(env->ants[i].pos.x - env->ants[i].goal.x) > 1
+				|| fabs(env->ants[i].pos.y - env->ants[i].goal.y) > 1)
 			return (false);
 		i++;
 	}

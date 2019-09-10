@@ -1,4 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/10 01:37:24 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/10 01:38:24 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
+
+static inline int		walk_space(char *line, unsigned int *i, unsigned int j)
+{
+	while (ft_is_whitespace(line[(*i)]) && (*i) >= j)
+		(*i)--;
+	return (0);
+}
+
+static inline int		walk_digits(char *line, unsigned int *i, unsigned int j)
+{
+	while (ft_isdigit(line[(*i)]) && (*i) >= j)
+		(*i)--;
+	return (0);
+}
 
 static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 {
@@ -10,32 +36,25 @@ static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 	while (env->file[i] && env->file[i] != '\n')
 		i++;
 	i--;
-	while (ft_is_whitespace(env->file[i]) && i > 0)
-		i--;
-	if (i == 0 || ft_isdigit(env->file[i]) == 0)
+	if (walk_space(env->file, &i, j) || i == j || ft_isdigit(env->file[i]) == 0)
 		return (NULL);
-	while (ft_isdigit(env->file[i]) && i > 0)
-		i--;
-	if (i == 0 || ft_is_whitespace(env->file[i]) == 0)
+	if (walk_digits(env->file, &i, j) || i == j
+		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
 	env->graph[room].y = (int)ft_atoi(&env->file[i]);
-	while (ft_is_whitespace(env->file[i]) && i > 0)
-		i--;
-	if (i == 0 || ft_isdigit(env->file[i]) == 0)
+	if (walk_space(env->file, &i, j) || i == j || ft_isdigit(env->file[i]) == 0)
 		return (NULL);
-	while (ft_isdigit(env->file[i]) && i > 0)
-		i--;
-	if (i == 0 || ft_is_whitespace(env->file[i]) == 0)
+	if (walk_digits(env->file, &i, j) || i == j
+		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
 	env->graph[room].x = (int)ft_atoi(&env->file[i]);
-	while (ft_is_whitespace(env->file[i]) && i > 0)
-		i--;
-	if (i == 0 || !(env->graph[room].name = ft_strndup(&env->file[j], (int)(i - j + 1))))
+	if (walk_space(env->file, &i, j) || i < j ||
+		!(env->graph[room].name = ft_strndup(&env->file[j], (int)(i - j + 1))))
 		return (NULL);
 	return (env);
 }
 
-int		load_line(t_env *env, char s, unsigned int i, int room)
+int						load_line(t_env *env, char s, unsigned int i, int r)
 {
 	static bool	pipe = false;
 	static bool	start = false;
@@ -55,7 +74,7 @@ int		load_line(t_env *env, char s, unsigned int i, int room)
 			start = false;
 		if (end && (s = 'e'))
 			end = false;
-		if (!(env = load_room(env, i, room, s)))
+		if (!(env = load_room(env, i, r, s)))
 			return (1);
 	}
 	else
