@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:35:51 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:45:28 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/12 08:55:40 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static inline t_mlx		*load_room(t_mlx *env, unsigned int j, int room, char s)
 	env->graph[room].x = (int)ft_atoi(&env->input[i]) + 1;
 	while (ft_is_whitespace(env->input[i]) && i > 0)
 		i--;
-	if (i == 0 || !(env->graph[room].name = ft_strndup(&env->input[j],
-		(int)(i - j + 1))))
+	if (i == 0 || !(env->graph[room].name = ft_strndup(&env->input[j], (int)(i - j + 1))))
 		return (NULL);
 	return (env);
 }

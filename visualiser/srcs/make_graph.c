@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:02 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/10 07:32:37 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/12 08:52:58 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static inline t_room	*scale_rooms(t_room *graph)
 		mins[0] = (mins[0] > graph[i].x) ? graph[i].x : mins[0];
 		mins[1] = (mins[1] > graph[i].y) ? graph[i].y : mins[1];
 	}
-	delta[0] = (WDT / (maxs[0] - mins[0] + 1));
-	delta[1] = (HGT / (maxs[1] - mins[1] + 1));
+	delta[0] = (WDT / (maxs[0] - mins[0]));
+	delta[1] = (HGT / (maxs[1] - mins[1]));
 	i = -1;
 	while (graph[++i].name)
 	{

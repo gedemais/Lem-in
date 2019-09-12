@@ -5,10 +5,6 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <time.h>
-# include <assert.h>
-
-# define PROFILER true
 
 # define PUT ft_putstr("There\n");
 # define PUT1 ft_putstr("There1\n");
