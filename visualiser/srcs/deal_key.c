@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:35:36 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:43:47 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/13 05:51:20 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int			deal_key(int key, void *param)
 		((t_mlx*)param)->speed += 0.01;
 	else if (key == 78 && ((t_mlx*)param)->speed > 0.06)
 		((t_mlx*)param)->speed -= 0.01;
+	else if (key == 53)
+		ft_exit();
 	return (0);
 }

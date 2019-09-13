@@ -6,7 +6,7 @@
 /*   By: gedemais <gedemais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 09:05:11 by gedemais          #+#    #+#             */
-/*   Updated: 2019/06/08 13:05:23 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/13 06:10:36 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 /*
 ** Strings functions
 */
+char				*ft_sed(char *str, char *needle, char *replace);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(char *str, int size);

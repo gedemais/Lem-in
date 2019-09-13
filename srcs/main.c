@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/12 07:44:30 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/13 06:16:15 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int						main(void)
 {
 	t_env	env;
 
+	ft_sed("bonjour tout le monde comment ca va ajd ?", "e", "LALA");
 	if (lem_in(&env) == -1)
 	{
 		free_env(&env);

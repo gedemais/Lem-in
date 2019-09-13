@@ -25,6 +25,8 @@ static inline int	write_pipe(t_env *env, char *line)
 	if ((from = find_from(env, line)) == -1
 		|| (to = find_to(env, line)) == -1)
 		return (-1);
+	if (from == to)
+		return (-1);
 	env->matrix[from][to] = 1;
 	env->matrix[to][from] = 1;
 	return (0);

@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 17:34:45 by gedemais          #+#    #+#              #
-#    Updated: 2019/07/22 04:23:06 by gedemais         ###   ########.fr        #
+#    Updated: 2019/09/13 06:11:06 by demaisonc        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRCS  =	ft_atoi.c \
 		ft_putnbr.c \
 		ft_putnbr_fd.c \
 		ft_putstr.c \
-		ft_putstr_fd.c \
+		ft_putstr_fd.c\
+		ft_sed.c\
 		ft_strcat.c \
 		ft_strchr.c \
 		ft_strclr.c \
