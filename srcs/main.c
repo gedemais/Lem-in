@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/13 06:16:15 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/09/14 01:29:48 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static inline int		init_env(t_env *e)
 {
 	ft_memset(e, 0, sizeof(t_env));
 	if (!(e->file = read_fd_zero(&e->file_len))  || !(e->graph = parsing(e)))
-		return  (-1);
+		return (-1);
 	if  (!(e->visited = (bool*)malloc(sizeof(bool) * e->nb_rooms))
 		|| !(e->parent = (int*)malloc(sizeof(int) * (e->nb_rooms + 1)))
 		|| !(e->arriveds = (bool*)malloc(sizeof(bool) * (unsigned)(e->nb_ants + 1))))

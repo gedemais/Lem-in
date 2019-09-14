@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:36:02 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/12 08:52:58 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/14 01:19:34 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,34 @@ void					next_line(char *file, unsigned int *i)
 	*i = j + 1;
 }
 
+static inline t_room	*rectify_positions(t_room *graph)
+{
+	unsigned int	i;
+	bool			do_it;
+
+	i = 0;
+	while (graph[i].name)
+	{
+		if (graph[i].x == 0 || graph[i].y == 0)
+		{
+			do_it = true;
+			break ;
+		}
+		i++;
+	}
+	if (do_it)
+	{
+		i = 0;
+		while (graph[i].name)
+		{
+			graph[i].x++;
+			graph[i].y++;
+			i++;
+		}
+	}
+	return (graph);
+}
+
 static inline t_room	*scale_rooms(t_room *graph)
 {
 	unsigned int	i;
@@ -57,6 +85,7 @@ static inline t_room	*scale_rooms(t_room *graph)
 	i = -1;
 	ft_memset(&maxs[0], INT_MIN, sizeof(int) * 2);
 	ft_memset(&mins[0], INT_MAX, sizeof(int) * 2);
+	graph = rectify_positions(graph);
 	while (graph[++i].name)
 	{
 		maxs[0] = (maxs[0] < graph[i].x) ? graph[i].x : maxs[0];

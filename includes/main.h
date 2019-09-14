@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/14 01:28:48 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAIN_H
 # define MAIN_H
 
@@ -27,16 +39,15 @@ struct				s_queue
 	int			_pad;
 };
 
-typedef struct			s_room
+typedef struct		s_room
 {
 	char			*name;
-	unsigned int		index;
-	int			x;
-	int			y;
-	int			ant;
+	int				x;
+	int				y;
+	int				ant;
 	char			type;
-	char			_pad[7];
-}				t_room;
+	char			_pad[3];
+}					t_room;
 
 typedef struct			s_path
 {

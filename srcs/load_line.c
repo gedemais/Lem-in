@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 01:37:24 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/12 07:56:31 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/14 01:02:01 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 
 	i = j;
 	env->graph[room].type = s;
-	env->graph[room].index = (unsigned int)room;
 	while (env->file[i] && env->file[i] != '\n')
 		i++;
 	i--;

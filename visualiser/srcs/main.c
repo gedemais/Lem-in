@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:43:03 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/09 07:47:06 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/14 03:00:06 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ int		toultemps(void *param)
 		if (!env->moves[step])
 			exit(EXIT_SUCCESS);
 		if (!(line = ft_strsplit(env->moves[step], ' ')))
-			return (0);
+			return (1);
 		while (line[++i])
+		{
+			printf("Tour %d --- Move %d --- move : |%s|\n", step, i, line[i]);
 			env->ants = handle_move(env, line[i]);
+		}
 	}
 	i = -1;
 	while (++i < (int)env->nb_ants)
