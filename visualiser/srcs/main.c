@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:43:03 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 03:00:06 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/14 07:32:47 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		toultemps(void *param)
 		step++;
 		if (!env->moves[step])
 			exit(EXIT_SUCCESS);
+		printf("%s\n", env->moves[step]);
 		if (!(line = ft_strsplit(env->moves[step], ' ')))
 			return (1);
 		while (line[++i])
