@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 07:35:36 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/13 05:51:20 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/09/15 05:35:54 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void		hud(t_mlx *env)
 {
-	char	*tmp;
+	char		speed[10];
 
-	if (!(tmp = ft_strnew(10)))
-		return ;
-	sprintf(tmp, "%.2f\n", env->speed);
+	sprintf(&speed[0], "%.2f\n", env->speed);
 	mlx_string_put(env->mlx_ptr, env->mlx_win, 10, 50, 0xFFFFFF, "Speed :");
-	mlx_string_put(env->mlx_ptr, env->mlx_win, 100, 50, 0xFFFFFF, tmp);
-	free(tmp);
+	mlx_string_put(env->mlx_ptr, env->mlx_win, 100, 50, 0xFFFFFF, &speed[0]);
 }
 
 int			deal_key(int key, void *param)

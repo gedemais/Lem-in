@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:43:03 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 07:32:47 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/15 05:13:57 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ int		toultemps(void *param)
 		step++;
 		if (!env->moves[step])
 			exit(EXIT_SUCCESS);
-		printf("%s\n", env->moves[step]);
-		if (!(line = ft_strsplit(env->moves[step], ' ')))
+		if (!(line = ft_strsplit(env->moves[step], " ")))
 			return (1);
 		while (line[++i])
-		{
-			printf("Tour %d --- Move %d --- move : |%s|\n", step, i, line[i]);
 			env->ants = handle_move(env, line[i]);
-		}
 	}
 	i = -1;
 	while (++i < (int)env->nb_ants)
@@ -80,7 +76,7 @@ int		visualiser(void)
 	i = 0;
 	while (env.input[i] && !(env.input[i] == 'L' && env.input[i - 1] == '\n'))
 		i++;
-	if (!(env.moves = ft_strsplit(&env.input[i], '\n')))
+	if (!(env.moves = ft_strsplit(&env.input[i], "\n")))
 		return (-1);
 	mlx_loop_hook(env.mlx_ptr, &toultemps, &env);
 	mlx_hook(env.mlx_win, KEY_PRESS, KEY_PRESS_MASK, deal_key, &env);

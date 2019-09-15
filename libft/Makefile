@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 17:34:45 by gedemais          #+#    #+#              #
-#    Updated: 2019/09/13 06:11:06 by demaisonc        ###   ########.fr        #
+#    Updated: 2019/09/15 05:13:00 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,8 +87,8 @@ SRCS  =	ft_atoi.c \
 		ft_strlcat.c \
 		ft_strrchr.c \
 		ft_strlen.c \
-		ft_strsplit.c \
-		ft_is_whitespace.c \
+		ft_strsplit.c\
+		ft_is_whitespace.c\
 		ft_strrev.c \
 		ft_lstnew.c \
 		ft_lstdelone.c \

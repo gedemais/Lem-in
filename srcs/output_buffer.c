@@ -10,15 +10,41 @@ static inline int	flush_buffer(char buffer[BUFF_WRITE], int *index)
 /*
 static inline char	*ant_itoa(char *buff, int *index, int n)
 {
-	*index += ft_nblen(n);
-	while ()
 	return (buff);
+}
+
+static inline int	ant_itoa(char *dest, long long int n)
+{
+	long long int	nbr;
+	int				size;
+
+	if (n == 0)
+	{
+		dest[0] = '0';
+		dest[1] = '\0';
+		return (0);
+	}
+	size = (n < 0) ? 1 : 0;
+	nbr = (n < 0) ? -n : n;
+	n = nbr;
+	while (nbr > 0 && ++size)
+		nbr = nbr / 10;
+	dest[size] = '\0';
+	while (n > 0)
+	{
+		dest[--size] = (n % 10) + '0';
+		n = n / 10;
+	}
+	dest[0] = (size) ? '-' : dest[0];
+	return (0);
 }*/
+
 
 int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 {
 	static char		buff[BUFF_WRITE];
 	static int		index = 0;
+//	char			tmp[ANT_NLEN];
 	char			*tmp;
 
 	if (move && move[0] >= env->nb_ants)

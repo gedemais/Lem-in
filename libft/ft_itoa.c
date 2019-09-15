@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 17:21:33 by gedemais          #+#    #+#             */
-/*   Updated: 2018/12/18 20:16:39 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/15 10:43:10 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_itoa(long long int n)
 	n = nbr;
 	while (nbr > 0 && ++size)
 		nbr = nbr / 10;
-	if (!(dest = (char*)malloc(sizeof(char) * size + 1)))
+	if (!(dest = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	dest[size] = '\0';
 	while (n > 0)

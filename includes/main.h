@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 01:28:48 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/15 09:50:29 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define PUT6 ft_putstr("There6\n");
 # define PUT7 ft_putstr("There7\n");
 
+# define ANT_NLEN 12
 # define BUFF_READ 65536
 # define BUFF_WRITE 65536
 
