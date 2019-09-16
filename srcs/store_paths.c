@@ -35,6 +35,7 @@ t_path				*allocate_paths(t_env *env)
 		if (!(env->paths[i].path = (int*)malloc(sizeof(int) * (env->nb_rooms + 1)))
 			|| !(env->paths[i].ants = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
 			return (NULL);
+		env->paths[i].ammos = 0;
 		ft_memset(env->paths[i].path, -1, sizeof(int) * env->nb_rooms);
 		ft_memset(env->paths[i].ants, -1, sizeof(int) * env->nb_rooms);
 		i++;

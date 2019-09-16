@@ -80,6 +80,7 @@ unsigned int		edmond_karp(t_env *env, bool up)
 		env->paths[path].path[i] = env->start;
 		env->paths[path].path[i + 1] = -1;
 		env->paths[path].len = i;
+//		printf("%d\n", i);
 		clear_buffs(env);
 		max_flow++;
 		path++;

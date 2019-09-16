@@ -32,7 +32,10 @@ bool		is_disjoint(t_env *env)
 		while (j < env->nb_paths)
 		{
 			if (i != j && is_joint(env->paths[i], env->paths[j], (int)env->end))
+			{
+			//	PUT
 				return (true);
+			}
 			j++;
 		}
 		i++;

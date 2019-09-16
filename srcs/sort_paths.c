@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:41 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 02:46:20 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/16 03:43:12 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline void	swap_paths(t_path *a, t_path *b)
 	b->len = tmp.len;
 }
 
-/*
+
 static inline void	print_paths(t_env *env)
 {
 	unsigned int		i;
@@ -36,7 +36,7 @@ static inline void	print_paths(t_env *env)
 		i++;
 	}
 	printf("\n");
-}*/
+}
 
 static inline bool	spec_cases(t_env *env)
 {
@@ -77,5 +77,6 @@ int					sort_paths(t_env *env)
 		}
 		swap_paths(&env->paths[i], &env->paths[b_index]);
 	}
+	print_paths(env);
 	return (0);
 }
