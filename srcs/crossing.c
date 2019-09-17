@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:33:56 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 01:33:57 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/17 07:53:19 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,19 @@ int			crossing(t_env *env)
 {
 	unsigned int	i;
 
-	i = 0;
 	env->count = 1;
 	env->nb_ants++;
-	env->paths[0].ants[0] = (int)env->count++;
 	while (env->count <= env->nb_ants || arriveds(env))
 	{
 		i = 0;
+		env->paths[0].ammos--;
+		env->paths[0].ants[0] = (int)env->count++;
 		while (i < env->nb_paths && (env->count <= env->nb_ants || arriveds(env)))
 		{
 			rotate_path(env, i);
 			i++;
 		}
 		output_buffer(env, NULL, true, false);
-		env->paths[0].ants[0] = (int)env->count++;
 	}
 	output_buffer(env, NULL, false, true);
 	return (0);

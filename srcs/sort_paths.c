@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:41 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/16 03:43:12 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/09/17 06:33:24 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int					sort_paths(t_env *env)
 		}
 		swap_paths(&env->paths[i], &env->paths[b_index]);
 	}
-	print_paths(env);
+	if (PRINT)
+		print_paths(env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/16 03:41:06 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/09/17 06:00:04 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static inline int		lem_in(t_env *env)
 	if (treat_paths(env) != 0)
 		return (-1);
 	ft_putendl(env->file);
-	printf("%d\n", env->nb_paths);
+//	printf("nb_paths : %d\nnb_ants : %lld\n", env->nb_paths, env->nb_ants);
 	if (crossing(env) != 0)
 		return (-1);
 	free_env(env);

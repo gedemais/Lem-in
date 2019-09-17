@@ -23,6 +23,13 @@ static inline int		load_ammos(t_env *env)
 
 	tot = 0;
 	min = env->paths[0].len;
+	i = 0;
+	while (i < env->nb_paths)
+	{
+		printf("Path %u : len = %u | ammos = %u|\n", i, env->paths[i].len,env->paths[i].ammos);
+		i++;
+	}
+	printf("\n");
 	while (tot <= env->nb_ants)
 	{
 		i = 0;
@@ -37,6 +44,12 @@ static inline int		load_ammos(t_env *env)
 			i++;
 		}
 		min++;
+	}
+	i = 0;
+	while (i < env->nb_paths)
+	{
+		printf("Path %u : len = %u | ammos = %u|\n", i, env->paths[i].len,env->paths[i].ammos);
+		i++;
 	}
 	return (0);
 }
