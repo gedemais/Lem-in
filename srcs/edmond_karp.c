@@ -1,10 +1,16 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   edmond_karp.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 05:30:15 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 08:05:10 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static inline void	clear_buffs(t_env *env)
-{
-//	env->parent = ft_memset(env->parent, -1, sizeof(int) * env->nb_rooms);
-	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
-}
+#include "main.h"
 
 static inline t_path	*rev_paths(t_path *paths)
 {
@@ -31,37 +37,17 @@ static inline t_path	*rev_paths(t_path *paths)
 	return (paths);
 }
 
-/*
-static inline void	print_matrix(char **matrix, unsigned int n)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < n)
-	{
-		j = 0;
-		while (j < n)
-		{
-			printf("%d ", matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}*/
-
 unsigned int		edmond_karp(t_env *env, bool up)
 {
-	unsigned int	max_flow;
-	unsigned int	path;
+	unsigned int	max_flow; // a tej
+	unsigned int	path; // a tej
 	unsigned int	i;
-	int		u;
-	int		v;
+	int				u;
+	int				v;
 
 	max_flow = 0;
 	path = 0;
-	clear_buffs(env);
+	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 	if (!env->paths && !(env->paths = allocate_paths(env)))
 		return (0);
 	while (breadth_first_search(env, env->start, env->end, up))
@@ -80,8 +66,7 @@ unsigned int		edmond_karp(t_env *env, bool up)
 		env->paths[path].path[i] = env->start;
 		env->paths[path].path[i + 1] = -1;
 		env->paths[path].len = i;
-//		printf("%d\n", i);
-		clear_buffs(env);
+		env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
 		max_flow++;
 		path++;
 	}

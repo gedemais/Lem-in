@@ -6,24 +6,11 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:19:43 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/06 23:55:04 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/18 05:02:26 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-/*
-static inline void	print_queue(t_env *env, t_queue *queue)
-{
-		t_queue	*tmp;
-
-		tmp = queue;
-		while (queue)
-		{
-				printf("%s\n", env->graph[queue->index].name);
-				queue = queue->next;
-		}
-		printf("\n");
-}*/
 
 bool				breadth_first_search(t_env *env, int s, int e, bool up)
 {
@@ -46,11 +33,8 @@ bool				breadth_first_search(t_env *env, int s, int e, bool up)
 					return (false);
 				env->parent[v] = u;
 				env->visited[v] = true;
-				if (v == e)
-				{
-					lm_lstdel(queue);
+				if (v == e && lm_lstdel(queue) == 0)
 					return (true);
-				}
 			}
 	}
 	lm_lstdel(queue);

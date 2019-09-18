@@ -24,12 +24,6 @@ static inline int		load_ammos(t_env *env)
 	tot = 0;
 	min = env->paths[0].len;
 	i = 0;
-	while (i < env->nb_paths)
-	{
-		printf("Path %u : len = %u | ammos = %u|\n", i, env->paths[i].len,env->paths[i].ammos);
-		i++;
-	}
-	printf("\n");
 	while (tot <= env->nb_ants)
 	{
 		i = 0;
@@ -45,12 +39,6 @@ static inline int		load_ammos(t_env *env)
 		}
 		min++;
 	}
-	i = 0;
-	while (i < env->nb_paths)
-	{
-		printf("Path %u : len = %u | ammos = %u|\n", i, env->paths[i].len,env->paths[i].ammos);
-		i++;
-	}
 	return (0);
 }
 
@@ -60,7 +48,6 @@ int				treat_paths(t_env *env)
 
 	if ((graph_c = graph_cap(env)) == 0)
 		return (1);
-
 	sort_paths(env);
 	load_ammos(env);
 /*	if (env->nb_ants < env->paths[0].len) // Si il y a moins de fourmis que de salle dans le chemin le plus court, on envoie toutes les fourmis dedans en condamnant le tableau de paths

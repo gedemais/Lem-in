@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:33:56 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/17 07:53:19 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/09/18 05:12:54 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,27 @@ static inline bool	arriveds(t_env *env)
 	return (false);
 }
 
-static inline int	rotate_path(t_env *env, unsigned int p)
+static inline int	get_path_end(t_env *env, unsigned int p)
 {
-	int		move[2];
 	int		i;
 
 	i = 0;
 	while (env->paths[p].path[i] != env->end && env->paths[p].path[i] != -1)
 		i++;
+	return (i);
+}
+
+static inline int	rotate_path(t_env *env, unsigned int p)
+{
+	int		move[2];
+	int		i;
+
+	i = get_path_end(env, p);
 	while (env->paths[p].path[i] != env->start)
 	{
 		env->paths[p].ants[i] = env->paths[p].ants[i - 1];
-		if (env->paths[p].path[i] == env->end && env->paths[p].ants[i] != -1 && env->end && env->paths[p].ants[i] < env->nb_ants)
+		if (env->paths[p].path[i] == env->end && env->paths[p].ants[i] != -1
+				&& env->end && env->paths[p].ants[i] < env->nb_ants)
 			env->arriveds[env->paths[p].ants[i]] = true;
 		if (env->paths[p].ants[i] != -1 && env->paths[p].path[i] != -1)
 		{
@@ -49,14 +58,14 @@ static inline int	rotate_path(t_env *env, unsigned int p)
 	}
 	if (env->paths[p + 1].path && env->paths[p + 1].path[0] != -1)
 	{
-		env->paths[p + 1].ants[0] = (env->count <= env->nb_ants && env->paths[p + 1].ammos > 0) ? (int)env->count++ : -1;
-		if (env->paths[p + 1].ammos > 0)
-			env->paths[p + 1].ammos--;
+		env->paths[p + 1].ants[0] = (env->count <= env->nb_ants
+			&& env->paths[p + 1].ammos > 0) ? (int)env->count++ : -1;
+		env->paths[p + 1].ammos -= (env->paths[p + 1].ammos > 0) ? 1 : 0;
 	}
 	return (0);
 }
 
-int			crossing(t_env *env)
+int					crossing(t_env *env)
 {
 	unsigned int	i;
 
@@ -67,7 +76,8 @@ int			crossing(t_env *env)
 		i = 0;
 		env->paths[0].ammos--;
 		env->paths[0].ants[0] = (int)env->count++;
-		while (i < env->nb_paths && (env->count <= env->nb_ants || arriveds(env)))
+		while (i < env->nb_paths && (env->count <= env->nb_ants
+			|| arriveds(env)))
 		{
 			rotate_path(env, i);
 			i++;
