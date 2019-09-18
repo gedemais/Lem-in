@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   states.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 23:22:58 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 23:22:59 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static inline bool	is_coords(char *line, unsigned int *j)
@@ -25,7 +37,7 @@ static inline bool	is_coords(char *line, unsigned int *j)
 	return (true);
 }
 
-bool			is_room(char *line)
+bool				is_room(char *line)
 {
 	unsigned int	i;
 
@@ -50,7 +62,7 @@ bool			is_room(char *line)
 	return (true);
 }
 
-bool			is_pipe(char *line)
+bool				is_pipe(char *line)
 {
 	unsigned int	i;
 	unsigned int	dash;
@@ -67,19 +79,19 @@ bool			is_pipe(char *line)
 		}
 		i++;
 	}
-	if (dash != 1 ||  i < 3)
+	if (dash != 1 || i < 3)
 		return (false);
 	return (true);
 }
 
-bool			is_comment(char *line)
+bool				is_comment(char *line)
 {
 	if (line[0] == '#' && line[1] != '#')
 		return (true);
 	return (false);
 }
 
-bool			is_cmd(char *line)
+bool				is_cmd(char *line)
 {
 	if (line[0] == '#' && line[1] == '#' && line[2] != '#')
 		return (true);

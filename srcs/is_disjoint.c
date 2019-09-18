@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_disjoint.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 22:56:17 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 22:56:30 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static inline bool	is_joint(t_path a, t_path b, int end)
 {
-	unsigned int		i;
+	unsigned int	i;
 	unsigned int	j;
 
 	i = 1;
@@ -20,7 +32,7 @@ static inline bool	is_joint(t_path a, t_path b, int end)
 	return (false);
 }
 
-bool		is_disjoint(t_env *env)
+bool				is_disjoint(t_env *env)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -32,10 +44,7 @@ bool		is_disjoint(t_env *env)
 		while (j < env->nb_paths)
 		{
 			if (i != j && is_joint(env->paths[i], env->paths[j], (int)env->end))
-			{
-			//	PUT
 				return (true);
-			}
 			j++;
 		}
 		i++;

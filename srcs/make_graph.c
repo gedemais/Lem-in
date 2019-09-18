@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_graph.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 23:03:41 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 23:04:41 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-char			get_line_state(char *line, bool flush)
+char					get_line_state(char *line, bool flush)
 {
 	static bool	pipe = false;
 
@@ -28,7 +40,7 @@ char			get_line_state(char *line, bool flush)
 	return (0);
 }
 
-void	next_line(char *file, unsigned int *i)
+void					next_line(char *file, unsigned int *i)
 {
 	unsigned int	j;
 
@@ -40,7 +52,7 @@ void	next_line(char *file, unsigned int *i)
 
 static inline t_room	*check_reverse(t_room *graph)
 {
-	t_room		tmp;
+	t_room			tmp;
 	unsigned int	i;
 	unsigned int	j;
 
@@ -59,11 +71,11 @@ static inline t_room	*check_reverse(t_room *graph)
 	return (graph);
 }
 
-t_room			*make_graph(t_env *env)
+t_room					*make_graph(t_env *env)
 {
 	unsigned int	i;
-	int		room;
-	char		s;
+	int				room;
+	char			s;
 
 	i = 0;
 	room = 0;

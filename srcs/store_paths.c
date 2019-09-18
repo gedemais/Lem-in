@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   store_paths.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 23:23:19 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 23:25:02 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static inline int	get_path_max(t_env *env)
@@ -32,8 +44,11 @@ t_path				*allocate_paths(t_env *env)
 		return (NULL);
 	while (i < (unsigned int)path_max)
 	{
-		if (!(env->paths[i].path = (int*)malloc(sizeof(int) * (env->nb_rooms + 1)))
-			|| !(env->paths[i].ants = (int*)malloc(sizeof(int) * (env->nb_rooms + 1))))
+		if (!(env->paths[i].path = (int*)malloc(sizeof(int)
+			* (env->nb_rooms + 1))))
+			return (NULL);
+		if (!(env->paths[i].ants = (int*)malloc(sizeof(int)
+			* (env->nb_rooms + 1))))
 			return (NULL);
 		env->paths[i].ammos = 0;
 		ft_memset(env->paths[i].path, -1, sizeof(int) * env->nb_rooms);

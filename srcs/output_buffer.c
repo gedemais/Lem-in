@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   output_buffer.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 23:10:22 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 23:49:07 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static inline int	flush_buffer(char buffer[BUFF_WRITE], int *index)
@@ -34,7 +46,6 @@ static inline int	ant_itoa(char dest[ANT_NLEN], long long int n)
 	return (0);
 }
 
-
 int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 {
 	static char		buff[BUFF_WRITE];
@@ -52,7 +63,7 @@ int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 	}
 	if (ant_itoa(&tmp[0], move[0]) != 0)
 		return (1);
-	if ((3 + ft_strlen(&tmp[0]) + ft_strlen(env->graph[move[1]].name) + (unsigned long)index) > BUFF_WRITE)
+	if ((3 + ft_strlen(&tmp[0]) + NAME_LEN + (unsigned long)index) > BUFF_WRITE)
 		flush_buffer(buff, &index);
 	buff[index++] = 'L';
 	ft_strcat(&buff[index], &tmp[0]);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 22:55:02 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 22:55:41 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-t_env		*free_graph(t_env *env)
+t_env					*free_graph(t_env *env)
 {
 	unsigned int	i;
 
@@ -15,7 +27,7 @@ t_env		*free_graph(t_env *env)
 	return (env);
 }
 
-char		**free_matrix(char **matrix, unsigned int n)
+char					**free_matrix(char **matrix, unsigned int n)
 {
 	unsigned int	i;
 
@@ -44,12 +56,12 @@ static inline t_path	*free_paths(t_path *paths)
 	return (paths);
 }
 
-t_env				*free_env(t_env *env)
+t_env					*free_env(t_env *env)
 {
 	if (env->graph)
 		env = free_graph(env);
 	if (env->file)
-			free(env->file);
+		free(env->file);
 	if (env->matrix)
 		env->matrix = free_matrix(env->matrix, env->nb_rooms);
 	if (env->paths)

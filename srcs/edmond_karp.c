@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 05:30:15 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 08:05:10 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:08:27 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,41 @@ static inline t_path	*rev_paths(t_path *paths)
 	return (paths);
 }
 
-unsigned int		edmond_karp(t_env *env, bool up)
+static inline int		ek_loop(t_env *env, bool up)
 {
-	unsigned int	max_flow; // a tej
-	unsigned int	path; // a tej
 	unsigned int	i;
 	int				u;
 	int				v;
 
-	max_flow = 0;
-	path = 0;
-	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
-	if (!env->paths && !(env->paths = allocate_paths(env)))
-		return (0);
 	while (breadth_first_search(env, env->start, env->end, up))
 	{
 		i = 0;
 		v = env->end;
 		while (v != env->start)
 		{
-			env->paths[path].path[i] = v;
+			env->paths[env->nb_paths].path[i] = v;
 			u = env->parent[v];
 			env->matrix[u][v]--;
 			env->matrix[v][u]++;
 			v = env->parent[v];
 			i++;
 		}
-		env->paths[path].path[i] = env->start;
-		env->paths[path].path[i + 1] = -1;
-		env->paths[path].len = i;
+		env->paths[env->nb_paths].path[i] = env->start;
+		env->paths[env->nb_paths].path[i + 1] = -1;
+		env->paths[env->nb_paths].len = i;
 		env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
-		max_flow++;
-		path++;
+		env->max_flow++;
+		env->nb_paths++;
 	}
-	env->nb_paths = path;
+	return (0);
+}
+
+unsigned int			edmond_karp(t_env *env, bool up)
+{
+	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
+	if (!env->paths && !(env->paths = allocate_paths(env)))
+		return (0);
+	ek_loop(env, up);
 	env->paths = rev_paths(env->paths);
-	return (max_flow);
+	return (env->max_flow);
 }

@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:33:56 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 05:12:54 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/18 23:43:52 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ static inline int	get_path_end(t_env *env, unsigned int p)
 	while (env->paths[p].path[i] != env->end && env->paths[p].path[i] != -1)
 		i++;
 	return (i);
+}
+
+int					load_ammos(t_env *env)
+{
+	unsigned int	i;
+	unsigned int	min;
+	unsigned int	tot;
+
+	tot = 0;
+	min = env->paths[0].len;
+	i = 0;
+	while (tot <= env->nb_ants)
+	{
+		i = 0;
+		while (i < env->nb_paths && tot <= env->nb_ants)
+		{
+			if (env->paths[i].len <= min)
+			{
+				env->paths[i].len++;
+				env->paths[i].ammos++;
+				tot++;
+			}
+			i++;
+		}
+		min++;
+	}
+	return (0);
 }
 
 static inline int	rotate_path(t_env *env, unsigned int p)

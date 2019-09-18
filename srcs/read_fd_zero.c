@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:33:13 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/06 06:34:14 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/18 23:20:19 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static inline char	*buffer_join(char *dst, const char *src, unsigned int start)
 	return (dst);
 }
 
-char			*read_fd_zero(int *len)
+char				*read_fd_zero(int *len)
 {
-	char		buff[BUFF_READ + 1];
-	char		*dest;
-	int		ret;
+	char			buff[BUFF_READ + 1];
+	char			*dest;
+	int				ret;
 	unsigned int	size[2];
 
 	size[0] = BUFF_READ;

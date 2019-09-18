@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 05:00:54 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/18 23:48:56 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# define PUT ft_putstr("There\n");
-# define PUT1 ft_putstr("There1\n");
-# define PUT2 ft_putstr("There2\n");
-# define PUT3 ft_putstr("There3\n");
-# define PUT4 ft_putstr("There4\n");
-# define PUT5 ft_putstr("There5\n");
-# define PUT6 ft_putstr("There6\n");
-# define PUT7 ft_putstr("There7\n");
-
+# define NAME_LEN ft_strlen(env->graph[move[1]].name)
 # define ANT_NLEN 12
 # define BUFF_READ 65536
 # define BUFF_WRITE 65536
@@ -113,7 +105,7 @@ unsigned int			edmond_karp(t_env *env, bool up);
 bool					breadth_first_search(t_env *env, int s, int e, bool up);
 t_path					*allocate_paths(t_env *env);
 int						sort_paths(t_env *env);
-int						treat_paths(t_env *env);
+int						load_ammos(t_env *env);
 bool					is_disjoint(t_env *env);
 
 /*

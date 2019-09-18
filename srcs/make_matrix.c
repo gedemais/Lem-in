@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_matrix.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 23:05:52 by gedemais          #+#    #+#             */
+/*   Updated: 2019/09/18 23:05:53 by gedemais         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static inline char	**allocate_matrix(char **matrix, unsigned int n)
@@ -6,7 +18,7 @@ static inline char	**allocate_matrix(char **matrix, unsigned int n)
 
 	i = 0;
 	if (!(matrix = (char**)malloc(sizeof(char*) * (n + 1))))
-			return (NULL);
+		return (NULL);
 	while (i < n)
 	{
 		if (!(matrix[i] = (char*)malloc(sizeof(char) * (n + 1))))
@@ -37,8 +49,9 @@ int					make_matrix(t_env *env, unsigned int i)
 	char	s;
 
 	env->pipes_start = i;
-	if (!env->matrix && !(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
-			return (-1);
+	if (!env->matrix
+		&& !(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
+		return (-1);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
 		if (s == 'p')

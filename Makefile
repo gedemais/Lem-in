@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 03:23:53 by gedemais          #+#    #+#              #
-#    Updated: 2019/09/13 03:37:47 by demaisonc        ###   ########.fr        #
+#    Updated: 2019/09/18 23:42:15 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS_NAME=	main.c\
 			bfs.c\
 			list.c\
 			sort_paths.c\
-			treat_paths.c\
 			output_buffer.c\
 			edmond_karp.c\
 			store_paths.c\
