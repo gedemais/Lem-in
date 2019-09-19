@@ -6,7 +6,7 @@
 #    By: gedemais <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 17:34:45 by gedemais          #+#    #+#              #
-#    Updated: 2019/09/15 05:13:00 by gedemais         ###   ########.fr        #
+#    Updated: 2019/09/19 05:14:44 by gedemais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ ORG = \033[1;31m
 
 NAME = libft.a
 
-CC = @gcc
+CC = gcc
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -112,12 +112,13 @@ OBJS=$(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME) : $(OBJS) libft.h
+$(NAME): $(OBJS) libft.h
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	@echo "$(GRE)Libft successfully compiled !$(DEF)"
 
 ./%.o: ./%.c
-	$(CC) $(FLAGS) -c $<
+	@$(CC) $(FLAGS) -c $<
 
 clean: 
 	@rm -rf $(OBJS)

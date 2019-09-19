@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:38:55 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:27:13 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/19 03:34:43 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static inline int		init_env(t_env *e)
 {
-	ft_memset(e, 0, sizeof(t_env));
 	if (!(e->file = read_fd_zero(&e->file_len))
 		|| !(e->graph = parsing(e)))
 		return (-1);
@@ -49,6 +48,7 @@ int						main(void)
 {
 	t_env	env;
 
+	ft_memset(&env, 0, sizeof(t_env));
 	if (lem_in(&env) == -1)
 	{
 		free_env(&env);

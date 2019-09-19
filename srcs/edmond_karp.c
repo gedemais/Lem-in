@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 05:30:15 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/19 00:08:27 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/19 03:48:08 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,36 @@ static inline t_path	*rev_paths(t_path *paths)
 	return (paths);
 }
 
-static inline int		ek_loop(t_env *env, bool up)
+static inline int		init_ek(t_env *env)
+{
+	env->nb_paths = 0;
+	env->max_flow = 0;
+	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
+	if (!env->paths && !(env->paths = allocate_paths(env)))
+		return (-1);
+	return (0);
+}
+
+static inline void		ek_loop_end(t_env *env, unsigned int i)
+{
+	env->paths[env->nb_paths].path[i] = env->start;
+	env->paths[env->nb_paths].path[i + 1] = -1;
+	env->paths[env->nb_paths].len = i;
+	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
+	env->max_flow++;
+	env->nb_paths++;
+}
+
+unsigned int			edmond_karp(t_env *env, bool up)
 {
 	unsigned int	i;
 	int				u;
 	int				v;
 
-	while (breadth_first_search(env, env->start, env->end, up))
+	if (init_ek(env) != 0)
+		return (0);
+	while (breadth_first_search(env, env->start, env->end, up) && !(i = 0))
 	{
-		i = 0;
 		v = env->end;
 		while (v != env->start)
 		{
@@ -56,22 +77,8 @@ static inline int		ek_loop(t_env *env, bool up)
 			v = env->parent[v];
 			i++;
 		}
-		env->paths[env->nb_paths].path[i] = env->start;
-		env->paths[env->nb_paths].path[i + 1] = -1;
-		env->paths[env->nb_paths].len = i;
-		env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
-		env->max_flow++;
-		env->nb_paths++;
+		ek_loop_end(env, i);
 	}
-	return (0);
-}
-
-unsigned int			edmond_karp(t_env *env, bool up)
-{
-	env->visited = ft_memset(env->visited, 0, sizeof(bool) * env->nb_rooms);
-	if (!env->paths && !(env->paths = allocate_paths(env)))
-		return (0);
-	ek_loop(env, up);
 	env->paths = rev_paths(env->paths);
 	return (env->max_flow);
 }
