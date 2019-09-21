@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:10:22 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:49:07 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:24:16 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 
 	if (move && move[0] >= env->nb_ants)
 		return (0);
-	if (f || index >= BUFF_WRITE)
+	if (f || index >= BUFF_WRITE - 1)
 		return (flush_buffer(buff, &index));
 	if (n_l && --index)
 	{
@@ -63,7 +63,7 @@ int					output_buffer(t_env *env, int move[2], bool n_l, bool f)
 	}
 	if (ant_itoa(&tmp[0], move[0]) != 0)
 		return (1);
-	if ((3 + ft_strlen(&tmp[0]) + NAME_LEN + (unsigned long)index) > BUFF_WRITE)
+	if ((3 + ft_strlen(&tmp[0]) + LEN + (unsigned long)index) > BUFF_WRITE - 1)
 		flush_buffer(buff, &index);
 	buff[index++] = 'L';
 	ft_strcat(&buff[index], &tmp[0]);

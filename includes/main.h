@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:48:56 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/21 15:25:11 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# define NAME_LEN ft_strlen(env->graph[move[1]].name)
+# define LEN ft_strlen(env->graph[move[1]].name)
 # define ANT_NLEN 12
 # define BUFF_READ 65536
 # define BUFF_WRITE 65536
@@ -104,9 +104,9 @@ int						find_to(t_env *env, char *line);
 unsigned int			edmond_karp(t_env *env, bool up);
 bool					breadth_first_search(t_env *env, int s, int e, bool up);
 t_path					*allocate_paths(t_env *env);
+bool					is_disjoint(t_env *env);
 int						sort_paths(t_env *env);
 int						load_ammos(t_env *env);
-bool					is_disjoint(t_env *env);
 
 /*
 ** Output buffering
