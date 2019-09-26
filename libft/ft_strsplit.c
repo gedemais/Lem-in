@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 17:29:00 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/15 05:16:44 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/21 17:20:35 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		is_sep(char c, char *charset)
 	return (0);
 }
 
-char    *ft_strdup_sep(char *src, char *charset)
+char	*ft_strdup_sep(char *src, char *charset)
 {
-	int     i;
-	char    *dest;
+	char	*dest;
+	int		i;
 
 	i = 0;
 	while (!(is_sep(src[i], charset)))
@@ -63,10 +63,10 @@ int		c_w(char *str, char *charset)
 
 char	**ft_strsplit(char *str, char *charset)
 {
-	char **tab;
-	int words;
-	int i;
-	int j;
+	char	**tab;
+	int		words;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;
@@ -79,7 +79,7 @@ char	**ft_strsplit(char *str, char *charset)
 	{
 		while (is_sep(str[i], charset))
 			i++;
-		if(!(tab[j] = ft_strdup_sep(&str[i], charset)))
+		if (!(tab[j] = ft_strdup_sep(&str[i], charset)))
 			return (NULL);
 		while (!(is_sep(str[i], charset)))
 			i++;
