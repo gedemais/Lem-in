@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/21 15:25:11 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/09/26 20:05:53 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int						load_ammos(t_env *env);
 int						crossing(t_env *env);
 int						output_buffer(t_env *env, int move[2], bool nl, bool f);
 bool					*space(void);
+int						start_end(t_env *env);
 
 /*
 ** Lists
