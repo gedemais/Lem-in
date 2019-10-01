@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:03:41 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:04:41 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:51:26 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char					get_line_state(char *line, bool flush)
 	if (!pipe)
 	{
 		if (is_cmd(line))
-			if (ft_strncmp(line, "##start\n", 8) == 0)
+			if (ft_strncmp(line, START_CMD, 8) == 0)
 				return ('s');
-			else if (ft_strncmp(line, "##end\n", 6) == 0)
+			else if (ft_strncmp(line, END_CMD, 6) == 0)
 				return ('e');
 			else
 				return ('m');
@@ -76,18 +76,19 @@ t_room					*make_graph(t_env *env)
 	unsigned int	i;
 	int				room;
 	char			s;
+	int				ret;
 
 	i = 0;
 	room = 0;
 	next_line(env->file, &i);
 	if (!(env->graph = (t_room*)malloc(sizeof(t_room) * (env->nb_rooms + 1))))
 		return (NULL);
-	env->graph = ft_memset(env->graph, 0, sizeof(t_room) * (env->nb_rooms + 1));
+	ft_memset(env->graph, 0, sizeof(t_room) * (env->nb_rooms + 1));
 	while (env->file[i] && (s = get_line_state(&env->file[i], false))
 		&& room < (int)env->nb_rooms && s != 'p')
 	{
-		if (load_line(env, s, i, room))
-			return (env->graph);
+		if ((ret = load_line(env, s, i, room)) != 0)
+			return (ret == 1 ? free_graph(env) : env->graph);
 		room += (s == 'r') ? 1 : 0;
 		next_line(env->file, &i);
 	}

@@ -6,13 +6,13 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 22:55:02 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 22:55:41 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 18:22:37 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-t_env					*free_graph(t_env *env)
+t_room					*free_graph(t_env *env)
 {
 	unsigned int	i;
 
@@ -24,7 +24,8 @@ t_env					*free_graph(t_env *env)
 		i++;
 	}
 	free(env->graph);
-	return (env);
+	env->graph = NULL;
+	return (env->graph);
 }
 
 char					**free_matrix(char **matrix, unsigned int n)
@@ -34,11 +35,12 @@ char					**free_matrix(char **matrix, unsigned int n)
 	i = 0;
 	while (i < n)
 	{
-		ft_strdel(&matrix[i]);
+		free(matrix[i]);
 		i++;
 	}
 	free(matrix);
-	return ((matrix = NULL));
+	matrix = NULL;
+	return (NULL);
 }
 
 static inline t_path	*free_paths(t_path *paths)
@@ -59,7 +61,7 @@ static inline t_path	*free_paths(t_path *paths)
 t_env					*free_env(t_env *env)
 {
 	if (env->graph)
-		env = free_graph(env);
+		env->graph = free_graph(env);
 	if (env->file)
 		free(env->file);
 	if (env->matrix)

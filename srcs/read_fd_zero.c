@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 06:33:13 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:20:19 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 15:03:33 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static inline char	*strrealloc(char *s, unsigned int size)
 {
 	char	*new;
 
-	if (!(new = (char*)malloc(sizeof(char) * (size + 1))))
+	if (!(new = ft_strnew(size)))
+	{
+		free(s);
 		return (NULL);
+	}
 	new = ft_strcpy(new, s);
 	free(s);
 	return (new);
@@ -50,14 +53,17 @@ char				*read_fd_zero(int *len)
 		return (NULL);
 	while ((ret = (int)read(0, buff, BUFF_READ)) > 0)
 	{
-		if (ret == -1)
-			return (NULL);
 		size[1] += (unsigned int)ret;
 		buff[ret] = '\0';
 		if (size[1] >= size[0] && (size[0] *= 2) > 0
 			&& !(dest = strrealloc(dest, size[0])))
 			return (NULL);
 		dest = buffer_join(dest, buff, size[1] - (unsigned int)ret);
+	}
+	if (ret == -1)
+	{
+		free(dest);
+		return (NULL);
 	}
 	*len = (int)size[1];
 	return (dest);

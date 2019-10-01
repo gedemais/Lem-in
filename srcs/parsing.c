@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:19:27 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:19:28 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 18:10:15 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_room				*parsing(t_env *env)
 		|| make_matrix(env, i) == -1
 		|| room_err_cases(env))
 	{
-		env = free_graph(env);
+		env->graph = free_graph(env);
 		return (NULL);
 	}
 	return (env->graph);

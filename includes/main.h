@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/01 12:26:01 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:46:19 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdbool.h>
 # include <limits.h>
 
+# define START_CMD "##start\n"
+# define END_CMD "##end\n"
 # define LEN ft_strlen(env->graph[move[1]].name)
 # define ANT_NLEN 12
 # define BUFF_READ 65536
@@ -124,7 +126,7 @@ int						lm_lst_push(t_queue **lst, int index);
 /*
 ** Free
 */
-t_env					*free_graph(t_env *env);
+t_room					*free_graph(t_env *env);
 t_env					*free_env(t_env *env);
 char					**free_matrix(char **matrix, unsigned int n);
 

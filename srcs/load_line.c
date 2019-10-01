@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 01:37:24 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/01 12:22:04 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:37:09 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,22 @@ static inline int		walk_space(char *line, unsigned int *i, unsigned int j)
 
 static inline int		walk_digits(char *line, unsigned int *i, unsigned int j)
 {
+	unsigned int	mem;
+
+	mem = *i;
 	while (ft_isdigit(line[(*i)]) && (*i) >= j)
+	{
 		(*i)--;
+		if (mem - *i > 10)
+			return (1);
+	}
 	return (0);
 }
 
 static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 {
 	unsigned int	i;
+	long long int	nb;
 
 	i = j;
 	env->graph[room].type = s;
@@ -40,12 +48,15 @@ static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 	if (walk_digits(env->file, &i, j) || i == j
 		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
-	if (walk_space(env->file, &i, j) || i == j || ft_isdigit(env->file[i]) == 0)
+	nb = ft_atoi(&env->file[i]);
+	if (walk_space(env->file, &i, j) || i == j
+		|| ft_isdigit(env->file[i]) == 0 || nb < 0 || nb > INT_MAX)
 		return (NULL);
 	if (walk_digits(env->file, &i, j) || i == j
 		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
-	if (walk_space(env->file, &i, j) || i < j ||
+	nb = ft_atoi(&env->file[i]);
+	if (walk_space(env->file, &i, j) || i < j || nb < 0 || nb > INT_MAX ||
 		!(env->graph[room].name = ft_strndup(&env->file[j], (int)(i - j + 1))))
 		return (NULL);
 	return (env);
