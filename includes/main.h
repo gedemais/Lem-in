@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 01:28:47 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/26 20:05:53 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:26:01 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ struct					s_queue
 typedef struct			s_room
 {
 	char				*name;
-	int					x;
-	int					y;
-	int					ant;
 	char				type;
-	char				pad[3];
+	char				pad[7];
 }						t_room;
 
 typedef struct			s_path

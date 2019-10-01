@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:22:58 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:22:59 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:29:16 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline bool	is_coords(char *line, unsigned int *j)
 
 bool				is_room(char *line)
 {
-	unsigned int	i;
+	int		i;
 
 	i = 0;
 	if (line[0] == '#' || line[0] == 'L')
@@ -49,7 +49,7 @@ bool				is_room(char *line)
 	if (i < 5)
 		return (false);
 	i--;
-	if (is_coords(line, &i) == false)
+	if (is_coords(line, (unsigned int*)&i) == false)
 		return (false);
 	while (i > 0 && ft_is_whitespace(line[i]))
 		i--;
@@ -59,6 +59,10 @@ bool				is_room(char *line)
 		i--;
 	if (i > 0)
 		return (false);
+	i = -1;
+	while (line[++i] && line[i] != '\n')
+		if (line[i] == '-')
+			return (false);
 	return (true);
 }
 

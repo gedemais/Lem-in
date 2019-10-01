@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 01:37:24 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/14 01:02:01 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:22:04 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ static inline t_env		*load_room(t_env *env, unsigned int j, int room, char s)
 	if (walk_digits(env->file, &i, j) || i == j
 		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
-	env->graph[room].y = (int)ft_atoi(&env->file[i]);
 	if (walk_space(env->file, &i, j) || i == j || ft_isdigit(env->file[i]) == 0)
 		return (NULL);
 	if (walk_digits(env->file, &i, j) || i == j
 		|| ft_is_whitespace(env->file[i]) == 0)
 		return (NULL);
-	env->graph[room].x = (int)ft_atoi(&env->file[i]);
 	if (walk_space(env->file, &i, j) || i < j ||
 		!(env->graph[room].name = ft_strndup(&env->file[j], (int)(i - j + 1))))
 		return (NULL);

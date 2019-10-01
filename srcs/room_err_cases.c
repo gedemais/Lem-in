@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:20:32 by gedemais          #+#    #+#             */
-/*   Updated: 2019/09/18 23:20:33 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:25:08 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,9 @@ static inline bool	check_same_rooms(t_env *env)
 	return (false);
 }
 
-static inline bool	check_same_coords(t_env *env)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < env->nb_rooms)
-	{
-		j = i + 1;
-		while (j < env->nb_rooms)
-		{
-			if (env->graph[i].x == env->graph[j].x
-				&& env->graph[i].y == env->graph[j].y)
-				return (true);
-			j++;
-		}
-		i++;
-	}
-	return (false);
-}
-
 bool				room_err_cases(t_env *env)
 {
-	if (check_same_rooms(env) || check_same_coords(env))
+	if (check_same_rooms(env))
 		return (true);
 	return (false);
 }
