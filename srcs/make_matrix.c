@@ -6,31 +6,11 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:05:52 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/01 18:56:59 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:11:11 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-static inline void	print_matrix(char **matrix, unsigned int n)
-{
-		unsigned int		i;
-		unsigned int		j;
-
-		i = 0;
-		while (i < n)
-		{
-			j = 0;
-			while (j < n)
-			{
-				printf("%d ", matrix[i][j]);
-				j++;
-			}
-			printf("\n");
-			i++;
-		}
-		printf("\n");
-}
 
 static inline char	**allocate_matrix(char **matrix, unsigned int n)
 {
@@ -61,6 +41,8 @@ static inline int	write_pipe(t_env *env, char *line)
 		return (-1);
 	env->matrix[from][to]++;
 	env->matrix[to][from]++;
+	if (env->matrix[to][from] > 1 || env->matrix[from][to] > 1)
+		return (-1);
 	return (0);
 }
 
@@ -79,10 +61,9 @@ int					make_matrix(t_env *env, unsigned int i)
 			if (write_pipe(env, &env->file[i]) == -1)
 				return (-1);
 		}
-		else if (s == 'm' || s != 'c')
+		else if (s != 'm' && s != 'c')
 			return (-1);
 		next_line(env->file, &i);
 	}
-	print_matrix(env->matrix, env->nb_rooms);
 	return (0);
 }

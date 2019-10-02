@@ -6,12 +6,11 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:22:58 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/01 12:29:16 by gedemais         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:05:05 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-
+#include "main.h" 
 static inline bool	is_coords(char *line, unsigned int *j)
 {
 	unsigned int	i;
@@ -73,6 +72,8 @@ bool				is_pipe(char *line)
 
 	i = 0;
 	dash = 0;
+	if (line[0] == '#')
+		return (false);
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '-')
