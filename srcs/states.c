@@ -6,11 +6,12 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:22:58 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/02 16:05:05 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/10/03 19:06:06 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h" 
+#include "main.h"
+
 static inline bool	is_coords(char *line, unsigned int *j)
 {
 	unsigned int	i;

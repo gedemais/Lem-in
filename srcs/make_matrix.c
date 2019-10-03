@@ -6,7 +6,7 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:05:52 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/02 20:37:54 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/10/03 16:40:31 by gedemais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ static inline int	write_pipe(t_env *env, char *line)
 		return (-1);
 	if (from == to)
 		return (-1);
-	env->matrix[from][to]++;
-	env->matrix[to][from]++;
-	if (env->matrix[to][from] > 1 || env->matrix[from][to] > 1)
-		return (-1);
+	env->matrix[from][to] = 1;
+	env->matrix[to][from] = 1;
 	return (0);
 }
 
