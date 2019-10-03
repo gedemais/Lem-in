@@ -6,11 +6,24 @@
 /*   By: gedemais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 23:05:52 by gedemais          #+#    #+#             */
-/*   Updated: 2019/10/02 16:11:11 by demaisonc        ###   ########.fr       */
+/*   Updated: 2019/10/02 20:37:54 by demaisonc        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+static inline char	**clear_matrix(char **matrix, unsigned int n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		ft_memset(matrix[i], 0, sizeof(char) * n);
+		i++;
+	}
+	return (matrix);
+}
 
 static inline char	**allocate_matrix(char **matrix, unsigned int n)
 {
@@ -54,6 +67,8 @@ int					make_matrix(t_env *env, unsigned int i)
 	if (!env->matrix
 		&& !(env->matrix = allocate_matrix(env->matrix, env->nb_rooms)))
 		return (-1);
+	else
+		env->matrix = clear_matrix(env->matrix, env->nb_rooms);
 	while (env->file[i] && (s = get_line_state(&env->file[i], false)))
 	{
 		if (s == 'p')
